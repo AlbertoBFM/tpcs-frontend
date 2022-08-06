@@ -1,4 +1,4 @@
-import { FormModal } from '../ui';
+
 
 
 export const ClientPage = () => {
@@ -45,7 +45,7 @@ export const ClientPage = () => {
                     </tbody>
                 </table>
             </div>
-            <FormModal />
+            
         </>
     )
 }

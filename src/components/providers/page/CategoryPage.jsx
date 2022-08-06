@@ -1,0 +1,34 @@
+import { useCategoryStore } from '../../../hooks';
+import { Row, AddNewCategory, CategoryModal } from '../';
+
+import '../components/styles.css';
+
+export const CategoryPage = () => {
+
+    const { categories } = useCategoryStore();
+
+    return (
+        <>
+            <div className="text-center">
+                <h1>CategoryPage</h1>
+            </div>
+            <AddNewCategory />
+            <div className="m-md-auto table-responsive">
+                <table className="table table-striped text-center">
+                    <thead className="bg-dark text-white">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { categories.map( category => (<Row key={ category._id } { ...category } />) ) }
+                    </tbody>
+                </table>
+            </div>
+            <CategoryModal />
+        </>
+    )
+}

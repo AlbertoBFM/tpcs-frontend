@@ -4,10 +4,10 @@ import { Navbar } from '../components/ui/Navbar';
 
 import { IntroPage } from '../components/intro/IntroPage';
 import { SalePage } from '../components/sales';
-import { ProductPage } from '../components/products/ProductPage';
+import { ProductPage } from '../components/products/page/ProductPage';
 import { RepairPage } from '../components/repairs/RepairPage';
 import { UserPage } from '../components/users/UserPage';
-import { CategoryPage } from '../components/categories/CategoryPage';
+import { CategoryPage } from '../components/categories';
 import { ClientPage } from '../components/clients/ClientPage';
 import { ProviderPage } from '../components/providers/ProviderPage';
 

@@ -1,10 +1,9 @@
-import { FormModal } from '../ui';
-import { useUiStore, useCategoryStore } from '../../hooks';
-import { Row } from './Row';
+import { useCategoryStore } from '../../../hooks';
+import { Row, AddNewCategory, CategoryModal } from '../';
+
+import '../components/styles.css';
 
 export const CategoryPage = () => {
-
-    const { openModal } = useUiStore();
 
     const { categories } = useCategoryStore();
 
@@ -13,13 +12,7 @@ export const CategoryPage = () => {
             <div className="text-center">
                 <h1>CategoryPage</h1>
             </div>
-            <div className="d-flex justify-content-md-end justify-content-center">
-                <button className="btn btn-dark m-3"
-                    onClick={ openModal }
-                >
-                    Nueva Categoría
-                </button>
-            </div>
+            <AddNewCategory />
             <div className="m-md-auto table-responsive">
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
@@ -35,7 +28,7 @@ export const CategoryPage = () => {
                     </tbody>
                 </table>
             </div>
-            <FormModal />
+            <CategoryModal />
         </>
     )
 }
