@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 
-import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
+import { useCategoryStore, useProductStore, useProviderStore, useUiStore } from '../../../hooks';
 import { validateProductName, validatePurchasePrice, validateRangeOfNumber, validateSalePrice } from '../../../helpers';
 
 const customStyles = {
@@ -20,18 +20,33 @@ Modal.setAppElement('#root');
 
 export const ProductModal = () => {
 
-    const { isModalOpen, closeModal } = useUiStore();
+    const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeProduct, startSavingProduct } = useProductStore();
     const { categories } = useCategoryStore();
+    const { providers } = useProviderStore();
 
     const { register, reset, formState: { errors }, handleSubmit, watch, getValues } = useForm();
 
     const purchaseLimit = watch('purchasePrice'); 
     const saleLimit = watch('salePrice');
 
+    const selectedCategory = watch('category');
+    const selectedProvider = watch('provider');
+
+    const selectedElement = ( element ) => { //* Para controlar la categoría seleccionada
+        return element //? Si ya se selecciono una categoría 
+                    ? 
+                        element?._id //? Si es un producto para actualizarse
+                            ?   // Al Actualizar
+                                element?._id  //? Entonces que seleccione esa categoría 
+                            :   // Al Insertar
+                                element       //? Sino que Seleccione la categoría escogida durante la insersión
+                    : 
+                        ""
+    }
+
     const onSubmit = async ( data ) => {
-        console.log('Submit:', data);
-        console.log('category: ', data.category);
+        activeButton( false );
 
         await startSavingProduct( data );
         // TODO:
@@ -106,28 +121,31 @@ export const ProductModal = () => {
                         <label htmlFor="category">Categoría</label>
                         <select 
                             id="category" 
-                            value={ 
-                                watch('category') //? Si ya se selecciono una categoría 
-                                    ? 
-                                        watch('category')?._id //? Si es un producto a actualizarse
-                                            ?   // Al Actualizar
-                                                watch('category')?._id  //? Entonces que seleccione esa categoría 
-                                            :   // Al Insertar
-                                                watch('category')       //? Sino que Seleccione la categoría escogida
-                                    : 
-                                        ""
-                            }
+                            // value={ categoryValue() }
+                            value={ selectedElement( selectedCategory ) }
                             className={`form-select ${ ( errors.category?.type ) && 'is-invalid' }`}
                             { ...register( 'category', { required: 'La categoría es requerida' } ) }
                         >
                             <option value="" disabled>--Selecione Categoría--</option>
-                            {
-                                categories.map( category => (<option key={ category._id } value={category._id}>{ category.name }</option>))
-                            }
+                            { categories.map( category => (<option key={ category._id } value={category._id}>{ category.name }</option>) ) }
                         </select>
                         { errors.category &&  <small className="text-danger">{ errors.category?.message }</small> }
                     </div>
-                    <button type="submit" className="btn btn-dark btn-block">
+                    <div className="col-md-6 text-center">
+                        <label htmlFor="provider">Proveedor</label>
+                        <select 
+                            id="provider" 
+                            // value={ providerValue() }
+                            value={ selectedElement( selectedProvider ) }
+                            className={`form-select ${ ( errors.provider?.type ) && 'is-invalid' }`}
+                            { ...register( 'provider', { required: 'El proveedor es requerido' } ) }
+                        >
+                            <option value="" disabled>--Selecione Proveedor--</option>
+                            { providers.map( provider => (<option key={ provider._id } value={provider._id}>{ provider.name }</option>) ) }
+                        </select>
+                        { errors.provider &&  <small className="text-danger">{ errors.provider?.message }</small> }
+                    </div>
+                    <button type="submit" className="btn btn-dark btn-block" disabled={ isActiveButton }>
                         <i className="far fa-save"></i>
                         <span> Guardar</span>
                     </button>

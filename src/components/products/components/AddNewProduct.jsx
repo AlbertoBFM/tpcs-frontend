@@ -3,7 +3,7 @@ import { useProductStore, useUiStore } from '../../../hooks';
 
 export const AddNewProduct = () => {
 
-    const { openModal } = useUiStore();
+    const { openModal, activeButton } = useUiStore();
     const { setActiveProduct } = useProductStore();
 
     const handleClickNew = () => {
@@ -14,8 +14,10 @@ export const AddNewProduct = () => {
             purchasePrice: '',
             salePrice: '',
             category: '',
+            provider: '',
         });
-        openModal();
+        activeButton( true );
+        openModal()
     }
     
     return (

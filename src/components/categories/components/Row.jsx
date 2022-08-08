@@ -5,7 +5,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const Row = ( category ) => {
 
-    const { openModal } = useUiStore();
+    const { openModal, activeButton } = useUiStore();
     const { setActiveCategory, startDeletingCategory } = useCategoryStore();
 
     const { products } = useProductStore();
@@ -13,6 +13,7 @@ export const Row = ( category ) => {
     const { _id, name, description } = category;
 
     const handleUpdate = ( category ) => { //* Actualizar
+        activeButton( true );
         setActiveCategory( category );
         openModal();
     }
@@ -21,9 +22,8 @@ export const Row = ( category ) => {
         setActiveCategory( category );
 
         const searchProductWithCategory = products.find( product => product.category?._id === category._id );
-        console.log(searchProductWithCategory);
+        // console.log(searchProductWithCategory);
         if ( searchProductWithCategory ) {
-            console.log('tiene productos');
             Swal.fire({
                 icon: 'error',
                 title: `No puedes borrar la categoría "${ category.name }"`,
@@ -32,7 +32,6 @@ export const Row = ( category ) => {
             })
         }
         else{
-            console.log('no tiene productos');
             Swal.fire({
                 title: `¿Eliminar la categoría "${ name }"?`, icon: 'warning', showCancelButton: true,
                 confirmButtonColor: '#3085d6', confirmButtonText: 'Eliminar',
@@ -53,7 +52,7 @@ export const Row = ( category ) => {
 
     return (
         <tr>
-            <td scope="row" className="">{ _id }</td>
+            {/* <td scope="row" className="">{ _id }</td> */}
             <td>{ name }</td>
             <td>{ description }</td>
             <td>

@@ -9,7 +9,7 @@ import { RepairPage } from '../components/repairs/RepairPage';
 import { UserPage } from '../components/users/UserPage';
 import { CategoryPage } from '../components/categories';
 import { ClientPage } from '../components/clients/ClientPage';
-import { ProviderPage } from '../components/providers/ProviderPage';
+import { ProviderPage } from '../components/providers/page/ProviderPage';
 
 
 export const DashboardRoutes = () => {

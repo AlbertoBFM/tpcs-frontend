@@ -4,38 +4,32 @@ const tempProducts = [
     {
         _id: new Date().getTime().toString(),
         name: 'Mouse TX Gamer 2022',
-        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, delectus?',
+        description: 'Lorem ipsum dolor, sit amet consectetur',
         stock: 100,
         purchasePrice: 10.00,
         salePrice: 20.00,
-        category: {
-            _id: "123456789",
-            name: 'Teclados'
-        }
+        category: { _id: '123456789', name: 'Teclados' },
+        provider: { _id: '999999999', name: 'GigaTex' }
     },
     {
         _id: (new Date().getTime() + 999999999).toString(),
         name: 'Teclado Asus Big Mama',
-        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. ',
+        description: 'It amet consectetur adipisicing elit. ',
         stock: 200,
         purchasePrice: 20.00,
         salePrice: 25.00,
-        category: {
-            _id: "987654321",
-            name: 'Impresoras'
-        }
+        category: { _id: '123456789', name: 'Teclados' },
+        provider: { _id: '888888888', name: 'Empresa J y K' }
     },
     {
         _id: (new Date().getTime() + 9999999999).toString(),
         name: 'Pantalla Galaxy S22 Ultra',
-        description: 'Sirven pa ver negro :V Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, delectus?',
+        description: 'Sirven pa ver negro sit amet consectetur delectus?',
         stock: 300,
         purchasePrice: 30.00,
         salePrice: 40.00,
-        category: {
-            _id: "147258369",
-            name: 'Monitores'
-        }
+        category: { _id: '147258369', name: 'Monitores' },
+        provider: { _id: '888888888', name: 'Empresa J y K' }
     },
 ];
 

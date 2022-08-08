@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onCloseModal, onOpenModal } from '../store';
+import { onCloseModal, onOpenModal, onActiveButton } from '../store';
 
 export const useUiStore = () => {
 
@@ -7,6 +7,7 @@ export const useUiStore = () => {
 
     const {
         isModalOpen,
+        isActiveButton,
     } = useSelector( state => state.ui );
 
     const openModal = () => {
@@ -17,13 +18,18 @@ export const useUiStore = () => {
         dispatch( onCloseModal() );
     }
 
+    const activeButton = ( active ) => {
+        dispatch( onActiveButton( active ) );
+    }
+
     return {
         //* Properties
         isModalOpen,
-        
+        isActiveButton,
         //* Methods
         openModal,
         closeModal,
+        activeButton,
     }
 
 }

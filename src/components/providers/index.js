@@ -1,7 +1,7 @@
 
 
 export * from './components/Row';
-export * from './components/AddNewCategory';
-export * from './components/CategoryModal';
+export * from './components/AddNewProvider';
+export * from './components/ProviderModal';
 
-export * from './page/CategoryPage';
+export * from './page/ProviderPage';

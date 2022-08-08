@@ -1,34 +1,36 @@
-import { useCategoryStore } from '../../../hooks';
-import { Row, AddNewCategory, CategoryModal } from '../';
+import { useProviderStore } from '../../../hooks';
+import { Row, AddNewProvider, ProviderModal } from '../';
 
 import '../components/styles.css';
 
-export const CategoryPage = () => {
+export const ProviderPage = () => {
 
-    const { categories } = useCategoryStore();
+    const { providers } = useProviderStore();
 
     return (
         <>
             <div className="text-center">
-                <h1>CategoryPage</h1>
+                <h1>ProviderPage</h1>
             </div>
-            <AddNewCategory />
+            <AddNewProvider />
             <div className="m-md-auto table-responsive">
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
                         <tr>
-                            <th scope="col">Id</th>
+                            {/* <th scope="col">Id</th> */}
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Dirección</th>
                             <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        { categories.map( category => (<Row key={ category._id } { ...category } />) ) }
+                        { providers.map( provider => (<Row key={ provider._id } { ...provider } />) ) }
                     </tbody>
                 </table>
             </div>
-            <CategoryModal />
+            <ProviderModal />
         </>
     )
 }

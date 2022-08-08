@@ -1,15 +1,17 @@
-import { useCategoryStore, useUiStore } from '../../../hooks';
+import { useProviderStore, useUiStore } from '../../../hooks';
 
 
-export const AddNewCategory = () => {
+export const AddNewProvider = () => {
 
     const { openModal, activeButton } = useUiStore();
-    const { setActiveCategory } = useCategoryStore();
+    const { setActiveProvider } = useProviderStore();
 
     const handleClickNew = () => {
-        setActiveCategory({
+        setActiveProvider({
             name: '',
             description: '',
+            phone: '',
+            address: ''
         });
         activeButton( true );
         openModal();
@@ -20,7 +22,7 @@ export const AddNewCategory = () => {
             <button className="btn btn-dark m-3"
                 onClick={ handleClickNew }
             >
-                <i className="fas fa-solid fa-plus"></i> Nueva Categoría
+                <i className="fas fa-solid fa-plus"></i> Nuevo Proveedor
             </button>
         </div>
     )

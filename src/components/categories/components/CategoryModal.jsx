@@ -20,13 +20,13 @@ Modal.setAppElement('#root');
 
 export const CategoryModal = () => {
 
-    const { isModalOpen, closeModal } = useUiStore();
+    const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeCategory, startSavingCategory } = useCategoryStore();
 
     const { register, reset, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = async ( data ) => {
-        // console.log(data);
+        activeButton( false );
 
         // TODO:
         await startSavingCategory( data );
@@ -68,7 +68,7 @@ export const CategoryModal = () => {
                         <textarea className="form-control" id="description" type="text" placeholder="Datos Adicionales..." rows="5"
                             { ...register( 'description' ) } ></textarea>
                     </div>
-                    <button type="submit" className="btn btn-dark btn-block">
+                    <button type="submit" className="btn btn-dark btn-block" disabled={ isActiveButton }>
                         <i className="far fa-save"></i>
                         <span> Guardar</span>
                     </button>

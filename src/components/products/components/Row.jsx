@@ -5,12 +5,13 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const Row = ( product ) => {
 
-    const { openModal } = useUiStore();
+    const { openModal, activeButton } = useUiStore();
     const { setActiveProduct, startDeletingProduct } = useProductStore();
 
-    const { _id, name, description, stock, purchasePrice, salePrice, category } = product;
+    const { _id, name, description, stock, purchasePrice, salePrice, category, provider } = product;
 
     const handleUpdate = ( product ) => { //* Actualizar
+        activeButton( true );
         setActiveProduct( product );
         openModal();
     }
@@ -43,6 +44,7 @@ export const Row = ( product ) => {
             <td>{ purchasePrice }</td>
             <td><b>{ salePrice }</b></td>
             <td>{ category.name }</td>
+            <td><b>{ provider.name }</b></td>
             <td>
                 <div className="btn-group" role="group">
                     <button type="button" className="btn btn-warning"

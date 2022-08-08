@@ -1,14 +1,14 @@
 import { AddNewProduct, Row, ProductModal } from '../';
 import { useProductStore } from '../../../hooks';
 
-import '../components/styles.css';
+import '../styles.css';
 
 export const ProductPage = () => {
 
     const { products } = useProductStore();
 
     return (
-        <>
+        <div id="productPage">
             <div className="text-center">
                 <h1>ProductPage</h1>
             </div>
@@ -24,6 +24,7 @@ export const ProductPage = () => {
                             <th scope="col">Precio de Compra</th>
                             <th scope="col">Precio de Venta</th>
                             <th scope="col">Categoría</th>
+                            <th scope="col">Proveedor</th>
                             <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
@@ -33,6 +34,6 @@ export const ProductPage = () => {
                 </table>
             </div>
             <ProductModal />
-        </>
+        </div>
     )
 }
