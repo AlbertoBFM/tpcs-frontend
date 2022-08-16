@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onCloseModal, onOpenModal, onActiveButton } from '../store';
+import { onCloseModal, onOpenModal, onOpenCartModal, onCloseCartModal, onActiveButton } from '../store';
 
 export const useUiStore = () => {
 
@@ -7,6 +7,7 @@ export const useUiStore = () => {
 
     const {
         isModalOpen,
+        isCartModalOpen,
         isActiveButton,
     } = useSelector( state => state.ui );
 
@@ -18,6 +19,14 @@ export const useUiStore = () => {
         dispatch( onCloseModal() );
     }
 
+    const openCartModal = () => {
+        dispatch( onOpenCartModal() );
+    }
+
+    const closeCartModal = () => {
+        dispatch( onCloseCartModal() );
+    }
+
     const activeButton = ( active ) => {
         dispatch( onActiveButton( active ) );
     }
@@ -25,8 +34,11 @@ export const useUiStore = () => {
     return {
         //* Properties
         isModalOpen,
+        isCartModalOpen,
         isActiveButton,
         //* Methods
+        openCartModal,
+        closeCartModal,
         openModal,
         closeModal,
         activeButton,

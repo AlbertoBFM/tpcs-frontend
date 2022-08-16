@@ -1,12 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { onAddNewCategory, onDeleteCategory, onSetActiveCategory, onUpdateCategory } from '../store';
-import { useProductStore } from './useProductStore';
 
 export const useCategoryStore = () => {
 
     const dispatch = useDispatch();
-
-    // const { products } = useProductStore();
 
     const {
         categories,

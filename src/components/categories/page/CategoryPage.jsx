@@ -1,7 +1,7 @@
 import { useCategoryStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 
-import '../components/styles.css';
+import './style.css';
 
 export const CategoryPage = () => {
 

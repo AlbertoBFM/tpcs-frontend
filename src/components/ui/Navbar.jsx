@@ -35,10 +35,12 @@ export const Navbar = () => {
                             <Link className="nav-link" to="/users">Usuarios</Link>
                         </li>
                     </ul>
-                    <button className="btn btn-outline-danger">
-                        <i className="fas fa-sign-out-alt"></i>
-                        <span>Salir</span>
-                    </button>
+                    <div>
+                        <button className="btn btn-outline-danger">
+                            <i className="fas fa-sign-out-alt"></i>
+                            <span> Salir</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>

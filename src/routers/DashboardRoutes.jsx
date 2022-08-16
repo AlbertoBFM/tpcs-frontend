@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from '../components/ui/Navbar';
 
 import { IntroPage } from '../components/intro/IntroPage';
-import { SalePage } from '../components/sales';
+import { FabCart, SaleCartModal, SalePage } from '../components/sales';
 import { ProductPage } from '../components/products/page/ProductPage';
 import { RepairPage } from '../components/repairs/RepairPage';
 import { UserPage } from '../components/users/UserPage';
@@ -16,7 +16,8 @@ export const DashboardRoutes = () => {
     return (
         <>
             <Navbar />
-
+            <FabCart />
+            <SaleCartModal />
             <div className="container mt-3">
                 <Routes>
                     <Route

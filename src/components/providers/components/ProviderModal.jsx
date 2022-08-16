@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 
 import { useProviderStore, useUiStore } from '../../../hooks';
-import { validateName, validatePhone, validateProductName } from '../../../helpers';
+import { validatePhone, validateProductName } from '../../../helpers';
 
 const customStyles = {
     content: {
@@ -46,7 +46,7 @@ export const ProviderModal = () => {
             isOpen={ isModalOpen }
             onRequestClose={ onCloseModal }
             style={ customStyles }
-            className="modal"
+            className="modal modal-provider"
             overlayClassName="modal-fondo"
             closeTimeoutMS={ 200 }
         >

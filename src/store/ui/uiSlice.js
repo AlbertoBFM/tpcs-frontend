@@ -4,6 +4,7 @@ export const uiSlice = createSlice({
     name: 'ui',
     initialState: {
         isModalOpen: false,
+        isCartModalOpen: false,
         isActiveButton: false,
     },
     reducers: {
@@ -13,6 +14,12 @@ export const uiSlice = createSlice({
         onCloseModal: ( state ) => {
             state.isModalOpen = false;
         },
+        onOpenCartModal: ( state ) => {
+            state.isCartModalOpen = true;
+        },
+        onCloseCartModal: ( state ) => {
+            state.isCartModalOpen = false;
+        },
         onActiveButton: ( state, { payload } ) => {
             state.isActiveButton = !payload;
         },
@@ -21,4 +28,4 @@ export const uiSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onOpenModal, onCloseModal, onActiveButton } = uiSlice.actions;
+export const { onOpenModal, onCloseModal, onOpenCartModal, onCloseCartModal, onActiveButton } = uiSlice.actions;

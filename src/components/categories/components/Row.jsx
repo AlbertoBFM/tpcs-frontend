@@ -53,7 +53,7 @@ export const Row = ( category ) => {
     return (
         <tr>
             {/* <td scope="row" className="">{ _id }</td> */}
-            <td>{ name }</td>
+            <td><b>{ name }</b></td>
             <td>{ description }</td>
             <td>
                 <div className="btn-group" role="group">

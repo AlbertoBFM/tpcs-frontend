@@ -1,7 +1,7 @@
 import { useProviderStore } from '../../../hooks';
 import { Row, AddNewProvider, ProviderModal } from '../';
 
-import '../components/styles.css';
+import './style.css';
 
 export const ProviderPage = () => {
 
