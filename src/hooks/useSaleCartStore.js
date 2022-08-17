@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity } from '../store';
+import { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } from '../store';
 
 export const useSaleCartStore = () => {
 
@@ -41,6 +41,10 @@ export const useSaleCartStore = () => {
         dispatch( onChangeQuantity( selectedItem ) );
     }
 
+    const startClearCart = () => {
+        dispatch( onClearCart() );
+    }
+
     return {
         //* Properties
         cart,
@@ -49,7 +53,8 @@ export const useSaleCartStore = () => {
         startAddToCart,
         startRemoveToCart,
         startRemoveAllToCart,
-        startChangeQuantity
+        startChangeQuantity,
+        startClearCart
     }
 
 }

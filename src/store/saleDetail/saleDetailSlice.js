@@ -34,9 +34,16 @@ export const saleDetailSlice = createSlice({
         onSetActiveSaleDetail: ( state, { payload } ) => {
             state.activeSaleDetail = payload;
         },
+        onAddNewSaleDetail: ( state, { payload } ) => {
+            state.saleDetails.push( payload );
+        },
+        onDeleteSaleDetail: ( state, { payload } ) => {
+            state.saleDetails = state.saleDetails.filter( saleDetail => saleDetail.sale._id !== payload._id );
+            state.activeSaleDetail = [];
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveSaleDetail } = saleDetailSlice.actions;
+export const { onSetActiveSaleDetail, onAddNewSaleDetail, onDeleteSaleDetail } = saleDetailSlice.actions;

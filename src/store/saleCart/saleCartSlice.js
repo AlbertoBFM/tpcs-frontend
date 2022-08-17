@@ -60,10 +60,14 @@ export const saleCartSlice = createSlice({
                 return item;
             });
             state.total = state.cart.reduce( (accumulator, item) => accumulator + item.subtotal, 0 );
+        },
+        onClearCart: ( state ) => {
+            state.cart = [];
+            state.total = 0;
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity } = saleCartSlice.actions;
+export const { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } = saleCartSlice.actions;

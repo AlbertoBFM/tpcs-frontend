@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { formatDate } from '../helpers';
+
 import { 
-    // onAddNewSale, 
-    // onDeleteSale, 
+    onAddNewSale, 
+    onDeleteSale, 
     onSetActiveSale 
 } from '../store';
 
@@ -18,17 +20,26 @@ export const useSaleStore = () => {
         dispatch( onSetActiveSale( sale ) );
     }
 
-    // const startSavingSale = async ( sale ) => {
-    //     // TODO: Backend
-    //     //* Create
-    //     dispatch( onAddNewSale({ _id: new Date().getTime().toString(), ...sale }) );
-    // }
-
-    // const startDeletingSale = async () => {
-    //     // TODO: Backend
+    const startSavingSale = async ( total ) => {
+        // TODO: Backend
         
-    //     dispatch( onDeleteSale() );
-    // }
+        //* Create
+        const idVenta = new Date().getTime().toString();
+        dispatch( onAddNewSale({ 
+            _id: idVenta, 
+            user: { _id: '321846987', name: 'batman' },
+            client: { _id: '321789654', name: 'Juanito Alcachofa' },
+            date: new Date().getTime(),
+            total: total 
+        }));
+        return idVenta;
+    }
+
+    const startDeletingSale = async () => {
+        // TODO: Backend
+        
+        dispatch( onDeleteSale() );
+    }
 
     return {
         //* Properties
@@ -36,8 +47,8 @@ export const useSaleStore = () => {
         activeSale,
         //* Methods
         setActiveSale,
-        // startSavingSale,
-        // startDeletingSale,
+        startSavingSale,
+        startDeletingSale,
     }
 
 }

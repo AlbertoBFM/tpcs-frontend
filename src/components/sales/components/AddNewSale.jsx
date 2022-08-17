@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
-import { useSaleCartStore, useUiStore } from '../../../hooks';
+import { useSaleCartStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 
 
 export const AddNewSale = () => {
 
     const { activeButton, isActiveButton, closeCartModal } = useUiStore();
 
-    const { cart } = useSaleCartStore();
+    const { startSavingSale } = useSaleStore();
+    const { startSavingSaleDetail } = useSaleDetailStore();
 
-    const handleClickNew = () => {
+    const { cart, total, startClearCart } = useSaleCartStore();
+
+    const handleClickNew = async () => {
         
-        // console.log('hola');
+        const idVenta = await startSavingSale( total );
+        
+        await startSavingSaleDetail( cart, idVenta );
 
+        startClearCart();
         activeButton( false );
         closeCartModal();
     }
