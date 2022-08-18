@@ -1,5 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddNewProduct, onDeleteProduct, onSetActiveProduct, onUpdateProduct } from '../store';
+import { 
+    onAddNewProduct, 
+    onDeleteProduct, 
+    onSetActiveProduct, 
+    onUpdateProduct, 
+    onUpdateProductStockAddSale,
+    onUpdateProductStockSubSale
+} from '../store';
 
 export const useProductStore = () => {
 
@@ -72,6 +79,20 @@ export const useProductStore = () => {
         dispatch( onDeleteProduct() );
     }
 
+    const startUpdateProductStockAddSale = async ( cart ) => {
+        cart.map( item => {
+            dispatch( onUpdateProductStockAddSale( item ));
+        });
+    }
+
+    const startUpdateProductStockSubSale = async ( selectedDetails ) => {
+        
+        // console.log('selected: ', selectedDetails );
+        selectedDetails.map( saleDetail => {
+            dispatch( onUpdateProductStockSubSale( saleDetail ));
+        });
+    }
+
     return {
         //* Properties
         products,
@@ -80,6 +101,8 @@ export const useProductStore = () => {
         setActiveProduct,
         startSavingProduct,
         startDeletingProduct,
+        startUpdateProductStockAddSale,
+        startUpdateProductStockSubSale
     }
 
 }

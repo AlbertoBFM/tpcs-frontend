@@ -4,12 +4,13 @@ import {
     onAddNewSaleDetail, 
     onSetActiveSaleDetail 
 } from '../store';
+import { useProductStore } from './useProductStore';
 
 export const useSaleDetailStore = () => {
 
     const dispatch = useDispatch();
 
-    const { sales } = useSelector( state => state.sale );
+    const { startUpdateProductStockAddSale, startUpdateProductStockSubSale } = useProductStore();
 
     const {
         saleDetails,
@@ -24,6 +25,7 @@ export const useSaleDetailStore = () => {
         // TODO: Backend
         //* Create 
         cart.map( item => {
+
             dispatch( onAddNewSaleDetail({
                 _id: new Date().getTime().toString(),
                 sale: { _id: idVenta },
@@ -31,13 +33,19 @@ export const useSaleDetailStore = () => {
                 quantity: item.quantity,
                 subtotal: item.subtotal
             }));
+            
         });
+
+        await startUpdateProductStockAddSale( cart );
     }
 
     const startDeletingSaleDetail = async ( sale ) => {
         // TODO: Backend
-        
+        const selectedDetails = saleDetails.filter( detail => detail.sale._id === sale._id );
+
         dispatch( onDeleteSaleDetail( sale ) );
+        startUpdateProductStockSubSale( selectedDetails );
+
     }
 
     return {

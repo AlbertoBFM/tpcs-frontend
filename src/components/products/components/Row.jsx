@@ -81,6 +81,7 @@ export const Row = ( product ) => {
                     </button>
                     <button type="button" className="btn btn-secondary"
                         onClick={ handleAddToCart }
+                        disabled={ Number(stock) === 0 }
                     >
                         <i className="fas fa-solid fa-cart-plus"></i>
                     </button>

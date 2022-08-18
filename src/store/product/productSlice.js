@@ -59,9 +59,32 @@ export const productSlice = createSlice({
             state.products = state.products.filter( product => product._id !== state.activeProduct._id );
             state.activeProduct = null;
         },
+        onUpdateProductStockAddSale: ( state, { payload } ) => {
+            state.products = state.products.map( product => {
+                if ( product._id === payload._id ) {
+                    product.stock = Number( product.stock ) - Number( payload.quantity );
+                }
+                return product;
+            });
+        },
+        onUpdateProductStockSubSale: ( state, { payload } ) => {
+            state.products = state.products.map( product => {
+                if ( product._id === payload.product._id ) {
+                    product.stock = Number( product.stock ) + Number( payload.quantity );
+                }
+                return product;
+            });
+        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveProduct, onAddNewProduct, onUpdateProduct, onDeleteProduct } = productSlice.actions;
+export const { 
+    onSetActiveProduct, 
+    onAddNewProduct, 
+    onUpdateProduct, 
+    onDeleteProduct, 
+    onUpdateProductStockAddSale, 
+    onUpdateProductStockSubSale 
+} = productSlice.actions;

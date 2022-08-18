@@ -19,7 +19,6 @@ export const SaleRow = ( sale ) => {
 
     const handleDelete = () => { //* Eliminar
         setActiveSale( sale );
-
         Swal.fire({
             title: `¿Eliminar Venta?`,
             icon: 'warning', showCancelButton: true,

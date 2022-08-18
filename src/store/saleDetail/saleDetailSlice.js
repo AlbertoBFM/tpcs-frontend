@@ -39,7 +39,7 @@ export const saleDetailSlice = createSlice({
         },
         onDeleteSaleDetail: ( state, { payload } ) => {
             state.saleDetails = state.saleDetails.filter( saleDetail => saleDetail.sale._id !== payload._id );
-            state.activeSaleDetail = [];
+            // state.activeSaleDetail = [];
         }
     }
 });
