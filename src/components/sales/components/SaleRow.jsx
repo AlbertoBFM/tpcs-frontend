@@ -10,7 +10,13 @@ export const SaleRow = ( sale ) => {
     const { setActiveSale, startDeletingSale } = useSaleStore();
     const { startDeletingSaleDetail } =useSaleDetailStore();
 
-    const { _id, user, client, date, total  } = sale;
+    const { 
+        _id, 
+        user, 
+        // client, 
+        date, 
+        total  
+    } = sale;
 
     const handleView = () => {
         setActiveSale( sale );
@@ -40,7 +46,7 @@ export const SaleRow = ( sale ) => {
         <tr>
             <td scope="row" className="">{ _id }</td>
             <td><b>{ user.name }</b></td>
-            <td>{ client.name }</td>
+            {/* <td>{ client.name }</td> */}
             <td><b>{ formatDate( new Date(date) ) }</b></td>
             <td>{ total }</td>
             <td>

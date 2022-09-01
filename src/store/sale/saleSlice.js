@@ -5,16 +5,16 @@ const tempSales = [
     {
         _id: '123456789',
         user: { _id: '321846987', name: 'batman' },
-        client: { _id: '321789654', name: 'Juanito Alcachofa' },
+        // client: { _id: '321789654', name: 'Juanito Alcachofa' },
         date: new Date().getTime(),
-        total: '1000'
+        total: 1000
     },
     {
         _id: '987654321',
         user: { _id: '651489324', name: 'robin' },
-        client: { _id: '932489654', name: 'Alberto FLores' },
+        // client: { _id: '932489654', name: 'Alberto FLores' },
         date: new Date().getTime(),
-        total: '1500'
+        total: 1500
     },
 ];
 

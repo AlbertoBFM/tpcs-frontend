@@ -19,7 +19,7 @@ export const SalePage = () => {
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">User</th>
-                            <th scope="col">Cliente</th>
+                            {/* <th scope="col">Cliente</th> */}
                             <th scope="col">Fecha</th>
                             <th scope="col">Total</th>
                             <th scope="col">&nbsp;</th>

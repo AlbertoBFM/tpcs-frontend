@@ -28,7 +28,7 @@ export const useSaleStore = () => {
         dispatch( onAddNewSale({ 
             _id: idVenta, 
             user: { _id: '321846987', name: 'batman' },
-            client: { _id: '321789654', name: 'Juanito Alcachofa' },
+            // client: { _id: '321789654', name: 'Juanito Alcachofa' },
             date: new Date().getTime(),
             total: total 
         }));
