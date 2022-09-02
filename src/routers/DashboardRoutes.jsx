@@ -4,12 +4,12 @@ import { Navbar } from '../components/ui/Navbar';
 
 import { IntroPage } from '../components/intro/IntroPage';
 import { FabCart, SaleCartModal, SalePage } from '../components/sales';
-import { ProductPage } from '../components/products/page/ProductPage';
+import { ProductPage } from '../components/products';
 import { RepairPage } from '../components/repairs/RepairPage';
-import { UserPage } from '../components/users/UserPage';
+import { UserPage } from '../components/users';
 import { CategoryPage } from '../components/categories';
 import { ClientPage } from '../components/clients/ClientPage';
-import { ProviderPage } from '../components/providers/page/ProviderPage';
+import { ProviderPage } from '../components/providers';
 
 
 export const DashboardRoutes = () => {

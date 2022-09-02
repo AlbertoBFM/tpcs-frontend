@@ -7,5 +7,6 @@ export * from './sale/saleSlice';
 export * from './saleCart/saleCartSlice';
 export * from './saleDetail/saleDetailSlice';
 export * from './ui/uiSlice';
+export * from './user/userSlice';
 
 export * from './store';

@@ -58,3 +58,9 @@ export const validatePhone = ( limit ) => ({ //* +591 76167710 o +59 76167710
     },
     maxLength: { value: limit, message: `El Celular no debe superar los ${ limit } caracteres` },
 })
+
+export const validatePassword = ( min, limit ) => ({
+    required: `La contraseña es requerida`,
+    minLength: { value: min, message: `La contraseña debe tener al menos ${ min } caracteres` },
+    maxLength: { value: limit, message: `La contraseña no debe superar los ${ limit } caracteres` },
+})
