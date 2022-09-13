@@ -18,6 +18,8 @@ export const useUserStore = () => {
         // TODO: Backend
 
         //* Create
+        delete user.password; 
+        delete user.confirmPassword; 
         dispatch( onAddNewUser({ _id: new Date().getTime().toString(), ...user }) );
     }
 

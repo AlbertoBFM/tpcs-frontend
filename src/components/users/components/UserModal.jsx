@@ -2,6 +2,9 @@
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import { useUserStore, useUiStore } from '../../../hooks';
 import { validateEmail, validateName, validatePassword } from '../../../helpers';
 
@@ -23,10 +26,24 @@ export const UserModal = () => {
     const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeUser, startSavingUser } = useUserStore();
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const { register, reset, formState: { errors }, handleSubmit, watch } = useForm();
 
     const onSubmit = async ( data ) => {
         activeButton( false );
+
+        const password = watch('password');
+        const confirmPassword = watch('confirmPassword');
+
+        if ( password !== confirmPassword ) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'La contraseña y la confirmación deben ser iguales',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return activeButton( true );
+        }
 
         // TODO:
         await startSavingUser( data );
@@ -79,6 +96,15 @@ export const UserModal = () => {
                             { ...register( 'password', validatePassword( 8, 30 ) ) } 
                         />
                         { errors.password &&  <small className="text-danger">{ errors.password?.message }</small> }
+                    </div>
+
+                    <div className="col-md-12">
+                        <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
+                        <input className={`form-control ${ errors.confirmPassword?.type && 'is-invalid' }`} 
+                            id="confirmPassword" type="password" placeholder="**********"
+                            { ...register( 'confirmPassword', validatePassword( 8, 30 ) ) } 
+                        />
+                        { errors.confirmPassword &&  <small className="text-danger">{ errors.confirmPassword?.message }</small> }
                     </div>
 
                     <button type="submit" className="btn btn-dark btn-block" disabled={ isActiveButton }>

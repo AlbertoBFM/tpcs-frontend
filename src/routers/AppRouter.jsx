@@ -5,13 +5,13 @@ import { DashboardRoutes } from './DashboardRoutes';
 
 export const AppRouter = () => {
     
-    // const authStatus = 'not-authenticated'; // 'authenticated'
-    const authStatus = 'not-authenticated';
+    const authStatus = 'authenticated';
+    // const authStatus = 'not-authenticated';
 
     return (
         <Routes>
             {
-                ( authStatus === 'authenticated' )
+                ( authStatus === 'not-authenticated' )
                     ?   <Route path="/auth/*" element={ <LoginPage /> } />
                     :   <Route path="/*" element={ <DashboardRoutes /> } />
             }
