@@ -1,5 +1,6 @@
-import React from 'react';
-import { useUiStore } from '../../../hooks';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+import { useUiStore, useAuthStore } from '../../../hooks';
 import { useForm } from 'react-hook-form';
 
 import { validateEmail, validateName, validatePassword } from '../../../helpers';
@@ -7,17 +8,26 @@ import './login.css';
 
 export const LoginPage = () => {
 
-    const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
+    const { startLogin, errorMessage } = useAuthStore();
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = async ( data ) => {
         // activeButton( false );
-        console.log(data);
+        startLogin(data);
         // TODO:
         // await startSavingCategory( data );
         // closeModal();
     }
+
+    useEffect(() => {
+      
+        if ( errorMessage !== undefined ) {
+            Swal.fire( 'Error en la autenticación', errorMessage, 'error' );
+        }
+
+    }, [ errorMessage ])
+    
 
     return (
         <div className="wrapper">

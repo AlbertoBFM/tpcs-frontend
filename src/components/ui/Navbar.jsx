@@ -1,6 +1,10 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../hooks';
 
 export const Navbar = () => {
+
+    const { startLogout, user } = useAuthStore();
+
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <div className="container-fluid">
@@ -14,7 +18,7 @@ export const Navbar = () => {
                 <div className="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-sm-0 ">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/sales">Ventas</Link>
+                            <Link className="nav-link" aria-current="page" to="/sales">Ventas</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/products">Productos</Link>
@@ -25,9 +29,9 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/providers">Proveedores</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="/repairs">Reparaciones</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/clients">Clientes</Link>
                         </li>
@@ -36,9 +40,13 @@ export const Navbar = () => {
                         </li>
                     </ul>
                     <div>
-                        <button className="btn btn-outline-danger">
+                        <span className="text-white">{ user.name }</span>
+                        &nbsp;
+                        <button className="btn btn-outline-danger"
+                            onClick={ startLogout }
+                        >
                             <i className="fas fa-sign-out-alt"></i>
-                            <span> Salir</span>
+                            {/* <span> Salir</span> */}
                         </button>
                     </div>
                 </div>

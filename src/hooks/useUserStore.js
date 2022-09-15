@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { onAddNewUser, onDeleteUser, onSetActiveUser } from '../store';
+import { userApi } from '../api';
+import { onChecking, onClearErrorMessage, onLogin, onLogout } from '../store';
 
 export const useUserStore = () => {
 
@@ -14,13 +16,28 @@ export const useUserStore = () => {
         dispatch( onSetActiveUser( user ) );
     }
 
-    const startSavingUser = async ( user ) => {
-        // TODO: Backend
+    const startSavingUser = async ( newUser ) => {
 
-        //* Create
-        delete user.password; 
-        delete user.confirmPassword; 
-        dispatch( onAddNewUser({ _id: new Date().getTime().toString(), ...user }) );
+        try {
+
+            const { data } = await userApi.post( '/auth/new', newUser );
+            const { user } = data;
+            console.log( data );
+            dispatch( onAddNewUser({ 
+                _id: user._id, 
+                name: user.name, 
+                email: user.email 
+            }) );
+
+        } catch (error) {
+
+            console.log(error);
+            dispatch( onLogout('Error al registrar Usuario') );
+            setTimeout(() => {
+               dispatch( onClearErrorMessage() ); 
+            }, 10);
+        }
+        
     }
 
     const startDeletingUser = async () => {

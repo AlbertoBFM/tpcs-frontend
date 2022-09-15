@@ -8,3 +8,4 @@ export * from './useSaleDetailStore';
 export * from './useSaleCartStore';
 export * from './useUiStore';
 export * from './useUserStore';
+export * from './useAuthStore';
