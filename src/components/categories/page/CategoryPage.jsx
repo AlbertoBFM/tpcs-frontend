@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useCategoryStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 
@@ -5,7 +6,14 @@ import './style.css';
 
 export const CategoryPage = () => {
 
-    const { categories } = useCategoryStore();
+    const { categories, startLoadingCategories } = useCategoryStore();
+
+    useEffect(() => {
+      
+        startLoadingCategories();
+
+    }, [])
+    
 
     return (
         <>

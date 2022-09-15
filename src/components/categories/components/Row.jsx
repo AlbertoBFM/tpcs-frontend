@@ -42,7 +42,7 @@ export const Row = ( category ) => {
                         position: 'top-end', icon: 'success', title: 'Categoría Eliminada',
                         showConfirmButton: false, timer: 1500
                     })
-                    startDeletingCategory();
+                    startDeletingCategory( category );
                 }
             })
         }
@@ -53,7 +53,7 @@ export const Row = ( category ) => {
     return (
         <tr>
             {/* <td scope="row" className="">{ _id }</td> */}
-            <td><b>{ name }</b></td>
+            <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
             <td>
                 <div className="btn-group" role="group">

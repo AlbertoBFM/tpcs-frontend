@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { onAddNewUser, onDeleteUser, onSetActiveUser } from '../store';
-import { userApi } from '../api';
+import { tpcsApi } from '../api';
 import { onChecking, onClearErrorMessage, onLogin, onLogout } from '../store';
 
 export const useUserStore = () => {
@@ -20,7 +20,7 @@ export const useUserStore = () => {
 
         try {
 
-            const { data } = await userApi.post( '/auth/new', newUser );
+            const { data } = await tpcsApi.post( '/auth/new', newUser );
             const { user } = data;
             console.log( data );
             dispatch( onAddNewUser({ 

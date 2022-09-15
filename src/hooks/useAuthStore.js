@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { authApi } from '../api';
-import { onChecking, onClearErrorMessage, onLogin, onLogout } from '../store';
+import { tpcsApi } from '../api';
+import { onChecking, onClearErrorMessage, onLogin, onLogout, onLogoutCategory } from '../store';
 
 
 export const useAuthStore = () => {
@@ -14,7 +14,7 @@ export const useAuthStore = () => {
 
         try {
 
-            const { data } = await authApi.post( '/auth', { email, password } );
+            const { data } = await tpcsApi.post( '/auth', { email, password } );
             // console.log( data );
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
@@ -35,7 +35,7 @@ export const useAuthStore = () => {
 
         try {
 
-            const { data } = await authApi.get('/auth/renew');
+            const { data } = await tpcsApi.get('/auth/renew');
             // console.log( data );
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
@@ -49,6 +49,7 @@ export const useAuthStore = () => {
 
     const startLogout = () => {
         localStorage.clear();
+        dispatch( onLogoutCategory() );
         dispatch( onLogout() );
     }
 

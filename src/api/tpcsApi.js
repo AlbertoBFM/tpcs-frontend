@@ -3,11 +3,11 @@ import { getEnvVariables } from '../helpers/getEnvVariables';
 
 const { VITE_API_URL } = getEnvVariables();
 
-const authApi = axios.create({
+const tpcsApi = axios.create({
     baseURL: VITE_API_URL
 });
 
-authApi.interceptors.request.use( config => {
+tpcsApi.interceptors.request.use( config => {
 
     config.headers = {
         ...config.headers,
@@ -17,4 +17,4 @@ authApi.interceptors.request.use( config => {
     return config;
 });
 
-export default authApi;
+export default tpcsApi;

@@ -1,32 +1,42 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const tempCategories = [
-    {
-        _id: "123456789",
-        name: 'Teclados',
-        description: 'Periférico de uso masivo',
-    },
-    {
-        _id: "987654321",
-        name: 'Impresoras',
-        description: 'Utilizado mayormente en oficinas',
-    },
-    {
-        _id: "147258369",
-        name: 'Monitores',
-        description: 'Sirven pa ver negro :V',
-    },
-];
+// const tempCategories = [
+//     {
+//         _id: "123456789",
+//         name: 'Teclados',
+//         description: 'Periférico de uso masivo',
+//     },
+//     {
+//         _id: "987654321",
+//         name: 'Impresoras',
+//         description: 'Utilizado mayormente en oficinas',
+//     },
+//     {
+//         _id: "147258369",
+//         name: 'Monitores',
+//         description: 'Sirven pa ver negro :V',
+//     },
+// ];
 
 export const categorySlice = createSlice({
     name: 'category',
     initialState: {
-        categories: tempCategories,
+        // categories: tempCategories,
+        categories: [],
+        isLoadingCategories: true,
         activeCategory: null,
     },
     reducers: {
         onSetActiveCategory: ( state, { payload } ) => {
             state.activeCategory = payload;
+        },
+        onLoadCategories: ( state, { payload = [] } ) => {
+            state.isLoadingCategories = false;
+            payload.forEach( category => {
+                const exists = state.categories.some( dbCategory => dbCategory._id === category._id );
+                if ( !exists ) state.categories.push( category );
+            })
+            // state.categories = payload;
         },
         onAddNewCategory: ( state, { payload } ) => {
             state.categories.push( payload );
@@ -44,9 +54,14 @@ export const categorySlice = createSlice({
             state.categories = state.categories.filter( category => category._id !== state.activeCategory._id );
             state.activeCategory = null;
         },
+        onLogoutCategory: ( state ) => {
+            state.categories = [];
+            state.isLoadingCategories = true;
+            state.activeCategory = null;
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveCategory, onAddNewCategory, onUpdateCategory, onDeleteCategory } = categorySlice.actions;
+export const { onSetActiveCategory, onLoadCategories, onAddNewCategory, onUpdateCategory, onDeleteCategory, onLogoutCategory } = categorySlice.actions;

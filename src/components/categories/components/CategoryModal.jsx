@@ -23,14 +23,20 @@ export const CategoryModal = () => {
     const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeCategory, startSavingCategory } = useCategoryStore();
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const { register, reset, formState: { errors }, handleSubmit, watch } = useForm();
+
+    const _id = watch('_id');
 
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         // TODO:
-        await startSavingCategory( data );
-        closeModal();
+        const resp = await startSavingCategory( data );
+        
+        if ( resp ) {
+            return closeModal();
+        }
+        activeButton( true );
     }
 
 
@@ -51,14 +57,14 @@ export const CategoryModal = () => {
             closeTimeoutMS={ 200 }
         >
             <div className="m-3">
-                <h1> Nueva Categoría </h1>
+                <h1> { !_id ? 'Nueva Categoría' : 'Actualizar Categoría' } </h1>
                 <hr />
                 <form onSubmit={ handleSubmit( onSubmit ) } className="row g-3">
                     <div className="col-md-12">
                         <label htmlFor="name" className="form-label">Nombre de Categoría</label>
                         <input className={`form-control ${ errors.name?.type && 'is-invalid' }`} 
                             id="name" type="text" placeholder="Ej: Impresoras"
-                            { ...register( 'name', validateName( 'Nombre', 20 ) ) } 
+                            { ...register( 'name', validateName( 'Nombre', 50 ) ) } 
                         />
                         { errors.name &&  <small className="text-danger">{ errors.name?.message }</small> }
                     </div>
