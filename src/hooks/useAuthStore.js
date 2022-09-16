@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { tpcsApi } from '../api';
-import { onChecking, onClearErrorMessage, onLogin, onLogout, onLogoutCategory } from '../store';
+import { onChecking, onClearErrorMessage, onLogin, onLogout, onLogoutCategory, onLogoutProduct, onLogoutProvider } from '../store';
 
 
 export const useAuthStore = () => {
@@ -49,6 +49,8 @@ export const useAuthStore = () => {
 
     const startLogout = () => {
         localStorage.clear();
+        dispatch( onLogoutProduct() );
+        dispatch( onLogoutProvider() );
         dispatch( onLogoutCategory() );
         dispatch( onLogout() );
     }

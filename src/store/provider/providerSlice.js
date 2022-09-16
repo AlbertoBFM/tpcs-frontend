@@ -59,9 +59,14 @@ export const providerSlice = createSlice({
             state.providers = state.providers.filter( provider => provider._id !== state.activeProvider._id );
             state.activeProvider = null;
         },
+        onLogoutProvider: ( state ) => {
+            state.providers = [];
+            state.isLoadingProviders = true;
+            state.activeProvider = null;
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveProvider, onLoadProviders, onAddNewProvider, onUpdateProvider, onDeleteProvider } = providerSlice.actions;
+export const { onSetActiveProvider, onLoadProviders, onAddNewProvider, onUpdateProvider, onDeleteProvider, onLogoutProvider } = providerSlice.actions;

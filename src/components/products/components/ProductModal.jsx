@@ -22,8 +22,8 @@ export const ProductModal = () => {
 
     const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeProduct, startSavingProduct } = useProductStore();
-    const { categories } = useCategoryStore();
-    const { providers } = useProviderStore();
+    const { categories, startLoadingCategories } = useCategoryStore();
+    const { providers, startLoadingProviders } = useProviderStore();
 
     const { register, reset, formState: { errors }, handleSubmit, watch, getValues } = useForm();
 
@@ -48,9 +48,11 @@ export const ProductModal = () => {
     const onSubmit = async ( data ) => {
         activeButton( false );
 
-        await startSavingProduct( data );
-        // TODO:
-        closeModal();
+        const resp = await startSavingProduct( data );
+
+        if ( resp ) return closeModal();
+        
+        activeButton( true );
     }
 
     const onCloseModal = () => {
@@ -62,6 +64,12 @@ export const ProductModal = () => {
             reset( activeProduct );
         }
     }, [ activeProduct ])
+
+    useEffect(() => {
+        
+        startLoadingCategories();
+        startLoadingProviders();
+    }, [])
 
     return (
         <Modal

@@ -43,7 +43,7 @@ export const useProviderStore = () => {
             return true;
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Actualizar', error.response.data?.msg, 'error' );
+            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
             return false;
         }
     }

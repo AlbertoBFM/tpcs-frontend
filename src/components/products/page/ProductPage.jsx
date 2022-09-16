@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AddNewProduct, Row, ProductModal } from '../';
 import { useProductStore } from '../../../hooks';
 
@@ -5,7 +6,14 @@ import './style.css';
 
 export const ProductPage = () => {
 
-    const { products } = useProductStore();
+    const { products, startLoadingProducts } = useProductStore();
+
+    useEffect(() => {
+
+        startLoadingProducts();
+
+    }, [])
+    
 
     return (
         <>

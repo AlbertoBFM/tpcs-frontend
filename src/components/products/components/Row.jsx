@@ -31,7 +31,7 @@ export const Row = ( product ) => {
                     position: 'top-end', icon: 'success',
                     title: 'Producto Eliminado', showConfirmButton: false, timer: 1500
                 })
-                startDeletingProduct();
+                startDeletingProduct( product );
             }
         })
     }
@@ -65,8 +65,8 @@ export const Row = ( product ) => {
             <td><b>{ stock }</b></td>
             <td>{ purchasePrice }</td>
             <td><b>{ salePrice }</b></td>
-            <td>{ category.name }</td>
-            <td><b>{ provider.name }</b></td>
+            <td>{ category?.name }</td>
+            <td><b>{ provider?.name }</b></td>
             <td>
                 <div className="btn-group" role="group">
                     <button type="button" className="btn btn-warning"

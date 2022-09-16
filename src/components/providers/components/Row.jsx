@@ -53,7 +53,7 @@ export const Row = ( provider ) => {
     return (
         <tr>
             {/* <td scope="row" className="">{ _id }</td> */}
-            <td><b>{ name }</b></td>
+            <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
             <td><b>{ phone }</b></td>
             <td>{ address }</td>
