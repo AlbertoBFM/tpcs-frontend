@@ -30,12 +30,10 @@ export const CategoryModal = () => {
     const onSubmit = async ( data ) => {
         activeButton( false );
 
-        // TODO:
         const resp = await startSavingCategory( data );
         
-        if ( resp ) {
-            return closeModal();
-        }
+        if ( resp ) return closeModal();
+        
         activeButton( true );
     }
 

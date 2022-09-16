@@ -42,7 +42,7 @@ export const Row = ( provider ) => {
                         position: 'top-end', icon: 'success', title: 'Categoría Eliminada',
                         showConfirmButton: false, timer: 1500
                     })
-                    startDeletingProvider();
+                    startDeletingProvider( provider );
                 }
             })
         }

@@ -28,9 +28,11 @@ export const ProviderModal = () => {
     const onSubmit = async ( data ) => {
         activeButton( false );
 
-        // TODO:
-        await startSavingProvider( data );
-        closeModal();
+        const resp = await startSavingProvider( data );
+        
+        if ( resp ) return closeModal();
+        
+        activeButton( true );
     }
 
 

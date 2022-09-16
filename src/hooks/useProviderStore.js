@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider } from '../store';
+import Swal from 'sweetalert2';
+import { tpcsApi } from '../api';
+import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders } from '../store';
 
 export const useProviderStore = () => {
 
@@ -14,22 +16,47 @@ export const useProviderStore = () => {
         dispatch( onSetActiveProvider( provider ) );
     }
 
-    const startSavingProvider = async ( provider ) => {
-        // TODO: Backend
+    const startLoadingProviders = async () => {
 
-        if ( provider._id ) {
-            //* Update
-            dispatch( onUpdateProvider({ ...provider }) );
-        } else {
+        try {
+            const { data } = await tpcsApi.get( '/provider' );
+            dispatch( onLoadProviders( data.providers ) );
+
+        } catch (error) {
+            console.log('Error al cargar los proveedores');
+            console.log( error );
+        }
+
+    }
+
+    const startSavingProvider = async ( provider ) => {
+        try {
+            if ( provider._id ) {
+                //* Update
+                    await tpcsApi.put( `/provider/${ provider._id }`, provider );
+                    dispatch( onUpdateProvider({ ...provider }) );
+                    return true;
+            }
             //* Create
-            dispatch( onAddNewProvider({ _id: new Date().getTime().toString(), ...provider }) );
+            const { data } = await tpcsApi.post( '/provider', provider );
+            dispatch( onAddNewProvider({ _id: data.provider._id, ...provider }) );
+            return true;
+        } catch (error) {
+            console.log( error );
+            Swal.fire( 'Error al Actualizar', error.response.data?.msg, 'error' );
+            return false;
         }
     }
 
-    const startDeletingProvider = async () => {
-        // TODO: Backend
+    const startDeletingProvider = async ( provider ) => {
+        try {
+            await tpcsApi.delete( `/provider/${ provider._id }` );
+            dispatch( onDeleteProvider() );
+        } catch (error) {
+            console.log( error );
+            Swal.fire( 'Error al Eliminar', error.response.data?.msg, 'error' );
+        }
         
-        dispatch( onDeleteProvider() );
     }
 
     return {
@@ -38,6 +65,7 @@ export const useProviderStore = () => {
         activeProvider,
         //* Methods
         setActiveProvider,
+        startLoadingProviders,
         startSavingProvider,
         startDeletingProvider,
     }

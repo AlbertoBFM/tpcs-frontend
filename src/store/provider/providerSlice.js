@@ -1,38 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const tempProviders = [
-    {
-        _id: '999999999',
-        name: 'GigaTex',
-        description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, doloribus!',
-        phone: '76167710',
-        address: 'Av. Manuel Vaca S/N',
-    },
-    {
-        _id: '888888888',
-        name: 'Empresa J y K',
-        description: 'Ex, doloribus!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, doloribus!',
-        phone: '71835910',
-        address: 'Cl. Daniel Quijarro Nº 23',
-    },
-    {
-        _id: '777777777',
-        name: 'Andromeda',
-        description: 'Sit amet consectetur, adipisicing elit. Ex, doloribus!',
-        phone: '65466139',
-        address: 'Cl. Doña Justa Guiño Guiño',
-    },
-];
+// const tempProviders = [
+//     {
+//         _id: '999999999',
+//         name: 'GigaTex',
+//         description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, doloribus!',
+//         phone: '76167710',
+//         address: 'Av. Manuel Vaca S/N',
+//     },
+//     {
+//         _id: '888888888',
+//         name: 'Empresa J y K',
+//         description: 'Ex, doloribus!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, doloribus!',
+//         phone: '71835910',
+//         address: 'Cl. Daniel Quijarro Nº 23',
+//     },
+//     {
+//         _id: '777777777',
+//         name: 'Andromeda',
+//         description: 'Sit amet consectetur, adipisicing elit. Ex, doloribus!',
+//         phone: '65466139',
+//         address: 'Cl. Doña Justa Guiño Guiño',
+//     },
+// ];
 
 export const providerSlice = createSlice({
     name: 'provider',
     initialState: {
-        providers: tempProviders,
+        // providers: tempProviders,
+        providers: [],
+        isLoadingProviders: true,
         activeProvider: null,
     },
     reducers: {
         onSetActiveProvider: ( state, { payload } ) => {
             state.activeProvider = payload;
+        },
+        onLoadProviders: ( state, { payload = [] } ) => {
+            state.isLoadingProviders = false;
+            payload.forEach( provider => {
+                const exists = state.providers.some( dbProvider => dbProvider._id === provider._id );
+                if ( !exists ) state.providers.push( provider );
+            })
         },
         onAddNewProvider: ( state, { payload } ) => {
             state.providers.push( payload );
@@ -55,4 +64,4 @@ export const providerSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveProvider, onAddNewProvider, onUpdateProvider, onDeleteProvider } = providerSlice.actions;
+export const { onSetActiveProvider, onLoadProviders, onAddNewProvider, onUpdateProvider, onDeleteProvider } = providerSlice.actions;
