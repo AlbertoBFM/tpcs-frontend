@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SaleRow, SaleDetailModal } from '../';
 import { useSaleStore } from '../../../hooks';
 
@@ -5,7 +6,12 @@ import './style.css';
 
 export const SalePage = () => {
 
-    const { sales } = useSaleStore();
+    const { sales, startLoadingSales } = useSaleStore();
+
+    useEffect(() => {
+        startLoadingSales();
+    }, [])
+    
 
     return (
         <>

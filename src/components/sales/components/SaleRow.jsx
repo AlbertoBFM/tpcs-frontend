@@ -8,7 +8,7 @@ export const SaleRow = ( sale ) => {
 
     const { openModal } = useUiStore();
     const { setActiveSale, startDeletingSale } = useSaleStore();
-    const { startDeletingSaleDetail } =useSaleDetailStore();
+    const { startLoadingSaleDetails, startDeletingSaleDetail } =useSaleDetailStore();
 
     const { 
         _id, 
@@ -19,12 +19,12 @@ export const SaleRow = ( sale ) => {
     } = sale;
 
     const handleView = () => {
-        setActiveSale( sale );
+        // setActiveSale( sale );
+        startLoadingSaleDetails( _id );
         openModal();
     }
 
     const handleDelete = () => { //* Eliminar
-        setActiveSale( sale );
         Swal.fire({
             title: `¿Eliminar Venta?`,
             icon: 'warning', showCancelButton: true,
@@ -36,8 +36,8 @@ export const SaleRow = ( sale ) => {
                     position: 'top-end', icon: 'success',
                     title: 'Venta Eliminada', showConfirmButton: false, timer: 1500
                 })
-                startDeletingSale();
-                startDeletingSaleDetail( sale );
+                startDeletingSale( _id );
+                startDeletingSaleDetail( _id );
             }
         })
     }
@@ -57,7 +57,7 @@ export const SaleRow = ( sale ) => {
                         <i className="fas fa-solid fa-eye"></i>
                     </button>
                     <button type="button" className="btn btn-danger"
-                        onClick={ () => handleDelete( sale ) }
+                        onClick={ handleDelete }
                     >
                         <i className="fas fa-trash-alt"></i>
                     </button>

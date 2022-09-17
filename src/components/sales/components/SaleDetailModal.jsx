@@ -21,22 +21,12 @@ export const SaleDetailModal = () => {
 
     const { isModalOpen, closeModal } = useUiStore();
     const { activeSale } = useSaleStore();
-    const { saleDetails, activeSaleDetail, setActiveSaleDetail } = useSaleDetailStore();
+    const { saleDetails, startCleaningSaleDetails } = useSaleDetailStore();
 
     const onCloseModal = () => {
+        startCleaningSaleDetails();
         closeModal();
     };
-
-    const selectedSale = () => {
-        const salesDetails = saleDetails.filter( saleDetail => saleDetail.sale._id === activeSale._id );
-        setActiveSaleDetail( salesDetails );
-    }
-
-    useEffect(() => {
-        if ( activeSale !== null ){
-            selectedSale();
-        }
-    }, [ activeSale ])
 
     return (
         <Modal
@@ -62,7 +52,7 @@ export const SaleDetailModal = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            { activeSaleDetail.map( detail => (<SaleDetailRow key={ detail._id } { ...detail } />) ) }
+                            { saleDetails.map( detail => (<SaleDetailRow key={ detail._id } { ...detail } />) ) }
                         </tbody>
                         <tfoot className="bg-dark text-white border-light">
                             <tr>
