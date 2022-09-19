@@ -4,7 +4,8 @@ import {
     onDeleteSaleDetail, 
     onAddNewSaleDetail, 
     onSetActiveSaleDetail, 
-    onLoadSaleDetail
+    onLoadSaleDetail,
+    onLoadAllDetail
 } from '../store';
 import { useProductStore } from './useProductStore';
 
@@ -21,6 +22,17 @@ export const useSaleDetailStore = () => {
 
     const setActiveSaleDetail = ( saleDetail ) => {
         dispatch( onSetActiveSaleDetail( saleDetail ) );
+    }
+
+    const startLoadingAllDetails = async () => {
+        try {
+            const { data } = await tpcsApi.get( `/saleDetail` );
+            // console.log( 'data: ', data );
+            dispatch( onLoadAllDetail( data.salesDetails ) );
+        } catch (error) {
+            console.log('Error al cargar los Detalles de la Venta');
+            console.log( error );
+        }
     }
 
     const startLoadingSaleDetails = async ( saleId ) => {
@@ -102,6 +114,7 @@ export const useSaleDetailStore = () => {
         activeSaleDetail,
         //* Methods
         setActiveSaleDetail,
+        startLoadingAllDetails,
         startLoadingSaleDetails,
         startCleaningSaleDetails,
         startSavingSaleDetail,

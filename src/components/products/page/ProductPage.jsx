@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { AddNewProduct, Row, ProductModal } from '../';
-import { useProductStore } from '../../../hooks';
+import { useProductStore, useSaleDetailStore } from '../../../hooks';
 
 import './style.css';
 
 export const ProductPage = () => {
 
     const { products, startLoadingProducts } = useProductStore();
+    const { startLoadingAllDetails } = useSaleDetailStore();
 
     useEffect(() => {
 
         startLoadingProducts();
+        startLoadingAllDetails();
 
     }, [])
     

@@ -47,4 +47,5 @@ Modal
     padding: 15px;
     position: fixed;
     right: 25px;
+    z-index: 100;
 }

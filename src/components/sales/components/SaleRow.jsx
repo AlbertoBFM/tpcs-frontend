@@ -1,4 +1,4 @@
-import { useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
+import { useAuthStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { formatDate } from '../../../helpers';
 
 import Swal from 'sweetalert2';
@@ -7,6 +7,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 export const SaleRow = ( sale ) => {
 
     const { openModal } = useUiStore();
+    const { user: { uid } } = useAuthStore();
     const { setActiveSale, startDeletingSale } = useSaleStore();
     const { startLoadingSaleDetails, startDeletingSaleDetail } =useSaleDetailStore();
 
@@ -19,7 +20,7 @@ export const SaleRow = ( sale ) => {
     } = sale;
 
     const handleView = () => {
-        // setActiveSale( sale );
+        setActiveSale( sale );
         startLoadingSaleDetails( _id );
         openModal();
     }
@@ -41,7 +42,7 @@ export const SaleRow = ( sale ) => {
             }
         })
     }
-
+    
     return (
         <tr>
             <td scope="row" className="">{ _id }</td>
@@ -56,11 +57,15 @@ export const SaleRow = ( sale ) => {
                     >
                         <i className="fas fa-solid fa-eye"></i>
                     </button>
-                    <button type="button" className="btn btn-danger"
-                        onClick={ handleDelete }
-                    >
-                        <i className="fas fa-trash-alt"></i>
-                    </button>
+                    {
+                        ( ( user._id || user.uid ) === uid ) 
+                        && 
+                        <button type="button" className="btn btn-danger"
+                            onClick={ handleDelete }
+                        >
+                            <i className="fas fa-trash-alt"></i>
+                        </button>
+                    }
                 </div>
             </td>
         </tr>

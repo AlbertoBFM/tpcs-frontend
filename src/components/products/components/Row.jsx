@@ -1,4 +1,4 @@
-import { useProductStore, useSaleCartStore, useUiStore } from '../../../hooks';
+import { useProductStore, useSaleCartStore, useSaleDetailStore, useUiStore } from '../../../hooks';
 
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -7,11 +7,12 @@ export const Row = ( product ) => {
 
     const { openModal, activeButton } = useUiStore();
     const { setActiveProduct, startDeletingProduct } = useProductStore();
+    const { saleDetails, startLoadingAllDetails } = useSaleDetailStore();
     const { cart, startAddToCart, startChangeQuantity } = useSaleCartStore();
 
     const { _id, name, description, stock, purchasePrice, salePrice, category, provider } = product;
 
-    const handleUpdate = ( product ) => { //* Actualizar
+    const handleUpdate = () => { //* Actualizar
         activeButton( true );
         setActiveProduct( product );
         openModal();
@@ -20,20 +21,33 @@ export const Row = ( product ) => {
     const handleDelete = () => { //* Eliminar
         setActiveProduct( product );
 
-        Swal.fire({
-            title: `¿Eliminar el producto "${ name }"?`,
-            icon: 'warning', showCancelButton: true,
-            confirmButtonColor: '#3085d6', confirmButtonText: 'Eliminar',
-            cancelButtonColor: '#d33', cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    position: 'top-end', icon: 'success',
-                    title: 'Producto Eliminado', showConfirmButton: false, timer: 1500
-                })
-                startDeletingProduct( product );
-            }
-        })
+        const searchDetailWithProduct = saleDetails.find( saleDetail => saleDetail.product._id === product._id );
+
+        if ( searchDetailWithProduct ) {
+            Swal.fire({
+                icon: 'error',
+                title: `No puede borrar el producto "${ product.name }"`,
+                text: 'Tiene Ventas registradas con este Producto',
+                showConfirmButton: false
+            })
+        }
+        else{
+
+            Swal.fire({
+                title: `¿Eliminar el producto "${ name }"?`,
+                icon: 'warning', showCancelButton: true,
+                confirmButtonColor: '#3085d6', confirmButtonText: 'Eliminar',
+                cancelButtonColor: '#d33', cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        position: 'top-end', icon: 'success',
+                        title: 'Producto Eliminado', showConfirmButton: false, timer: 1500
+                    })
+                    startDeletingProduct( product );
+                }
+            })
+        }
     }
 
     const handleAddToCart = () => {
@@ -70,12 +84,12 @@ export const Row = ( product ) => {
             <td>
                 <div className="btn-group" role="group">
                     <button type="button" className="btn btn-warning"
-                        onClick={ () => handleUpdate( product ) }
+                        onClick={ handleUpdate }
                     >
                         <i className="fas fa-pen"></i>
                     </button>
                     <button type="button" className="btn btn-danger"
-                        onClick={ () => handleDelete( product ) }
+                        onClick={ handleDelete }
                     >
                         <i className="fas fa-trash-alt"></i>
                     </button>

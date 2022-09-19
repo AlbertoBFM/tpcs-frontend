@@ -21,7 +21,7 @@ export const SaleDetailModal = () => {
 
     const { isModalOpen, closeModal } = useUiStore();
     const { activeSale } = useSaleStore();
-    const { saleDetails, startCleaningSaleDetails } = useSaleDetailStore();
+    const { activeSaleDetail, startCleaningSaleDetails } = useSaleDetailStore();
 
     const onCloseModal = () => {
         startCleaningSaleDetails();
@@ -52,7 +52,7 @@ export const SaleDetailModal = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            { saleDetails.map( detail => (<SaleDetailRow key={ detail._id } { ...detail } />) ) }
+                            { activeSaleDetail.map( detail => (<SaleDetailRow key={ detail._id } { ...detail } />) ) }
                         </tbody>
                         <tfoot className="bg-dark text-white border-light">
                             <tr>

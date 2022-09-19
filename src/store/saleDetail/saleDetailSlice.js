@@ -36,11 +36,18 @@ export const saleDetailSlice = createSlice({
         onSetActiveSaleDetail: ( state, { payload } ) => {
             state.activeSaleDetail = payload;
         },
-        onLoadSaleDetail: ( state, { payload = [] } ) => {
+        onLoadAllDetail: ( state, { payload = [] } ) => {
             state.saleDetails = [];
             state.isLoadingSaleDetails = false;
             payload.forEach( saleDetail => {
                 state.saleDetails.push( saleDetail );
+            })
+        },
+        onLoadSaleDetail: ( state, { payload = [] } ) => {
+            state.activeSaleDetail = [];
+            state.isLoadingSaleDetails = false;
+            payload.forEach( saleDetail => {
+                state.activeSaleDetail.push( saleDetail );
             })
         },
         onAddNewSaleDetail: ( state, { payload } ) => {
@@ -60,4 +67,4 @@ export const saleDetailSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveSaleDetail, onAddNewSaleDetail, onDeleteSaleDetail, onLoadSaleDetail, onLogoutSaleDetail } = saleDetailSlice.actions;
+export const { onSetActiveSaleDetail, onAddNewSaleDetail, onDeleteSaleDetail, onLoadSaleDetail, onLoadAllDetail, onLogoutSaleDetail } = saleDetailSlice.actions;

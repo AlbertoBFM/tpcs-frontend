@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCategoryStore } from '../../../hooks';
+import { useCategoryStore, useProductStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 
 import './style.css';
@@ -7,10 +7,12 @@ import './style.css';
 export const CategoryPage = () => {
 
     const { categories, startLoadingCategories } = useCategoryStore();
+    const { startLoadingProducts } = useProductStore();
 
     useEffect(() => {
       
         startLoadingCategories();
+        startLoadingProducts();
 
     }, [])
     

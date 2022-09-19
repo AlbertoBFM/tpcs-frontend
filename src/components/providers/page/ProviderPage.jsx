@@ -1,4 +1,4 @@
-import { useProviderStore } from '../../../hooks';
+import { useProductStore, useProviderStore } from '../../../hooks';
 import { Row, AddNewProvider, ProviderModal } from '../';
 
 import './style.css';
@@ -7,10 +7,12 @@ import { useEffect } from 'react';
 export const ProviderPage = () => {
 
     const { providers, startLoadingProviders } = useProviderStore();
+    const { startLoadingProducts } = useProductStore();
 
     useEffect(() => {
 
         startLoadingProviders();
+        startLoadingProducts();
 
     }, [])
     
