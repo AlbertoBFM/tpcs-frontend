@@ -32,19 +32,28 @@ export const useSaleStore = () => {
         }
     }
 
-    const startSavingSale = async ( total ) => {
+    const startSavingSale = async ( total, ci_nit ) => {
         try {
             //* Create
             const date = new Date().getTime();
-            const { data } = await tpcsApi.post( '/sale', { date, total } );
-    
+            const { data } = await tpcsApi.post( '/sale', { client: ci_nit, date, total } );
+            console.log( data );
             dispatch( onAddNewSale({ 
                 _id: data.sale._id, 
                 user,
+                client: ci_nit,
                 date,
                 total 
                 // client: { _id: '321789654', name: 'Juanito Alcachofa' },
             }));
+            console.log({ 
+                _id: data.sale._id, 
+                user,
+                client: ci_nit,
+                date,
+                total 
+                // client: { _id: '321789654', name: 'Juanito Alcachofa' },
+            });
             return data.sale._id;
         } catch (error) {
             console.log( error );

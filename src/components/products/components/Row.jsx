@@ -93,11 +93,14 @@ export const Row = ( product ) => {
                     >
                         <i className="fas fa-trash-alt"></i>
                     </button>
-                    <button type="button" className="btn btn-secondary"
+                &nbsp;
+                &nbsp;
+                    <button type="button" className="btn btn-primary"
                         onClick={ handleAddToCart }
                         disabled={ Number(stock) === 0 }
                     >
-                        <i className="fas fa-solid fa-cart-plus"></i>
+                        {/* <i className="fas fa-solid fa-cart-plus"></i> */}
+                        <i className="fas fa-solid fa-plus"></i>
                     </button>
                 </div>
             </td>

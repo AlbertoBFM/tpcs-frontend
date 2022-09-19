@@ -29,7 +29,7 @@ export const SaleCartModal = () => {
             <div className="m-3">
                 <h1> Carrito de Compras </h1>
                 <hr />
-                { cart.length > 0 && <AddNewSale />}
+                { cart.length > 0 && <AddNewSale /> }
                 <div className="m-md-auto table-responsive">
                     <table className="table table-striped text-center">
                         <thead className="bg-dark text-white">

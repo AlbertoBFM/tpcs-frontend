@@ -14,7 +14,7 @@ export const SaleRow = ( sale ) => {
     const { 
         _id, 
         user, 
-        // client, 
+        client, 
         date, 
         total  
     } = sale;
@@ -47,7 +47,7 @@ export const SaleRow = ( sale ) => {
         <tr>
             <td scope="row" className="">{ _id }</td>
             <td><b>{ user.name }</b></td>
-            {/* <td>{ client.name }</td> */}
+            <td>{ client || '----' }</td>
             <td><b>{ formatDate( new Date(date) ) }</b></td>
             <td>{ total }</td>
             <td>
