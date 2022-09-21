@@ -40,14 +40,14 @@ export const DashboardRoutes = () => {
                         path="/providers"
                         element={ <ProviderPage /> }
                     />
-                    <Route
+                    {/* <Route
                         path="/repairs"
                         element={ <RepairPage /> }
                     />
                     <Route
                         path="/clients"
                         element={ <ClientPage /> }
-                    />
+                    /> */}
                     <Route
                         path="/users"
                         element={ <UserPage /> }

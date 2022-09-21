@@ -32,15 +32,16 @@ export const Navbar = () => {
                         {/* <li className="nav-item">
                             <Link className="nav-link" to="/repairs">Reparaciones</Link>
                         </li> */}
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="/clients">Clientes</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/users">Usuarios</Link>
                         </li>
                     </ul>
                     <div>
                         <span className="text-white">{ user.name }</span>
+                        &nbsp;
                         &nbsp;
                         <button className="btn btn-outline-danger"
                             onClick={ startLogout }
