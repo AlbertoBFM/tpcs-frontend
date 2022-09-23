@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import { useProviderStore, useUiStore } from '../../../hooks';
 import { validatePhone, validateProductName } from '../../../helpers';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content: {
@@ -23,14 +24,21 @@ export const ProviderModal = () => {
     const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
     const { activeProvider, startSavingProvider } = useProviderStore();
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const { register, reset, formState: { errors }, handleSubmit, watch } = useForm();
+
+    const _id = watch('_id');
+
+    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
 
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingProvider( data );
         
-        if ( resp ) return closeModal();
+        if ( resp ) {
+            messageAlert( 'Proveedor registrado', 'success' );
+            return closeModal();
+        }
         
         activeButton( true );
     }
@@ -53,7 +61,7 @@ export const ProviderModal = () => {
             closeTimeoutMS={ 200 }
         >
             <div className="m-3">
-                <h1> Nuevo Proveedor </h1>
+                <h1> { !_id ? 'Nuevo Proveedor' : 'Actualizar Proveedor' } </h1>
                 <hr />
                 <form onSubmit={ handleSubmit( onSubmit ) } className="row g-3">
                     <div className="col-md-6">

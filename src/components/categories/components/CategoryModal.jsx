@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import { useCategoryStore, useUiStore } from '../../../hooks';
 import { validateName } from '../../../helpers';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content: {
@@ -27,12 +28,17 @@ export const CategoryModal = () => {
 
     const _id = watch('_id');
 
+    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
+
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingCategory( data );
         
-        if ( resp ) return closeModal();
+        if ( resp ) {
+            messageAlert( 'Categoría registrada', 'success' );
+            return closeModal();
+        }
         
         activeButton( true );
     }

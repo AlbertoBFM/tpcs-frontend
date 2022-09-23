@@ -74,7 +74,7 @@ export const Row = ( product ) => {
     return (
         <tr>
             {/* <td scope="row" className="">{ _id }</td> */}
-            <td><b>{ name }</b></td>
+            <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
             <td><b>{ stock }</b></td>
             <td>{ purchasePrice }</td>

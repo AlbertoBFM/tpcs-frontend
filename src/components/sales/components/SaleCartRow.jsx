@@ -51,7 +51,7 @@ export const SaleCartRow = ( item ) => {
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
-                title: `Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ quantity }`,
+                title: `Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ selectedProduct.stock }`,
                 showConfirmButton: false,
                 timer: 1500
             })

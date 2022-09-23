@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import { useCategoryStore, useProductStore, useProviderStore, useUiStore } from '../../../hooks';
 import { validateProductName, validatePurchasePrice, validateRangeOfNumber, validateSalePrice } from '../../../helpers';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content: {
@@ -27,6 +28,8 @@ export const ProductModal = () => {
 
     const { register, reset, formState: { errors }, handleSubmit, watch, getValues } = useForm();
 
+    const _id = watch('_id');
+
     const purchaseLimit = watch('purchasePrice'); 
     const saleLimit = watch('salePrice');
 
@@ -45,12 +48,17 @@ export const ProductModal = () => {
                         ""
     }
 
+    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
+
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingProduct( data );
 
-        if ( resp ) return closeModal();
+        if ( resp ) {
+            messageAlert( 'Producto Registrado', 'success' );
+            return closeModal();
+        }
         
         activeButton( true );
     }
@@ -81,7 +89,7 @@ export const ProductModal = () => {
             closeTimeoutMS={ 200 }
         >
             <div className="m-3">
-                <h1> Nuevo Producto </h1>
+                <h1> { !_id ? 'Nuevo Producto' : 'Actualizar Producto' } </h1>
                 <hr />
                 <form onSubmit={ handleSubmit( onSubmit ) } className="row g-3">
                     <div className="col-md-12">
