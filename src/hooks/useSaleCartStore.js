@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } from '../store';
+import { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart, onCiNitChange } from '../store';
 
 export const useSaleCartStore = () => {
 
@@ -7,8 +7,13 @@ export const useSaleCartStore = () => {
 
     const {
         cart,
+        ciNit,
         total,
     } = useSelector( state => state.saleCart );
+
+    const startCiNitChange = ( value ) => {
+        dispatch( onCiNitChange( value ) );
+    }
 
     const startAddToCart = ( selectedItem ) => {
 
@@ -48,8 +53,10 @@ export const useSaleCartStore = () => {
     return {
         //* Properties
         cart,
+        ciNit,
         total,
         //* Methods
+        startCiNitChange,
         startAddToCart,
         startRemoveToCart,
         startRemoveAllToCart,

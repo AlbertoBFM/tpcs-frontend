@@ -1,8 +1,7 @@
 import { useAuthStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { formatDate } from '../../../helpers';
 
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { messageAlert, queryAlert } from '../../../helpers/alerts';
 
 export const SaleRow = ( sale ) => {
 
@@ -25,22 +24,15 @@ export const SaleRow = ( sale ) => {
         openModal();
     }
 
-    const handleDelete = () => { //* Eliminar
-        Swal.fire({
-            title: `¿Eliminar Venta?`,
-            icon: 'warning', showCancelButton: true,
-            confirmButtonColor: '#3085d6', confirmButtonText: 'Eliminar',
-            cancelButtonColor: '#d33', cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    position: 'top-end', icon: 'success',
-                    title: 'Venta Eliminada', showConfirmButton: false, timer: 1500
-                })
-                startDeletingSale( _id );
-                startDeletingSaleDetail( _id );
-            }
-        })
+    const handleDelete = async () => { //* Eliminar
+        const resp = await queryAlert('¿Eliminar Venta?', 'warning', 'Eliminar', 'Cancelar');
+        
+        if ( !resp ) return;
+
+        startDeletingSale( _id );
+        startDeletingSaleDetail( _id );
+
+        return messageAlert('Venta Eliminada', '', 'success');
     }
     
     return (

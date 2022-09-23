@@ -20,9 +20,13 @@ export const saleCartSlice = createSlice({
     name: 'saleCart',
     initialState: {
         cart: [],
+        ciNit: "",
         total: 0
     },
     reducers: {
+        onCiNitChange: ( state, { payload } ) => {
+            state.ciNit = payload;
+        },
         onAddToCart: ( state, { payload } ) => {
             state.cart.push( payload );
             state.total = Number(state.total) + Number(payload.subtotal);
@@ -63,6 +67,7 @@ export const saleCartSlice = createSlice({
         },
         onClearCart: ( state ) => {
             state.cart = [];
+            state.ciNit = "";
             state.total = 0;
         }
     }
@@ -70,4 +75,4 @@ export const saleCartSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } = saleCartSlice.actions;
+export const { onCiNitChange, onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } = saleCartSlice.actions;
