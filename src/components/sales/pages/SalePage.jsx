@@ -16,14 +16,14 @@ export const SalePage = () => {
     return (
         <>
             <div className="text-center">
-                <h1>SalePage</h1>
+                <h1>Ventas</h1>
             </div>
             {/* <AddNewProd-uct /> */}
             <div className="m-md-auto table-responsive">
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
                         <tr>
-                            <th scope="col">Id</th>
+                            {/* <th scope="col">Id</th> */}
                             <th scope="col">User</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Fecha</th>

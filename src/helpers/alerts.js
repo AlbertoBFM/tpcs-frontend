@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const messageAlert = ( title = "", text = "", icon = "" ) => {
-    return Swal.fire({ position: 'top-end', icon, title, text, showConfirmButton: false, timer: 1500 });
+    return Swal.fire({ position: 'top-end', icon, title, text, showConfirmButton: false, timer: 2000 });
 }
 
 export const queryAlert = async ( title  = "", icon  = "", confirmButtonText  = "", cancelButtonText  = "" ) => {

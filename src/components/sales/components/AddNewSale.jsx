@@ -30,10 +30,7 @@ export const AddNewSale = () => {
             return messageAlert( 'CI / NIT Invalido', 'Debe ingresar de 8 a 10 digitos', 'error' );
 
         if ( ciNitLength === 0 ) {
-            const resp = await queryAlert( 
-                '¿Esta seguro de registrar esta venta sin CI o NIT?', 
-                'warning', 'Si', 'No'
-            );
+            const resp = await queryAlert('¿Esta seguro de registrar esta venta sin CI o NIT?', 'warning', 'Si', 'No');
             if ( !resp ) return;
         }
 

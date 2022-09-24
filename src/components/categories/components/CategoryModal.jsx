@@ -1,22 +1,11 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from 'react-modal';
 
 import { useCategoryStore, useUiStore } from '../../../hooks';
-import { validateName } from '../../../helpers';
-import Swal from 'sweetalert2';
+import { messageAlert, validateName } from '../../../helpers';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
+import Modal from 'react-modal';
+const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', }, };
 Modal.setAppElement('#root');
 
 export const CategoryModal = () => {
@@ -28,16 +17,14 @@ export const CategoryModal = () => {
 
     const _id = watch('_id');
 
-    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
-
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingCategory( data );
         
         if ( resp ) {
-            messageAlert( 'Categoría registrada', 'success' );
-            return closeModal();
+            closeModal();
+            return messageAlert( 'Categoría guardada', '', 'success' );
         }
         
         activeButton( true );

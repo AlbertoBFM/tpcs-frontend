@@ -10,17 +10,14 @@ export const CategoryPage = () => {
     const { startLoadingProducts } = useProductStore();
 
     useEffect(() => {
-      
         startLoadingCategories();
         startLoadingProducts();
-
     }, [])
-    
 
     return (
         <>
             <div className="text-center">
-                <h1>CategoryPage</h1>
+                <h1>Categorías</h1>
             </div>
             <div className="col-md-8 m-md-auto table-responsive">
                 <AddNewCategory />

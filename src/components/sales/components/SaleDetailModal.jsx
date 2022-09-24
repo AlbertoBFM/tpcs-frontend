@@ -1,26 +1,15 @@
-import { useEffect } from 'react';
-import Modal from 'react-modal';
-
 import { useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { SaleDetailRow } from './SaleDetailRow';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
+import Modal from 'react-modal';
+const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', }, };
 Modal.setAppElement('#root');
+
 
 export const SaleDetailModal = () => {
 
     const { isModalOpen, closeModal } = useUiStore();
-    const { activeSale } = useSaleStore();
+    const { activeSale, client } = useSaleStore();
     const { activeSaleDetail, startCleaningSaleDetails } = useSaleDetailStore();
 
     const onCloseModal = () => {
@@ -40,11 +29,12 @@ export const SaleDetailModal = () => {
             <div className="m-3">
                 <h1> Detalle de Venta </h1>
                 <hr />
+                <h5>Cliente: { activeSale?.client || '----' }</h5>
+                <hr />
                 <div className="m-md-auto table-responsive">
                     <table className="table table-striped text-center">
                         <thead className="bg-dark text-white">
                             <tr>
-                                <th scope="col">Id Producto</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Cantidad</th>
@@ -56,7 +46,7 @@ export const SaleDetailModal = () => {
                         </tbody>
                         <tfoot className="bg-dark text-white border-light">
                             <tr>
-                                <td colSpan="3" className="text-end">&nbsp;</td>
+                                <td colSpan="2" className="text-end">&nbsp;</td>
                                 <td><b>Total</b></td>
                                 <td>{ activeSale?.total }</td>
                             </tr>

@@ -1,7 +1,5 @@
+import { messageAlert, queryAlert } from '../../../helpers';
 import { useProviderStore, useProductStore, useUiStore } from '../../../hooks';
-
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const Row = ( provider ) => {
 
@@ -10,49 +8,31 @@ export const Row = ( provider ) => {
 
     const { products } = useProductStore();
 
-    const { _id, name, description, phone, address } = provider;
+    const { name, description, phone, address } = provider;
 
-    const handleUpdate = ( provider ) => { //* Actualizar
+    const handleUpdate = () => { //* Actualizar
         activeButton( true );
         setActiveProvider( provider );
         openModal();
     }
 
-    const handleDelete = ( provider ) => { //* Eliminar
+    const handleDelete = async () => { //* Eliminar
         setActiveProvider( provider );
 
         const searchProductWithProvider = products.find( product => product.provider?._id === provider._id );
-        // console.log(searchProductWithProvider);
-        if ( searchProductWithProvider ) {
-            Swal.fire({
-                icon: 'error',
-                title: `No puedes borrar la categoría "${ provider.name }"`,
-                text: 'Tienes productos registrados en esta Categoría',
-                showConfirmButton: false
-            })
-        }
+        if ( searchProductWithProvider ) 
+            return messageAlert(`No puedes borrar la categoría "${ provider.name }"`, 'Tienes productos registrados con este Proveedor', 'error');
         else{
-            Swal.fire({
-                title: `¿Eliminar la categoría "${ name }"?`, icon: 'warning', showCancelButton: true,
-                confirmButtonColor: '#3085d6', confirmButtonText: 'Eliminar',
-                cancelButtonColor: '#d33', cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        position: 'top-end', icon: 'success', title: 'Categoría Eliminada',
-                        showConfirmButton: false, timer: 1500
-                    })
-                    startDeletingProvider( provider );
-                }
-            })
+            const resp = await queryAlert(`¿Eliminar la categoría "${ name }"?`, 'warning', 'Eliminar', 'Cancelar');
+            if ( !resp ) return;
+
+            startDeletingProvider( provider );
+            return messageAlert('Proveedor Eliminado', '', 'success');
         }
-
-
     }
 
     return (
         <tr>
-            {/* <td scope="row" className="">{ _id }</td> */}
             <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
             <td><b>{ phone }</b></td>
@@ -60,12 +40,12 @@ export const Row = ( provider ) => {
             <td>
                 <div className="btn-group" role="group">
                     <button type="button" className="btn btn-warning"
-                        onClick={ () => handleUpdate( provider ) }
+                        onClick={ handleUpdate }
                     >
                         <i className="fas fa-pen"></i>
                     </button>
                     <button type="button" className="btn btn-danger"
-                        onClick={ () => handleDelete( provider ) }
+                        onClick={ handleDelete }
                     >
                         <i className="fas fa-trash-alt"></i>
                     </button>

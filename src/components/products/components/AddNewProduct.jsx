@@ -1,6 +1,5 @@
 import { useProductStore, useUiStore } from '../../../hooks';
 
-
 export const AddNewProduct = () => {
 
     const { openModal, activeButton } = useUiStore();

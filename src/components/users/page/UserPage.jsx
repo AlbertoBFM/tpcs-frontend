@@ -10,7 +10,7 @@ export const UserPage = () => {
     return (
         <>
             <div className="text-center">
-                <h1>UserPage</h1>
+                <h1>Usuarios</h1>
             </div>
             <div className="col-md-8 m-md-auto table-responsive">
                 <AddNewUser />

@@ -10,17 +10,14 @@ export const ProductPage = () => {
     const { startLoadingAllDetails } = useSaleDetailStore();
 
     useEffect(() => {
-
         startLoadingProducts();
         startLoadingAllDetails();
-
     }, [])
     
-
     return (
         <>
             <div className="text-center">
-                <h1>ProductPage</h1>
+                <h1>Productos</h1>
             </div>
             <AddNewProduct />
             <div className="m-md-auto table-responsive">

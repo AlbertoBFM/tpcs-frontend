@@ -1,23 +1,12 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from 'react-modal';
 
 import { useProviderStore, useUiStore } from '../../../hooks';
-import { validatePhone, validateProductName } from '../../../helpers';
-import Swal from 'sweetalert2';
+import { messageAlert, validatePhone, validateProductName } from '../../../helpers';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
+import Modal from 'react-modal';
 Modal.setAppElement('#root');
+const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', }, };
 
 export const ProviderModal = () => {
 
@@ -28,16 +17,13 @@ export const ProviderModal = () => {
 
     const _id = watch('_id');
 
-    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
-
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingProvider( data );
-        
         if ( resp ) {
-            messageAlert( 'Proveedor registrado', 'success' );
-            return closeModal();
+            closeModal();
+            return messageAlert( 'Proveedor Guardado', '', 'success' );
         }
         
         activeButton( true );

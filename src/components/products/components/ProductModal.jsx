@@ -1,22 +1,11 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from 'react-modal';
 
 import { useCategoryStore, useProductStore, useProviderStore, useUiStore } from '../../../hooks';
-import { validateProductName, validatePurchasePrice, validateRangeOfNumber, validateSalePrice } from '../../../helpers';
-import Swal from 'sweetalert2';
+import { validateProductName, validatePurchasePrice, validateRangeOfNumber, validateSalePrice, messageAlert } from '../../../helpers';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
+import Modal from 'react-modal';
+const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)',}, };
 Modal.setAppElement('#root');
 
 export const ProductModal = () => {
@@ -26,7 +15,7 @@ export const ProductModal = () => {
     const { categories, startLoadingCategories } = useCategoryStore();
     const { providers, startLoadingProviders } = useProviderStore();
 
-    const { register, reset, formState: { errors }, handleSubmit, watch, getValues } = useForm();
+    const { register, reset, formState: { errors }, handleSubmit, watch, } = useForm();
 
     const _id = watch('_id');
 
@@ -36,7 +25,7 @@ export const ProductModal = () => {
     const selectedCategory = watch('category');
     const selectedProvider = watch('provider');
 
-    const selectedElement = ( element ) => { //* Para controlar la categoría seleccionada
+    const selectedElement = ( element ) => { //* Para controlar la categoría y proveedor seleccionados
         return element //? Si ya se selecciono una categoría 
                     ? 
                         element?._id //? Si es un producto para actualizarse
@@ -48,23 +37,21 @@ export const ProductModal = () => {
                         ""
     }
 
-    const messageAlert = ( title, icon ) => Swal.fire({ position: 'top-end', icon, title, showConfirmButton: false, timer: 1500 });
-
     const onSubmit = async ( data ) => {
         activeButton( false );
 
         const resp = await startSavingProduct( data );
 
         if ( resp ) {
-            messageAlert( 'Producto Registrado', 'success' );
-            return closeModal();
+            closeModal();
+            return messageAlert('Producto Guardado', '', 'success');
         }
         
         activeButton( true );
     }
 
     const onCloseModal = () => {
-        closeModal()
+        closeModal();
     };
 
     useEffect(() => {

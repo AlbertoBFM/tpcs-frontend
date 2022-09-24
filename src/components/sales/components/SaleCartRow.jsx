@@ -1,7 +1,5 @@
 import { useProductStore, useSaleCartStore } from "../../../hooks";
-
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { messageAlert } from "../../../helpers";
 
 export const SaleCartRow = ( item ) => {
 
@@ -20,14 +18,7 @@ export const SaleCartRow = ( item ) => {
 
         if ( Number( selectedProduct.stock ) <= Number(quantity) ) {
             startChangeQuantity( item, selectedProduct.stock );
-            Swal.fire({
-                position: 'top-end',
-                icon: 'warning',
-                title: `Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ quantity }`,
-                showConfirmButton: false,
-                timer: 1500
-            })
-            return;
+            return messageAlert(`Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ selectedProduct.stock }`, '', 'warning');
         }
 
         startAddToCart( item );
@@ -46,16 +37,9 @@ export const SaleCartRow = ( item ) => {
 
         const selectedProduct = products.find( product => product._id === _id );
 
-        if ( Number(selectedProduct.stock) < e.target.value ) {
+        if ( Number(selectedProduct.stock) < Number(e.target.value) ) {
             startChangeQuantity( item, selectedProduct.stock );
-            Swal.fire({
-                position: 'top-end',
-                icon: 'warning',
-                title: `Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ selectedProduct.stock }`,
-                showConfirmButton: false,
-                timer: 1500
-            })
-            return;
+            return messageAlert(`Límite de <i>"${ selectedProduct.name }"</i> disponibles ${ selectedProduct.stock }`, '', 'warning'); 
         }
         else if ( e.target.value <= 0 ) {
             startChangeQuantity( item, 1 );
@@ -63,7 +47,6 @@ export const SaleCartRow = ( item ) => {
     };
     return (
         <tr>
-            {/* <td scope="row" className="">{ _id }</td> */}
             <td><b>{ name }</b></td>
             <td>{ salePrice }</td>
             <td>

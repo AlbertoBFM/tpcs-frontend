@@ -1,7 +1,5 @@
 import { useAuthStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
-import { formatDate } from '../../../helpers';
-
-import { messageAlert, queryAlert } from '../../../helpers/alerts';
+import { formatDate, messageAlert, queryAlert } from '../../../helpers';
 
 export const SaleRow = ( sale ) => {
 
@@ -26,7 +24,6 @@ export const SaleRow = ( sale ) => {
 
     const handleDelete = async () => { //* Eliminar
         const resp = await queryAlert('¿Eliminar Venta?', 'warning', 'Eliminar', 'Cancelar');
-        
         if ( !resp ) return;
 
         startDeletingSale( _id );
@@ -37,7 +34,6 @@ export const SaleRow = ( sale ) => {
     
     return (
         <tr>
-            <td scope="row" className="">{ _id }</td>
             <td><b>{ user.name }</b></td>
             <td>{ client || '----' }</td>
             <td><b>{ formatDate( new Date(date) ) }</b></td>
