@@ -1,9 +1,17 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../hooks';
+import { queryAlert } from '../../helpers';
 
 export const Navbar = () => {
 
     const { startLogout, user } = useAuthStore();
+
+    const onClickLogout = async () => {
+        const resp = await queryAlert(`¿Cerrar Sesión?`, 'info', 'Si', 'No');
+        if ( !resp ) return;
+
+        startLogout();
+    }
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -44,10 +52,9 @@ export const Navbar = () => {
                         &nbsp;
                         &nbsp;
                         <button className="btn btn-outline-danger"
-                            onClick={ startLogout }
+                            onClick={ onClickLogout }
                         >
                             <i className="fas fa-sign-out-alt"></i>
-                            {/* <span> Salir</span> */}
                         </button>
                     </div>
                 </div>

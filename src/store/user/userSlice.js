@@ -36,9 +36,13 @@ export const userSlice = createSlice({
             state.users = state.users.filter( user => user._id !== state.activeUser._id );
             state.activeUser = null;
         },
+        onLogoutUser: ( state ) => {
+            state.users = [];
+            state.activeUser = null;
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveUser, onAddNewUser, onDeleteUser } = userSlice.actions;
+export const { onSetActiveUser, onAddNewUser, onDeleteUser, onLogoutUser } = userSlice.actions;
