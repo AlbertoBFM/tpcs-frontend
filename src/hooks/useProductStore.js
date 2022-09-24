@@ -129,8 +129,6 @@ export const useProductStore = () => {
     }
 
     const startUpdateProductStockSubSale = async ( selectedDetails ) => {
-        
-        // console.log('selected: ', selectedDetails );
         selectedDetails.map( saleDetail => {
             dispatch( onUpdateProductStockSubSale( saleDetail ));
         });

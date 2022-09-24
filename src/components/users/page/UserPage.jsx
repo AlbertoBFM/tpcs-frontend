@@ -1,11 +1,18 @@
-import { useUserStore } from '../../../hooks';
+import { useSaleStore, useUserStore } from '../../../hooks';
 import { Row, AddNewUser, UserModal } from '../';
 
 import './style.css';
+import { useEffect } from 'react';
 
 export const UserPage = () => {
 
-    const { users } = useUserStore();
+    const { users, startLoadingUsers } = useUserStore();
+    const { startLoadingSales } = useSaleStore();
+
+    useEffect(() => {
+        startLoadingUsers();
+        startLoadingSales();
+    }, [])
 
     return (
         <>
@@ -17,7 +24,6 @@ export const UserPage = () => {
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
                         <tr>
-                            {/* <th scope="col">Id</th> */}
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
                             <th scope="col">&nbsp;</th>

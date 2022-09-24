@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddNewUser, onDeleteUser, onSetActiveUser } from '../store';
+import { onAddNewUser, onDeleteUser, onLoadUsers, onSetActiveUser } from '../store';
 import { tpcsApi } from '../api';
-import { onChecking, onClearErrorMessage, onLogin, onLogout } from '../store';
+import { onClearErrorMessage, onLogout } from '../store';
 
 export const useUserStore = () => {
 
@@ -16,11 +16,21 @@ export const useUserStore = () => {
         dispatch( onSetActiveUser( user ) );
     }
 
-    const startSavingUser = async ( newUser ) => {
-
+    const startLoadingUsers = async () => {
         try {
+            
+            const { data } = await tpcsApi.get( '/user' );
+            dispatch( onLoadUsers( data.users ) );
 
-            const { data } = await tpcsApi.post( '/auth/new', newUser );
+        } catch (error) {
+            console.log('Error al cargar los Usuarios');
+            console.log( error );
+        }
+    }
+
+    const startSavingUser = async ( newUser ) => {
+        try {
+            const { data } = await tpcsApi.post( '/user/new', newUser );
             const { user } = data;
             console.log( data );
             dispatch( onAddNewUser({ 
@@ -28,22 +38,24 @@ export const useUserStore = () => {
                 name: user.name, 
                 email: user.email 
             }) );
-
+            return true;
         } catch (error) {
-
             console.log(error);
-            dispatch( onLogout('Error al registrar Usuario') );
-            setTimeout(() => {
-               dispatch( onClearErrorMessage() ); 
-            }, 10);
+            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
+            return false;
         }
         
     }
 
-    const startDeletingUser = async () => {
-        // TODO: Backend
-        
-        dispatch( onDeleteUser() );
+    const startDeletingUser = async ( userId ) => {
+        console.log();
+        try {
+            await tpcsApi.delete( `/user/${ userId }` );
+            dispatch( onDeleteUser() );
+        } catch (error) {
+            console.log( error );
+            Swal.fire( 'Error al Eliminar', error.response.data?.msg, 'error' );
+        }
     }
 
     return {
@@ -52,6 +64,7 @@ export const useUserStore = () => {
         activeUser,
         //* Methods
         setActiveUser,
+        startLoadingUsers,
         startSavingUser,
         startDeletingUser,
     }

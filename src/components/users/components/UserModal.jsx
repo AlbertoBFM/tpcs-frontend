@@ -1,32 +1,19 @@
 // import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from 'react-modal';
-
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 import { useUserStore, useUiStore } from '../../../hooks';
-import { validateEmail, validateName, validatePassword } from '../../../helpers';
+import { messageAlert, validateEmail, validateName, validatePassword } from '../../../helpers';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
+import Modal from 'react-modal';
 Modal.setAppElement('#root');
+const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', }, };
 
 export const UserModal = () => {
 
     const { isModalOpen, closeModal, isActiveButton, activeButton } = useUiStore();
-    const { activeUser, startSavingUser } = useUserStore();
+    const { startSavingUser } = useUserStore();
 
-    const { register, reset, formState: { errors }, handleSubmit, watch } = useForm();
+    const { register, formState: { errors }, handleSubmit, watch } = useForm();
 
     const onSubmit = async ( data ) => {
         activeButton( false );
@@ -35,28 +22,20 @@ export const UserModal = () => {
         const confirmPassword = watch('confirmPassword');
 
         if ( password !== confirmPassword ) {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'La contraseña y la confirmación deben ser iguales',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            return activeButton( true );
+            activeButton( true );
+            return messageAlert('La contraseña y la confirmación deben ser iguales', '', 'error');
+        }
+        const resp = await startSavingUser( data );
+
+        if ( resp ) {
+            closeModal();
+            return messageAlert( 'Usuario Guardado', '', 'success' );
         }
 
-        // TODO:
-        await startSavingUser( data );
-        closeModal();
+        activeButton( true );
     }
 
-
     const onCloseModal = () => closeModal();
-
-    // useEffect(() => {
-    //     if ( activeUser !== null ) 
-    //         reset( activeUser );
-    // }, [ activeUser ])
 
     return (
         <Modal

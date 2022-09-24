@@ -21,12 +21,21 @@ const tempUsers = [
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        users: tempUsers,
+        // users: tempUsers,
+        users: [],
+        isLoadingUser: true,
         activeUser: null,
     },
     reducers: {
         onSetActiveUser: ( state, { payload } ) => {
             state.activeUser = payload;
+        },
+        onLoadUsers: ( state, { payload = [] } ) => {
+            state.isLoadingUser = false;
+            payload.forEach( user => {
+                const exists = state.users.some( dbUser => dbUser._id === user._id );
+                if ( !exists ) state.users.push( user );
+            })
         },
         onAddNewUser: ( state, { payload } ) => {
             state.users.push( payload );
@@ -45,4 +54,4 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveUser, onAddNewUser, onDeleteUser, onLogoutUser } = userSlice.actions;
+export const { onSetActiveUser, onLoadUsers, onAddNewUser, onDeleteUser, onLogoutUser } = userSlice.actions;
