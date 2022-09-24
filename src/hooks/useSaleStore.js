@@ -1,12 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
+import { messageAlert } from '../helpers';
 
-import { 
-    onAddNewSale, 
-    onDeleteSale, 
-    onLoadSales, 
-    onSetActiveSale 
-} from '../store';
+import { onAddNewSale, onDeleteSale, onLoadSales, onSetActiveSale } from '../store';
 
 export const useSaleStore = () => {
 
@@ -42,21 +38,19 @@ export const useSaleStore = () => {
                 user,
                 client: ci_nit,
                 date,
-                total 
-                // client: { _id: '321789654', name: 'Juanito Alcachofa' },
+                total
             }));
             console.log({ 
                 _id: data.sale._id, 
                 user,
                 client: ci_nit,
                 date,
-                total 
-                // client: { _id: '321789654', name: 'Juanito Alcachofa' },
+                total
             });
             return data.sale._id;
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Guardar', error.response.data?.msg, 'error' );
         }
     }
 
@@ -67,7 +61,7 @@ export const useSaleStore = () => {
             dispatch( onDeleteSale( saleId ) );
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Eliminar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
         }
     }
 

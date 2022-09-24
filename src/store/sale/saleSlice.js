@@ -32,10 +32,11 @@ export const saleSlice = createSlice({
         },
         onLoadSales: ( state, { payload = [] } ) => {
             state.isLoadingSales = false;
-            payload.forEach( sale => {
-                const exists = state.sales.some( dbSale => dbSale._id === sale._id );
-                if ( !exists ) state.sales.push( sale );
-            })
+            state.sales = payload;
+            // payload.forEach( sale => {
+            //     const exists = state.sales.some( dbSale => dbSale._id === sale._id );
+            //     if ( !exists ) state.sales.push( sale );
+            // })
             state.sales = state.sales.sort( ( a, b ) => new Date( b.date ) - new Date( a.date ) ); //para que ordene desde la fecha mas reciente
         },
         onAddNewSale: ( state, { payload } ) => {

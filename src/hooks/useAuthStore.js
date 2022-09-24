@@ -9,24 +9,19 @@ export const useAuthStore = () => {
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
-
         dispatch( onChecking() );
-
         try {
-
             const { data } = await tpcsApi.post( '/auth', { email, password } );
-            // console.log( data );
+
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
             dispatch( onLogin({ name:  data.name, uid: data.uid, email: data.email }) );
-
         } catch (error) {
             dispatch( onLogout('Datos Incorrectos') );
             setTimeout(() => {
                dispatch( onClearErrorMessage() ); 
             }, 10);
         }
-
     }
 
     const checkAuthToken = async () => {
@@ -34,13 +29,11 @@ export const useAuthStore = () => {
         if ( !token ) return dispatch( onLogout() );
 
         try {
-
             const { data } = await tpcsApi.get('/auth/renew');
-            // console.log( data );
+
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
             dispatch( onLogin({ name:  data.name, uid: data.uid, email: data.email }) );
-
         } catch (error) {
             localStorage.clear();
             dispatch( onLogout() );
@@ -64,7 +57,6 @@ export const useAuthStore = () => {
         status,
         user,
         errorMessage,
-
         //* Methods
         startLogin,
         checkAuthToken,

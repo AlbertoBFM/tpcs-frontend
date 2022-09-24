@@ -26,11 +26,7 @@ export const UserModal = () => {
             return messageAlert('La contraseña y la confirmación deben ser iguales', '', 'error');
         }
         const resp = await startSavingUser( data );
-
-        if ( resp ) {
-            closeModal();
-            return messageAlert( 'Usuario Guardado', '', 'success' );
-        }
+        if ( resp ) return closeModal();
 
         activeButton( true );
     }

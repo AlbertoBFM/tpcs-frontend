@@ -32,10 +32,11 @@ export const userSlice = createSlice({
         },
         onLoadUsers: ( state, { payload = [] } ) => {
             state.isLoadingUser = false;
-            payload.forEach( user => {
-                const exists = state.users.some( dbUser => dbUser._id === user._id );
-                if ( !exists ) state.users.push( user );
-            })
+            state.users = payload;
+            // payload.forEach( user => {
+            //     const exists = state.users.some( dbUser => dbUser._id === user._id );
+            //     if ( !exists ) state.users.push( user );
+            // })
         },
         onAddNewUser: ( state, { payload } ) => {
             state.users.push( payload );

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { tpcsApi } from '../api';
+import { messageAlert } from '../helpers';
 import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders } from '../store';
 
 export const useProviderStore = () => {
@@ -43,7 +44,7 @@ export const useProviderStore = () => {
             return true;
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Guardar', error.response.data?.msg, 'error' );
             return false;
         }
     }
@@ -54,7 +55,7 @@ export const useProviderStore = () => {
             dispatch( onDeleteProvider() );
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Eliminar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
         }
         
     }

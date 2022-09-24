@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { onAddNewUser, onDeleteUser, onLoadUsers, onSetActiveUser } from '../store';
 import { tpcsApi } from '../api';
-import { onClearErrorMessage, onLogout } from '../store';
+import { messageAlert } from '../helpers';
 
 export const useUserStore = () => {
 
@@ -38,10 +38,11 @@ export const useUserStore = () => {
                 name: user.name, 
                 email: user.email 
             }) );
+            messageAlert( 'Usuario Guardado', '', 'success' );
             return true;
         } catch (error) {
             console.log(error);
-            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Guardar', error.response.data?.msg, 'error' );
             return false;
         }
         
@@ -52,9 +53,10 @@ export const useUserStore = () => {
         try {
             await tpcsApi.delete( `/user/${ userId }` );
             dispatch( onDeleteUser() );
+            messageAlert('Usuario Eliminado', '', 'success');
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Eliminar', error.response.data?.msg, 'error' );
+            messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
         }
     }
 

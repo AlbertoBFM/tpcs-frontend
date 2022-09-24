@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { tpcsApi } from '../api';
+import { messageAlert } from '../helpers';
 import { onAddNewCategory, onDeleteCategory, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';
 
 export const useCategoryStore = () => {
@@ -44,7 +45,7 @@ export const useCategoryStore = () => {
             return true;
         } catch (error) {
             console.log( error );
-            Swal.fire( 'Error al Guardar', error.response.data?.msg, 'error' );
+            messageAlert('Error al Guardar', error.response.data?.msg, 'error');
             return false;
         }
     }
@@ -57,7 +58,7 @@ export const useCategoryStore = () => {
             return;
         } catch (error) {
             console.log( error );
-            Swal.fire('Error al eliminar', error.response.data.msg, 'error');
+            messageAlert('Error al eliminar', error.response.data?.msg, 'error');
         }
     }
 

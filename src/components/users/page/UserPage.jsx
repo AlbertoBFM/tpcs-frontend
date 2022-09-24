@@ -10,6 +10,7 @@ export const UserPage = () => {
     const { startLoadingSales } = useSaleStore();
 
     useEffect(() => {
+        console.log('hola');
         startLoadingUsers();
         startLoadingSales();
     }, [])

@@ -20,8 +20,6 @@ export const Row = ( user ) => {
             if ( !resp ) return;
 
             startDeletingUser( _id );
-
-            return messageAlert('Usuario Eliminado', '', 'success');
         }
     }
 

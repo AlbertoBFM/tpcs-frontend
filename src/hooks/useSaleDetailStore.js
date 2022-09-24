@@ -91,15 +91,12 @@ export const useSaleDetailStore = () => {
     const startDeletingSaleDetail = async ( saleId ) => {
         
         try {
-
             const { data } = await tpcsApi.get( `/saleDetail/${ saleId }` );
             const { saleDetails } = data;
 
             saleDetails.map( async ( item ) => {
                 await tpcsApi.delete( `/saleDetail/${ item._id }` );
             });
-            // const selectedDetails = saleDetails.filter( detail => detail.sale._id === saleId );
-            // dispatch( onDeleteSaleDetail( saleId ) );
             startUpdateProductStockSubSale( saleDetails );
         } catch (error) {
             console.log('Error al Eliminar los Detalles de la Venta');
