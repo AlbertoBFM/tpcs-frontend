@@ -1,8 +1,9 @@
-import { useProductStore, useSaleCartStore, useSaleDetailStore, useUiStore } from '../../../hooks';
+import { useAuthStore, useProductStore, useSaleCartStore, useSaleDetailStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers';
 
 export const Row = ( product ) => {
 
+    const { user } = useAuthStore();
     const { openModal, activeButton } = useUiStore();
     const { setActiveProduct, startDeletingProduct } = useProductStore();
     const { saleDetails } = useSaleDetailStore();
@@ -20,12 +21,8 @@ export const Row = ( product ) => {
         setActiveProduct( product );
 
         const searchDetailWithProduct = saleDetails.find( saleDetail => saleDetail.product._id === product._id );
-        if ( searchDetailWithProduct ) {
-            return messageAlert(
-                `No puede borrar el producto "${ product.name }"`, 
-                'Tiene Ventas registradas con este Producto', 'error'
-            );
-        }
+        if ( searchDetailWithProduct )
+            return messageAlert(`No puede borrar el producto "${ product.name }"`, 'Tiene Ventas registradas con este Producto', 'error');
         else{
             const resp = await queryAlert(`¿Eliminar el producto "${ name }"?`, 'warning', 'Eliminar', 'Cancelar');            
             if ( !resp ) return;
@@ -39,14 +36,11 @@ export const Row = ( product ) => {
     const handleAddToCart = () => {
         const selectedCartProduct = cart.find( item => item._id === _id );
         if ( selectedCartProduct ) {
-
             if ( Number( stock ) <= Number( selectedCartProduct.quantity ) ) {
                 startChangeQuantity( product, stock );
                 return messageAlert(`Límite de <i>"${ selectedCartProduct.name }"</i> disponibles ${ stock }`, '', 'warning');
             }
-            
         }
-
         startAddToCart( product );
     }
 
@@ -55,22 +49,29 @@ export const Row = ( product ) => {
             <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
             <td><b>{ stock }</b></td>
-            <td>{ purchasePrice }</td>
+            {user.userType === 'admin' && <td>{ purchasePrice }</td>}
             <td><b>{ salePrice }</b></td>
             <td>{ category?.name }</td>
             <td><b>{ provider?.name }</b></td>
             <td>
                 <div className="btn-group" role="group">
-                    <button type="button" className="btn btn-warning"
-                        onClick={ handleUpdate }
-                    >
-                        <i className="fas fa-pen"></i>
-                    </button>
-                    <button type="button" className="btn btn-danger"
-                        onClick={ handleDelete }
-                    >
-                        <i className="fas fa-trash-alt"></i>
-                    </button>
+                    {
+                        user.userType === 'admin' 
+                        && 
+                        <>
+                            <button type="button" className="btn btn-warning"
+                            onClick={ handleUpdate }
+                            >
+                                <i className="fas fa-pen"></i>
+                            </button>
+                            <button type="button" className="btn btn-danger"
+                                onClick={ handleDelete }
+                            >
+                                <i className="fas fa-trash-alt"></i>
+                            </button>
+                        </>
+                        
+                    }
                 &nbsp;
                 &nbsp;
                     <button type="button" className="btn btn-primary"

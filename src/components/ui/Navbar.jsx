@@ -37,15 +37,19 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/providers">Proveedores</Link>
                         </li>
+                        {
+                            user.userType === 'admin' 
+                            && 
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/users">Usuarios</Link>
+                            </li>
+                        }
                         {/* <li className="nav-item">
                             <Link className="nav-link" to="/repairs">Reparaciones</Link>
                         </li> */}
                         {/* <li className="nav-item">
                             <Link className="nav-link" to="/clients">Clientes</Link>
                         </li> */}
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/users">Usuarios</Link>
-                        </li>
                     </ul>
                     <div>
                         <span className="text-white">{ user.name }</span>

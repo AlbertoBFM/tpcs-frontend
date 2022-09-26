@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import { useProductStore, useProviderStore } from '../../../hooks';
+import { useAuthStore, useProductStore, useProviderStore } from '../../../hooks';
 import { Row, AddNewProvider, ProviderModal } from '../';
 
 import './style.css';
 
 export const ProviderPage = () => {
 
-    const { providers, startLoadingProviders } = useProviderStore();
+    const { user } = useAuthStore();
     const { startLoadingProducts } = useProductStore();
+    const { providers, startLoadingProviders } = useProviderStore();
 
     useEffect(() => {
 
@@ -22,7 +23,7 @@ export const ProviderPage = () => {
             <div className="text-center">
                 <h1>Proveedores</h1>
             </div>
-            <AddNewProvider />
+            {user.userType === 'admin' && <AddNewProvider />}
             <div className="m-md-auto table-responsive">
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
@@ -31,7 +32,7 @@ export const ProviderPage = () => {
                             <th scope="col">Descripción</th>
                             <th scope="col">Celular</th>
                             <th scope="col">Dirección</th>
-                            <th scope="col">&nbsp;</th>
+                            {user.userType === 'admin' && <th scope="col">&nbsp;</th>}
                         </tr>
                     </thead>
                     <tbody>

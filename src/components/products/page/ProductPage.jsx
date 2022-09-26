@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { AddNewProduct, Row, ProductModal } from '../';
-import { useProductStore, useSaleDetailStore } from '../../../hooks';
+import { useAuthStore, useProductStore, useSaleDetailStore } from '../../../hooks';
 
 import './style.css';
 
 export const ProductPage = () => {
 
+    const { user } = useAuthStore();
     const { products, startLoadingProducts } = useProductStore();
     const { startLoadingAllDetails } = useSaleDetailStore();
 
@@ -19,16 +20,15 @@ export const ProductPage = () => {
             <div className="text-center">
                 <h1>Productos</h1>
             </div>
-            <AddNewProduct />
+            {user.userType === 'admin' && <AddNewProduct />}
             <div className="m-md-auto table-responsive">
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
                         <tr>
-                            {/* <th scope="col">Id</th> */}
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Stock</th>
-                            <th scope="col">Precio de Compra</th>
+                            {user.userType === 'admin' && <th scope="col">Precio de Compra</th>}
                             <th scope="col">Precio de Venta</th>
                             <th scope="col">Categoría</th>
                             <th scope="col">Proveedor</th>

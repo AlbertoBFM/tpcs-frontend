@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { useCategoryStore, useProductStore } from '../../../hooks';
+import { useAuthStore, useCategoryStore, useProductStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 
 import './style.css';
 
 export const CategoryPage = () => {
 
+    const { user } = useAuthStore();
     const { categories, startLoadingCategories } = useCategoryStore();
     const { startLoadingProducts } = useProductStore();
 
@@ -20,14 +21,13 @@ export const CategoryPage = () => {
                 <h1>Categorías</h1>
             </div>
             <div className="col-md-8 m-md-auto table-responsive">
-                <AddNewCategory />
+                {user.userType === 'admin' && <AddNewCategory />}
                 <table className="table table-striped text-center">
                     <thead className="bg-dark text-white">
                         <tr>
-                            {/* <th scope="col">Id</th> */}
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">&nbsp;</th>
+                            {user.userType === 'admin' && <th scope="col">&nbsp;</th>}
                         </tr>
                     </thead>
                     <tbody>

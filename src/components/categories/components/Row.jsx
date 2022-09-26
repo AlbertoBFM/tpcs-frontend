@@ -1,14 +1,14 @@
-import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
+import { useAuthStore, useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers';
 
 export const Row = ( category ) => {
 
+    const { name, description } = category;
+
+    const { user } = useAuthStore();
     const { openModal, activeButton } = useUiStore();
     const { setActiveCategory, startDeletingCategory } = useCategoryStore();
-
     const { products } = useProductStore();
-
-    const { name, description } = category;
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
@@ -40,20 +40,26 @@ export const Row = ( category ) => {
         <tr>
             <td><b>{ name.toUpperCase() }</b></td>
             <td>{ description }</td>
-            <td>
-                <div className="btn-group" role="group">
-                    <button type="button" className="btn btn-warning"
-                        onClick={ handleUpdate }
-                    >
-                        <i className="fas fa-pen"></i>
-                    </button>
-                    <button type="button" className="btn btn-danger"
-                        onClick={ handleDelete }
-                    >
-                        <i className="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            </td>
+            {
+                user.userType === 'admin' 
+                && 
+                <>
+                    <td>
+                        <div className="btn-group" role="group">
+                            <button type="button" className="btn btn-warning"
+                                onClick={ handleUpdate }
+                            >
+                                <i className="fas fa-pen"></i>
+                            </button>
+                            <button type="button" className="btn btn-danger"
+                                onClick={ handleDelete }
+                            >
+                                <i className="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </>
+            }
         </tr>
     )
     
