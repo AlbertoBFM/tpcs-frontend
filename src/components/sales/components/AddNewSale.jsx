@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 
-import { useSaleCartStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
+import { useProductStore, useSaleCartStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers/alerts';
 
 export const AddNewSale = () => {
 
     const { activeButton, isActiveButton, closeCartModal } = useUiStore();
-
-    const { startSavingSale } = useSaleStore();
+    const { startLoadingProducts } = useProductStore();
+    const { startSavingSale, startProductStockValidation } = useSaleStore();
     const { startSavingSaleDetail } = useSaleDetailStore();
-
     const { cart, ciNit, total, startCiNitChange, startClearCart } = useSaleCartStore();
 
     const handleInputChange = ( e ) => {
         const value = Number( e.target.value );
-        if ( isNaN( value ) ) 
-            return "";
+        if ( isNaN( value ) ) return "";
 
         if ( value === 0 )
             startCiNitChange( "" );
@@ -24,8 +22,11 @@ export const AddNewSale = () => {
     }
 
     const handleClickNew = async () => {
+
+        const resp = await startProductStockValidation( cart );
+        if ( !resp ) return;
+
         const ciNitLength = ciNit.toString().trim().length;
-        
         if ( ( ciNitLength >= 1 && ciNitLength <= 7 ) || ciNitLength > 10  ) 
             return messageAlert( 'CI / NIT Invalido', 'Debe ingresar de 8 a 10 digitos', 'error' );
 
@@ -36,6 +37,7 @@ export const AddNewSale = () => {
 
         const idVenta = await startSavingSale( total, ciNit );
         await startSavingSaleDetail( cart, idVenta );
+        await startLoadingProducts();
 
         startClearCart();
         activeButton( false );

@@ -55,41 +55,38 @@ export const useSaleDetailStore = () => {
         }
     }
 
+    const savingDetail = async ( item, idVenta ) => {
+        const { data } = await tpcsApi.post( 
+            '/saleDetail', { 
+                sale: idVenta, 
+                product: item._id,
+                quantity: item.quantity,
+                subtotal: item.subtotal
+            } 
+        );
+        dispatch( onAddNewSaleDetail({
+            _id: data.saleDetail._id,
+            sale: { _id: idVenta },
+            product:  { _id: item._id, name: item.name, salePrice: item.salePrice },
+            quantity: item.quantity,
+            subtotal: item.subtotal
+        }));
+        // console.log('Item -> ', item);
+    }
 
     const startSavingSaleDetail = async ( cart, idVenta ) => {
+        //* Create 
+        const promises = cart.map( item => savingDetail( item, idVenta ) );
         try {
-            //* Create 
-            cart.map( async ( item ) => {
-    
-                const { data } = await tpcsApi.post( 
-                    '/saleDetail', { 
-                        sale: idVenta, 
-                        product: item._id,
-                        quantity: item.quantity,
-                        subtotal: item.subtotal
-                    } 
-    
-                );
-    
-                dispatch( onAddNewSaleDetail({
-                    _id: data.saleDetail._id,
-                    sale: { _id: idVenta },
-                    product:  { _id: item._id, name: item.name, salePrice: item.salePrice },
-                    quantity: item.quantity,
-                    subtotal: item.subtotal
-                }));
-                
-            });
-    
+            await Promise.all( promises );
             await startUpdateProductStockAddSale( cart );
         } catch (error) {
-            console.log('Error al Guardar los Detalles de la Venta');
+            messageAlert( error.response.data?.msg, '', 'error' );
             console.log( error );
         }
     }
 
     const startDeletingSaleDetail = async ( saleId ) => {
-        
         try {
             const { data } = await tpcsApi.get( `/saleDetail/${ saleId }` );
             const { saleDetails } = data;
@@ -102,7 +99,6 @@ export const useSaleDetailStore = () => {
             console.log('Error al Eliminar los Detalles de la Venta');
             console.log( error );
         }
-
     }
 
     return {

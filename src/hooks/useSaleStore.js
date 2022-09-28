@@ -26,6 +26,22 @@ export const useSaleStore = () => {
             console.log( error );
         }
     }
+    
+    const validateStock = async ( item ) => {
+        await tpcsApi.post( '/sale/validateStock', { _id: item._id, quantity: item.quantity } );
+        // console.log( 'item -> ', item );
+    }
+
+    const startProductStockValidation = async ( cart ) => {
+        const promises = cart.map( item => validateStock( item ) );
+        try {
+            await Promise.all( promises );
+            return true;
+        } catch (error) {
+            messageAlert( error.response.data?.msg, '', 'error' );
+            return false;
+        }
+    }
 
     const startSavingSale = async ( total, ci_nit ) => {
         try {
@@ -40,13 +56,6 @@ export const useSaleStore = () => {
                 date,
                 total
             }));
-            console.log({ 
-                _id: data.sale._id, 
-                user,
-                client: ci_nit,
-                date,
-                total
-            });
             return data.sale._id;
         } catch (error) {
             console.log( error );
@@ -72,6 +81,7 @@ export const useSaleStore = () => {
         //* Methods
         setActiveSale,
         startLoadingSales,
+        startProductStockValidation,
         startSavingSale,
         startDeletingSale,
     }
