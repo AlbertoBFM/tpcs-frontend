@@ -38,10 +38,11 @@ export const providerSlice = createSlice({
         },
         onLoadProviders: ( state, { payload = [] } ) => {
             state.isLoadingProviders = false;
-            payload.forEach( provider => {
-                const exists = state.providers.some( dbProvider => dbProvider._id === provider._id );
-                if ( !exists ) state.providers.push( provider );
-            })
+            state.providers = payload;
+            // payload.forEach( provider => {
+            //     const exists = state.providers.some( dbProvider => dbProvider._id === provider._id );
+            //     if ( !exists ) state.providers.push( provider );
+            // })
         },
         onAddNewProvider: ( state, { payload } ) => {
             state.providers.push( payload );

@@ -27,7 +27,8 @@ export const Row = ( product ) => {
             const resp = await queryAlert(`¿Eliminar el producto "${ name }"?`, 'warning', 'Eliminar', 'Cancelar');            
             if ( !resp ) return;
 
-            startDeletingProduct( product );
+            const ok = await startDeletingProduct( product );
+            if ( !ok ) return;
 
             return messageAlert('Producto Eliminado', '','success');
         }

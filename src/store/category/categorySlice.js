@@ -32,11 +32,11 @@ export const categorySlice = createSlice({
         },
         onLoadCategories: ( state, { payload = [] } ) => {
             state.isLoadingCategories = false;
-            payload.forEach( category => {
-                const exists = state.categories.some( dbCategory => dbCategory._id === category._id );
-                if ( !exists ) state.categories.push( category );
-            })
-            // state.categories = payload;
+            state.categories = payload;
+            // payload.forEach( category => {
+            //     const exists = state.categories.some( dbCategory => dbCategory._id === category._id );
+            //     if ( !exists ) state.categories.push( category );
+            // })
         },
         onAddNewCategory: ( state, { payload } ) => {
             state.categories.push( payload );

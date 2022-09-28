@@ -17,7 +17,6 @@ export const useSaleStore = () => {
 
     const startLoadingSales = async () => {
         try {
-            
             const { data } = await tpcsApi.get( '/sale' );
             dispatch( onLoadSales( data.sales ) );
 
@@ -28,8 +27,7 @@ export const useSaleStore = () => {
     }
     
     const validateStock = async ( item ) => {
-        await tpcsApi.post( '/sale/validateStock', { _id: item._id, quantity: item.quantity } );
-        // console.log( 'item -> ', item );
+        await tpcsApi.post('/sale/validateStock', { _id: item._id, quantity: item.quantity });
     }
 
     const startProductStockValidation = async ( cart ) => {
@@ -47,8 +45,8 @@ export const useSaleStore = () => {
         try {
             //* Create
             const date = new Date().getTime();
-            const { data } = await tpcsApi.post( '/sale', { client: ci_nit, date, total } );
-            console.log( data );
+            const { data } = await tpcsApi.post('/sale', { client: ci_nit, date, total });
+
             dispatch( onAddNewSale({ 
                 _id: data.sale._id, 
                 user,
@@ -66,7 +64,6 @@ export const useSaleStore = () => {
     const startDeletingSale = async ( saleId ) => {
         try {
             await tpcsApi.delete( `/sale/${ saleId }` );
-
             dispatch( onDeleteSale( saleId ) );
         } catch (error) {
             console.log( error );

@@ -117,9 +117,11 @@ export const useProductStore = () => {
         try {
             await tpcsApi.delete( `/product/${ product._id }` );
             dispatch( onDeleteProduct() );
+            return true;
         } catch (error) {
             console.log( error );
             messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
+            return false;
         }
     }
 
