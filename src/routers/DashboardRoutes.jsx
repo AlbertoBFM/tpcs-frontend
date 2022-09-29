@@ -1,7 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { MyNavbar } from '../components/ui/MyNavbar';
+import { Container } from 'reactstrap';
 
+import { MyNavbar } from '../components/ui/MyNavbar';
 import { IntroPage } from '../components/intro/IntroPage';
 import { FabCart, SaleCartModal, SalePage } from '../components/sales';
 import { ProductPage } from '../components/products';
@@ -9,7 +10,6 @@ import { UserPage } from '../components/users';
 import { CategoryPage } from '../components/categories';
 import { ProviderPage } from '../components/providers';
 import { useAuthStore } from '../hooks';
-
 
 export const DashboardRoutes = () => {
 
@@ -20,7 +20,7 @@ export const DashboardRoutes = () => {
             <MyNavbar />
             <FabCart />
             <SaleCartModal />
-            <div className="container mt-3">
+            <Container fluid style={{ width: "90%", marginTop: "20px" }}>
                 <Routes>
                     <Route
                         path="/"
@@ -55,7 +55,7 @@ export const DashboardRoutes = () => {
                         element={ <Navigate to="/" /> }
                     />
                 </Routes>
-            </div>
+            </Container>
         </>
     )
 }
