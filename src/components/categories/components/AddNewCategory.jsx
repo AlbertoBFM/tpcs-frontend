@@ -1,3 +1,4 @@
+import { Button } from 'reactstrap';
 import { useCategoryStore, useUiStore } from '../../../hooks';
 
 
@@ -17,11 +18,9 @@ export const AddNewCategory = () => {
     
     return (
         <div className="d-flex justify-content-md-end justify-content-center">
-            <button className="btn btn-dark m-3"
-                onClick={ handleClickNew }
-            >
-                <i className="fas fa-solid fa-plus"></i> Nueva Categoría
-            </button>
+            <Button onClick={ handleClickNew } color="dark" className="m-3">
+                <i className="fas fa-solid fa-plus"></i> &nbsp; Nueva Categoría
+            </Button>
         </div>
     )
 

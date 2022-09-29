@@ -20,7 +20,7 @@ export const DashboardRoutes = () => {
             <MyNavbar />
             <FabCart />
             <SaleCartModal />
-            <Container fluid style={{ width: "90%", marginTop: "20px" }}>
+            <Container fluid style={{ paddingTop: "20px" }}>
                 <Routes>
                     <Route
                         path="/"

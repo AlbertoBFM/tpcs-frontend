@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from 'reactstrap';
 import { useAuthStore, useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers';
 
@@ -45,18 +46,14 @@ export const Row = ( category ) => {
                 && 
                 <>
                     <td>
-                        <div className="btn-group" role="group">
-                            <button type="button" className="btn btn-warning"
-                                onClick={ handleUpdate }
-                            >
+                        <ButtonGroup>
+                            <Button onClick={ handleUpdate } color="warning">
                                 <i className="fas fa-pen"></i>
-                            </button>
-                            <button type="button" className="btn btn-danger"
-                                onClick={ handleDelete }
-                            >
+                            </Button>
+                            <Button onClick={ handleDelete } color="danger">
                                 <i className="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
+                            </Button>
+                        </ButtonGroup>
                     </td>
                 </>
             }
