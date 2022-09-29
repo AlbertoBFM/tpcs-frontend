@@ -16,7 +16,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">TPCS</Link>
+                <Link className="navbar-brand" to="/">Reactstrap</Link>
                 <button 
                     className="navbar-toggler" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
