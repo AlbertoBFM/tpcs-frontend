@@ -1,14 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Navbar } from '../components/ui/Navbar';
+import { MyNavbar } from '../components/ui/MyNavbar';
 
 import { IntroPage } from '../components/intro/IntroPage';
 import { FabCart, SaleCartModal, SalePage } from '../components/sales';
 import { ProductPage } from '../components/products';
-// import { RepairPage } from '../components/repairs/RepairPage';
 import { UserPage } from '../components/users';
 import { CategoryPage } from '../components/categories';
-// import { ClientPage } from '../components/clients/ClientPage';
 import { ProviderPage } from '../components/providers';
 import { useAuthStore } from '../hooks';
 
@@ -19,7 +17,7 @@ export const DashboardRoutes = () => {
 
     return (
         <>
-            <Navbar />
+            <MyNavbar />
             <FabCart />
             <SaleCartModal />
             <div className="container mt-3">
@@ -56,14 +54,6 @@ export const DashboardRoutes = () => {
                         path="/*"
                         element={ <Navigate to="/" /> }
                     />
-                    {/* <Route
-                        path="/repairs"
-                        element={ <RepairPage /> }
-                    />
-                    <Route
-                        path="/clients"
-                        element={ <ClientPage /> }
-                    /> */}
                 </Routes>
             </div>
         </>
