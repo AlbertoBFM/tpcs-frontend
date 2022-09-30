@@ -1,31 +1,27 @@
 import { useEffect } from 'react';
+import { Table } from 'reactstrap';
 import { useAuthStore, useProductStore, useProviderStore } from '../../../hooks';
 import { Row, AddNewProvider, ProviderModal } from '../';
-
 import './style.css';
 
 export const ProviderPage = () => {
-
     const { user } = useAuthStore();
     const { startLoadingProducts } = useProductStore();
     const { providers, startLoadingProviders } = useProviderStore();
 
     useEffect(() => {
-
         startLoadingProviders();
         startLoadingProducts();
-
     }, [])
-    
 
     return (
         <>
             <div className="text-center">
                 <h1>Proveedores</h1>
             </div>
-            {user.userType === 'admin' && <AddNewProvider />}
-            <div className="m-md-auto table-responsive">
-                <table className="table table-striped text-center">
+            <div className="col-md-8 m-md-auto">
+                {user.userType === 'admin' && <AddNewProvider />}
+                <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
                             <th scope="col">Nombre</th>
@@ -38,7 +34,7 @@ export const ProviderPage = () => {
                     <tbody>
                         { providers.map( provider => (<Row key={ provider._id } { ...provider } />) ) }
                     </tbody>
-                </table>
+                </Table>
             </div>
             <ProviderModal />
         </>

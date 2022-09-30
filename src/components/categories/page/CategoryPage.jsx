@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
-
 import { useAuthStore, useCategoryStore, useProductStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 import './style.css';
@@ -20,7 +19,6 @@ export const CategoryPage = () => {
             <div className="text-center">
                 <h1>Categorías</h1>
             </div>
-
             <div className="col-md-8 m-md-auto">
                 {user.userType === 'admin' && <AddNewCategory />}
                 <Table responsive striped className="text-center">
@@ -36,7 +34,6 @@ export const CategoryPage = () => {
                     </tbody>
                 </Table>
             </div>
-
             <CategoryModal />
         </>
     )

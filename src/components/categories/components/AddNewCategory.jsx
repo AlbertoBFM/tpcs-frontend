@@ -1,17 +1,12 @@
 import { Button } from 'reactstrap';
 import { useCategoryStore, useUiStore } from '../../../hooks';
 
-
 export const AddNewCategory = () => {
-
-    const { openModal, activeButton, toggleModal } = useUiStore();
+    const { activeButton, toggleModal } = useUiStore();
     const { setActiveCategory } = useCategoryStore();
 
     const handleClickNew = () => {
-        setActiveCategory({
-            name: '',
-            description: '',
-        });
+        setActiveCategory({name: '',description: ''});
         activeButton( true );
         toggleModal();
     }
@@ -23,5 +18,4 @@ export const AddNewCategory = () => {
             </Button>
         </div>
     )
-
 }

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { useForm } from 'react-hook-form';
-
 import { useCategoryStore, useUiStore } from '../../../hooks';
 import { messageAlert, validateName } from '../../../helpers';
 
@@ -33,9 +32,7 @@ export const CategoryModal = () => {
     return (
         <Modal centered fullscreen="md" isOpen={ isModalOpen } toggle={ toggleModal }>
             <Form onSubmit={ handleSubmit( onSubmit ) }>
-                <ModalHeader toggle={ toggleModal }>
-                    { !_id ? 'Nueva Categoría' : 'Actualizar Categoría' }
-                </ModalHeader>
+                <ModalHeader toggle={ toggleModal }>{ !_id ? 'Nueva Categoría' : 'Actualizar Categoría' }</ModalHeader>
                 <ModalBody>
                     <FormGroup>
                         <Label for="name">Nombre de Categoría</Label>
@@ -49,7 +46,7 @@ export const CategoryModal = () => {
                         <Label for="description">Descripción</Label>
                         <Input 
                             className="form-control" id="description" type="textarea" placeholder="Datos Adicionales..." rows="5"
-                            innerRef={ description }    { ...descriptionRest }
+                            innerRef={ description } { ...descriptionRest }
                         />
                     </FormGroup>
                 </ModalBody>

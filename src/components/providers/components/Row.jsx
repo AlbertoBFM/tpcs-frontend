@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from 'reactstrap';
 import { messageAlert, queryAlert } from '../../../helpers';
 import { useProviderStore, useProductStore, useUiStore, useAuthStore } from '../../../hooks';
 
@@ -6,14 +7,14 @@ export const Row = ( provider ) => {
     const { name, description, phone, address } = provider;
 
     const { user } = useAuthStore();
-    const { openModal, activeButton } = useUiStore();
+    const { toggleModal, activeButton } = useUiStore();
     const { setActiveProvider, startDeletingProvider } = useProviderStore();
     const { products } = useProductStore();
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
         setActiveProvider( provider );
-        openModal();
+        toggleModal();
     }
 
     const handleDelete = async () => { //* Eliminar
@@ -42,18 +43,14 @@ export const Row = ( provider ) => {
                 && 
                 <>
                     <td>
-                        <div className="btn-group" role="group">
-                            <button type="button" className="btn btn-warning"
-                                onClick={ handleUpdate }
-                            >
+                        <ButtonGroup>
+                            <Button onClick={ handleUpdate } color="warning">
                                 <i className="fas fa-pen"></i>
-                            </button>
-                            <button type="button" className="btn btn-danger"
-                                onClick={ handleDelete }
-                            >
+                            </Button>
+                            <Button onClick={ handleDelete } color="danger">
                                 <i className="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
+                            </Button>
+                        </ButtonGroup>
                     </td>
                 </>
             }

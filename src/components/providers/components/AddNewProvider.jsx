@@ -1,30 +1,21 @@
+import { Button } from 'reactstrap';
 import { useProviderStore, useUiStore } from '../../../hooks';
 
-
 export const AddNewProvider = () => {
-
-    const { openModal, activeButton } = useUiStore();
+    const { toggleModal, activeButton } = useUiStore();
     const { setActiveProvider } = useProviderStore();
 
     const handleClickNew = () => {
-        setActiveProvider({
-            name: '',
-            description: '',
-            phone: '',
-            address: ''
-        });
+        setActiveProvider({name: '', description: '', phone: '', address: ''});
         activeButton( true );
-        openModal();
+        toggleModal();
     }
     
     return (
         <div className="d-flex justify-content-md-end justify-content-center">
-            <button className="btn btn-dark m-3"
-                onClick={ handleClickNew }
-            >
-                <i className="fas fa-solid fa-plus"></i> Nuevo Proveedor
-            </button>
+            <Button onClick={ handleClickNew } color="dark" className="m-3">
+                <i className="fas fa-solid fa-plus"></i> &nbsp; Nuevo Proveedor
+            </Button>
         </div>
     )
-
 }

@@ -7,26 +7,22 @@ export const Row = ( category ) => {
     const { name, description } = category;
 
     const { user } = useAuthStore();
-    const { openModal, activeButton } = useUiStore();
+    const { toggleModal, activeButton } = useUiStore();
     const { setActiveCategory, startDeletingCategory } = useCategoryStore();
     const { products } = useProductStore();
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
         setActiveCategory( category );
-        openModal();
+        toggleModal();
     }
 
     const handleDelete = async () => { //* Eliminar
         setActiveCategory( category );
 
         const searchProductWithCategory = products.find( product => product.category?._id === category._id );
-        if ( searchProductWithCategory ) {
-            return messageAlert(
-                `No puedes borrar la categoría "${ category.name }"`, 
-                'Tienes productos registrados en esta Categoría', 'error'
-            );
-        }
+        if ( searchProductWithCategory ) 
+            return messageAlert(`No puedes borrar la categoría "${ category.name }"`, 'Tienes productos registrados en esta Categoría', 'error');
         else{
             const resp = await queryAlert(`¿Eliminar la categoría "${ name }"?`, 'warning', 'Eliminar', 'Cancelar');
             if ( !resp ) return;
