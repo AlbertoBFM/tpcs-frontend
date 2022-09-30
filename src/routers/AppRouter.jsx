@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { LoginPage } from '../components/auth';
 import { useAuthStore } from '../hooks';
 import { DashboardRoutes } from './DashboardRoutes';
-
+import '../styles.css';
 
 export const AppRouter = () => {
     
@@ -15,14 +15,10 @@ export const AppRouter = () => {
 
     }, [])
     
-
     if ( status === 'checking' )
         return (
             <h3>Cargandoooooo...</h3>
         )
-
-    // const authStatus = 'authenticated';
-    // const authStatus = 'not-authenticated';
 
     return (
         <Routes>
