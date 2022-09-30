@@ -19,6 +19,12 @@ export const useUiStore = () => {
         dispatch( onCloseModal() );
     }
 
+    const toggleModal = () => {
+        ( !isModalOpen )
+            ? openModal()
+            : closeModal();
+    }
+
     const openCartModal = () => {
         dispatch( onOpenCartModal() );
     }
@@ -39,6 +45,7 @@ export const useUiStore = () => {
         //* Methods
         openCartModal,
         closeCartModal,
+        toggleModal,
         openModal,
         closeModal,
         activeButton,

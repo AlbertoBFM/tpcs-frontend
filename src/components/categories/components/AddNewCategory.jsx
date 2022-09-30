@@ -4,7 +4,7 @@ import { useCategoryStore, useUiStore } from '../../../hooks';
 
 export const AddNewCategory = () => {
 
-    const { openModal, activeButton } = useUiStore();
+    const { openModal, activeButton, toggleModal } = useUiStore();
     const { setActiveCategory } = useCategoryStore();
 
     const handleClickNew = () => {
@@ -13,7 +13,7 @@ export const AddNewCategory = () => {
             description: '',
         });
         activeButton( true );
-        openModal();
+        toggleModal();
     }
     
     return (
