@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-
+import { Button, Label, Input } from 'reactstrap';
 import { useProductStore, useSaleCartStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers/alerts';
 
 export const AddNewSale = () => {
-
     const { activeButton, isActiveButton, closeCartModal } = useUiStore();
     const { startLoadingProducts } = useProductStore();
     const { startSavingSale, startProductStockValidation } = useSaleStore();
@@ -53,22 +52,18 @@ export const AddNewSale = () => {
             activeButton( false );
     }, [ cart ])
     
-    
     return (
-        <div className="d-flex justify-content-between align-items-center">
-            <div className="d-flex justify-content-between align-items-center m-0">
-                <label className="m-3" htmlFor="ci_nit">CI/NIT</label>
-                <input className="form-control" type="text" id="ci_nit"
-                    value={ ciNit } 
-                    onChange={ handleInputChange }
+        <div className="d-flex justify-content-between align-items-center pb-3">
+            <div className="d-flex justify-content-between align-items-center">
+                <Label for="ci_nit" className="m-0 me-3"><b>CI/NIT</b></Label>
+                <Input 
+                    onChange={ handleInputChange } value={ ciNit } 
+                    className="form-control" type="text" id="ci_nit"
                 />
             </div>
-            <button className="btn btn-primary m-0"
-                onClick={ handleClickNew }
-                disabled={ isActiveButton }
-            >
+            <Button onClick={ handleClickNew } disabled={ isActiveButton } color="primary">
                 <i className="fas fa-solid fa-plus"></i> Registrar Venta
-            </button>
+            </Button>
         </div> 
     )
 

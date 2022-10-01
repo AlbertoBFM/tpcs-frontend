@@ -1,8 +1,8 @@
-import { useProductStore, useSaleCartStore } from "../../../hooks";
-import { messageAlert } from "../../../helpers";
+import { Button, ButtonGroup, Input } from 'reactstrap';
+import { useProductStore, useSaleCartStore } from '../../../hooks';
+import { messageAlert } from '../../../helpers';
 
 export const SaleCartRow = ( item ) => {
-
     const { _id, name, salePrice, quantity, subtotal  } = item;
 
     const { startAddToCart, startRemoveToCart, startRemoveAllToCart, startChangeQuantity } = useSaleCartStore();
@@ -50,25 +50,27 @@ export const SaleCartRow = ( item ) => {
             <td><b>{ name }</b></td>
             <td>{ salePrice }</td>
             <td>
-                <div className="btn-group w-50">
-                    <button className="btn btn-outline-primary btn-sm w-25"  onClick={ handleDecrement }><i className="fas fa-solid fa-minus"></i></button>
-                    {/* <b> { quantity } </b> */}
-                    <input type="number" className="form-control-sm w-50 text-center" min="1" 
-                        value={ quantity } onBlur={handleBlur} onChange={ handleInputChange } />
-                    <button className="btn btn-outline-primary btn-sm w-25" onClick={ handleIncrement }><i className="fas fa-solid fa-plus"></i></button>
-                </div>
+                <ButtonGroup>
+                    <Button onClick={ handleDecrement } outline color="primary" size="sm" className="w-25">
+                        <i className="fas fa-solid fa-minus"></i>
+                    </Button>
+                    <Input 
+                        value={ quantity } onBlur={handleBlur} onChange={ handleInputChange } 
+                        type="number" className="w-50 text-center" min="1" size="sm"
+                    />
+                    <Button onClick={ handleIncrement } outline color="primary" size="sm" className="w-25">
+                        <i className="fas fa-solid fa-plus"></i>
+                    </Button>
+                </ButtonGroup>
             </td>
             <td>{ subtotal }</td>
             <td>
-                <div className="btn-group" role="group">
-                    <button type="button" className="btn text-danger"
-                        onClick={ handleDelete }
-                    >
+                <ButtonGroup>
+                    <Button onClick={ handleDelete } color="link" className="text-danger">
                         <i className="fas fa-solid fa-xmark"></i>
-                    </button>
-                </div>
+                    </Button>
+                </ButtonGroup>
             </td>
         </tr>
     )
-    
 }

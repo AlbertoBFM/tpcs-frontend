@@ -1,19 +1,19 @@
+import { Button, ButtonGroup } from 'reactstrap';
 import { useAuthStore, useSaleDetailStore, useSaleStore, useUiStore } from '../../../hooks';
 import { formatDate, messageAlert, queryAlert } from '../../../helpers';
 
 export const SaleRow = ( sale ) => {
+    const { _id, user, client, date, total } = sale;
 
-    const { openModal } = useUiStore();
+    const { toggleModal } = useUiStore();
     const { user: { uid, userType } } = useAuthStore();
     const { setActiveSale, startDeletingSale } = useSaleStore();
     const { startLoadingSaleDetails, startDeletingSaleDetail } =useSaleDetailStore();
 
-    const { _id, user, client, date, total } = sale;
-
     const handleView = () => {
         setActiveSale( sale );
         startLoadingSaleDetails( _id );
-        openModal();
+        toggleModal();
     }
 
     const handleDelete = async () => { //* Eliminar
@@ -33,35 +33,19 @@ export const SaleRow = ( sale ) => {
             <td><b>{ formatDate( new Date(date) ) }</b></td>
             <td>{ total }</td>
             <td>
-                <div className="btn-group" role="group">
-                    <button type="button" className="btn btn-outline-primary"
-                        onClick={ handleView }
-                    >
+                <ButtonGroup>
+                    <Button outline color="primary" onClick={ handleView }>
                         <i className="fas fa-solid fa-eye"></i>
-                    </button>
+                    </Button>
                     {
                         userType === 'admin' 
                         && 
-                        <>
-                            <button type="button" className="btn btn-danger"
-                                onClick={ handleDelete }
-                            >
-                                <i className="fas fa-trash-alt"></i>
-                            </button>
-                        </>
-                    }
-                    {/* {
-                        ( ( user._id || user.uid ) === uid ) 
-                        && 
-                        <button type="button" className="btn btn-danger"
-                            onClick={ handleDelete }
-                        >
+                        <Button color="danger" onClick={ handleDelete }>
                             <i className="fas fa-trash-alt"></i>
-                        </button>
-                    } */}
-                </div>
+                        </Button>
+                    }
+                </ButtonGroup>
             </td>
         </tr>
-    )
-    
+    )  
 }

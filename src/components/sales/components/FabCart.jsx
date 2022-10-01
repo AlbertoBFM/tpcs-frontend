@@ -1,21 +1,16 @@
+import { Button } from 'reactstrap';
 import { useUiStore } from '../../../hooks';
 
-
 export const FabCart = () => {
-
-    const { openCartModal } = useUiStore();
-    // const { setActiveEvent } = useCalendarStore();
+    const { toggleCartModal } = useUiStore();
 
     const handleClickCart = () => {
-        openCartModal();
+        toggleCartModal();
     }
 
     return (
-        <button 
-            className="btn btn-primary fab"
-            onClick={ handleClickCart }
-        >
+        <Button onClick={ handleClickCart } color="primary" className="fab">
             <i className="fas fa-solid fa-cart-shopping"></i>
-        </button>
+        </Button>
     )
 }

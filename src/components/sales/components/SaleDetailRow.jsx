@@ -1,6 +1,5 @@
 
 export const SaleDetailRow = ( detail ) => {
-
     const { product, quantity, subtotal  } = detail;
 
     return (
@@ -11,5 +10,4 @@ export const SaleDetailRow = ( detail ) => {
             <td>{ subtotal }</td>
         </tr>
     )
-    
 }

@@ -1,25 +1,23 @@
 import { useEffect } from 'react';
+import { Table } from 'reactstrap';
 import { SaleRow, SaleDetailModal } from '../';
 import { useSaleStore } from '../../../hooks';
-
 import './style.css';
 
 export const SalePage = () => {
-
     const { sales, startLoadingSales } = useSaleStore();
 
     useEffect(() => {
         startLoadingSales();
     }, [])
     
-
     return (
         <>
             <div className="text-center">
                 <h1>Ventas</h1>
             </div>
-            <div className="m-md-auto table-responsive">
-                <table className="table table-striped text-center">
+            <div className="col-md-8 m-md-auto">
+                <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
                             <th scope="col">User</th>
@@ -32,7 +30,7 @@ export const SalePage = () => {
                     <tbody>
                         { sales.map( sale => (<SaleRow key={ sale._id } { ...sale } />) ) }
                     </tbody>
-                </table>
+                </Table>
             </div>
             <SaleDetailModal />
         </>
