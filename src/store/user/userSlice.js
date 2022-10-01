@@ -1,27 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const tempUsers = [
-    {
-        _id: "123456789",
-        name: 'Mr. Robot',
-        email: 'robot@gmail.com',
-    },
-    {
-        _id: "987654321",
-        name: 'Brandon Lee',
-        email: 'batman@gmail.com',
-    },
-    {
-        _id: "147258369",
-        name: 'Big Mama',
-        email: 'bigmama@gmail.com',
-    },
-];
-
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        // users: tempUsers,
         users: [],
         isLoadingUser: true,
         activeUser: null,
@@ -33,10 +14,6 @@ export const userSlice = createSlice({
         onLoadUsers: ( state, { payload = [] } ) => {
             state.isLoadingUser = false;
             state.users = payload;
-            // payload.forEach( user => {
-            //     const exists = state.users.some( dbUser => dbUser._id === user._id );
-            //     if ( !exists ) state.users.push( user );
-            // })
         },
         onAddNewUser: ( state, { payload } ) => {
             state.users.push( payload );

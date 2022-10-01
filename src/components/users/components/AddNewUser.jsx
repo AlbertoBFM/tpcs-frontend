@@ -1,28 +1,22 @@
+import { Button } from 'reactstrap';
 import { useUserStore, useUiStore } from '../../../hooks';
-
 
 export const AddNewUser = () => {
 
-    const { openModal, activeButton } = useUiStore();
+    const { toggleModal, activeButton } = useUiStore();
     const { setActiveUser } = useUserStore();
 
     const handleClickNew = () => {
-        setActiveUser({
-            name: '',
-            email: '',
-            password: '',
-        });
+        setActiveUser({ name: '', email: '', password: '', confirmPassword: ''});
         activeButton( true );
-        openModal();
+        toggleModal();
     }
     
     return (
         <div className="d-flex justify-content-md-end justify-content-center">
-            <button className="btn btn-dark m-3"
-                onClick={ handleClickNew }
-            >
+            <Button onClick={ handleClickNew } color="dark" className="m-3">
                 <i className="fas fa-solid fa-plus"></i> Nuevo Usuario
-            </button>
+            </Button>
         </div>
     )
 

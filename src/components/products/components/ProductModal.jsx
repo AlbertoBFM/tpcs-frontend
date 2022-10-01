@@ -39,14 +39,11 @@ export const ProductModal = () => {
 
     const onSubmit = async ( data ) => {
         activeButton( false );
-
         const resp = await startSavingProduct( data );
-
         if ( resp ) {
             toggleModal();
             return messageAlert('Producto Guardado', '', 'success');
         }
-        
         activeButton( true );
     }
 

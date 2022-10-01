@@ -55,9 +55,7 @@ export const CategoryModal = () => {
                         <i className="far fa-save"></i>
                         <span> Guardar</span>
                     </Button>
-                    <Button color="secondary" onClick={ toggleModal }>
-                        Cancel
-                    </Button>
+                    <Button color="secondary" onClick={ toggleModal }>Cancel</Button>
                 </ModalFooter>
             </Form>
         </Modal>

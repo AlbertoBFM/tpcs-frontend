@@ -1,11 +1,10 @@
+import { useEffect } from 'react';
+import { Table } from 'reactstrap';
 import { useSaleStore, useUserStore } from '../../../hooks';
 import { Row, AddNewUser, UserModal } from '../';
-
 import './style.css';
-import { useEffect } from 'react';
 
 export const UserPage = () => {
-
     const { users, startLoadingUsers } = useUserStore();
     const { startLoadingSales } = useSaleStore();
 
@@ -19,9 +18,9 @@ export const UserPage = () => {
             <div className="text-center">
                 <h1>Usuarios</h1>
             </div>
-            <div className="col-md-8 m-md-auto table-responsive">
+            <div className="col-md-8 m-md-auto">
                 <AddNewUser />
-                <table className="table table-striped text-center">
+                <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
                             <th scope="col">Nombre</th>
@@ -32,7 +31,7 @@ export const UserPage = () => {
                     <tbody>
                         { users.map( user => (<Row key={ user._id } { ...user } />) ) }
                     </tbody>
-                </table>
+                </Table>
             </div>
             <UserModal />
         </>
