@@ -1,15 +1,16 @@
+import { Button, ButtonGroup } from 'reactstrap';
 import { useAuthStore, useProductStore, useSaleCartStore, useSaleDetailStore, useUiStore } from '../../../hooks';
 import { messageAlert, queryAlert } from '../../../helpers';
 
 export const Row = ( product ) => {
+
+    const { _id, name, description, stock, purchasePrice, salePrice, category, provider } = product;
 
     const { user } = useAuthStore();
     const { openModal, activeButton } = useUiStore();
     const { setActiveProduct, startDeletingProduct } = useProductStore();
     const { saleDetails } = useSaleDetailStore();
     const { cart, startAddToCart, startChangeQuantity } = useSaleCartStore();
-
-    const { _id, name, description, stock, purchasePrice, salePrice, category, provider } = product;
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
@@ -55,33 +56,25 @@ export const Row = ( product ) => {
             <td>{ category?.name }</td>
             <td><b>{ provider?.name }</b></td>
             <td>
-                <div className="btn-group" role="group">
+                <ButtonGroup>
                     {
                         user.userType === 'admin' 
                         && 
                         <>
-                            <button type="button" className="btn btn-warning"
-                            onClick={ handleUpdate }
-                            >
+                            <Button onClick={ handleUpdate } color="warning">
                                 <i className="fas fa-pen"></i>
-                            </button>
-                            <button type="button" className="btn btn-danger"
-                                onClick={ handleDelete }
-                            >
+                            </Button>
+                            <Button onClick={ handleDelete } color="danger">
                                 <i className="fas fa-trash-alt"></i>
-                            </button>
+                            </Button>
                         </>
-                        
                     }
-                &nbsp;
-                &nbsp;
-                    <button type="button" className="btn btn-primary"
-                        onClick={ handleAddToCart }
-                        disabled={ Number(stock) === 0 }
-                    >
+                    &nbsp;
+                    &nbsp;
+                    <Button color="primary" onClick={ handleAddToCart } disabled={ Number(stock) === 0 }>
                         <i className="fas fa-solid fa-plus"></i>
-                    </button>
-                </div>
+                    </Button>
+                </ButtonGroup>
             </td>
         </tr>
     )

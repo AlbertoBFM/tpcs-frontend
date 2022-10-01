@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
+import { Table } from 'reactstrap';
 import { AddNewProduct, Row, ProductModal } from '../';
 import { useAuthStore, useProductStore, useSaleDetailStore } from '../../../hooks';
-
 import './style.css';
 
 export const ProductPage = () => {
-
     const { user } = useAuthStore();
     const { products, startLoadingProducts } = useProductStore();
     const { startLoadingAllDetails } = useSaleDetailStore();
@@ -20,9 +19,9 @@ export const ProductPage = () => {
             <div className="text-center">
                 <h1>Productos</h1>
             </div>
-            {user.userType === 'admin' && <AddNewProduct />}
-            <div className="m-md-auto table-responsive">
-                <table className="table table-striped text-center">
+            <div className="col-md-8 m-md-auto">
+                {user.userType === 'admin' && <AddNewProduct />}
+                <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
                             <th scope="col">Nombre</th>
@@ -38,7 +37,7 @@ export const ProductPage = () => {
                     <tbody>
                         { products.map( product => (<Row key={ product._id } { ...product } />) ) }
                     </tbody>
-                </table>
+                </Table>
             </div>
             <ProductModal />
         </>
