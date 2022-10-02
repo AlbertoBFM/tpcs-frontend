@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import Swal from 'sweetalert2';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
 import { onAddNewCategory, onDeleteCategory, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';

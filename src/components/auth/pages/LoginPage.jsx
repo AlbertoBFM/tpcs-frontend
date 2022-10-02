@@ -1,33 +1,25 @@
 import { useEffect } from 'react';
-import Swal from 'sweetalert2';
-import { useUiStore, useAuthStore } from '../../../hooks';
+import { Button, Form, FormGroup, InputGroup, InputGroupText, Input} from 'reactstrap';
+import { useAuthStore } from '../../../hooks';
 import { useForm } from 'react-hook-form';
-
-import { validateEmail, validateName, validatePassword } from '../../../helpers';
+import { messageAlert, validateEmail, validatePassword } from '../../../helpers';
 import './login.css';
 
 export const LoginPage = () => {
-
     const { startLogin, errorMessage } = useAuthStore();
-
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    const { ref: email, ...emailRest } = register('email', validateEmail( 30 ));
+    const { ref: password, ...passwordRest } = register('password', validatePassword( 8, 30 ));
+
     const onSubmit = async ( data ) => {
-        // activeButton( false );
         startLogin(data);
-        // TODO:
-        // await startSavingCategory( data );
-        // closeModal();
     }
 
     useEffect(() => {
-      
-        if ( errorMessage !== undefined ) {
-            Swal.fire( 'Error en la autenticación', errorMessage, 'error' );
-        }
-
+        if ( errorMessage !== undefined )
+            messageAlert('Error en la autenticación', errorMessage, 'error');
     }, [ errorMessage ])
-    
 
     return (
         <div className="wrapper">
@@ -37,35 +29,30 @@ export const LoginPage = () => {
             <div className="text-center mt-4 name">
                 Inicio de Sesión
             </div>
-
-            <form 
-                onSubmit={ handleSubmit( onSubmit ) }
-                className="p-3 mt-3 "
-            >
-                <div className="form-field d-flex align-items-center">
-                    <span className="far fa-user"></span>
-                    <input type="text" name="email" id="email" placeholder="Email"
-                        { ...register( 'email', validateEmail( 30 ) ) } 
-                    />
-                </div>
+            <Form onSubmit={ handleSubmit( onSubmit ) } className="p-3 mt-3 ">
+                <FormGroup floating>
+                    <InputGroup>
+                        <InputGroupText for="email"><i className="fas fa-regular fa-at"></i></InputGroupText>
+                        <Input type="text" name="email" id="email" placeholder="Email"
+                            innerRef={ email } { ...emailRest }
+                        />
+                    </InputGroup>
                     { errors.email &&  <small className="text-danger">{ errors.email?.message }</small> }
-
-                <div className="form-field d-flex align-items-center">
-                    <span className="fas fa-key"></span>
-                    <input type="password" name="password" id="password" placeholder="Password"
-                        { ...register( 'password', validatePassword( 8, 30 ) ) } 
-                    />
-                </div>
+                </FormGroup>
+                <FormGroup>
+                    <InputGroup>
+                        <InputGroupText for="email"><i className="fas fa-key"></i></InputGroupText>
+                        <Input type="password" name="password" id="password" placeholder="Password"
+                            innerRef={ password } { ...passwordRest } 
+                        />
+                    </InputGroup>
                     { errors.password &&  <small className="text-danger">{ errors.password?.message }</small> }
-
-                <button className="btn mt-3">Login</button>
-            </form>
-
+                </FormGroup>
+                <Button type="submit" className="mt-3">Login</Button>
+            </Form>
             <div className="text-center fs-6">
                 Si olvido su contraseña contacte al Administrador <a href="https://www.facebook.com/albertbrandon.cristianoflores" target="_blank">Aquí</a>
             </div>
         </div>
     )
-
-
 }
