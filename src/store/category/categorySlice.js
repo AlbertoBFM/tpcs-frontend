@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const categorySlice = createSlice({
     name: 'category',
     initialState: {
+        allCategories: [],
         categories: [],
         isLoadingCategories: true,
         activeCategory: null,
@@ -11,16 +12,20 @@ export const categorySlice = createSlice({
         onSetActiveCategory: ( state, { payload } ) => {
             state.activeCategory = payload;
         },
+        onLoadAllCategories: ( state, { payload = [] } ) => {
+            // state.isLoadingCategories = false;
+            state.allCategories = payload;
+        },
         onLoadCategories: ( state, { payload = [] } ) => {
             state.isLoadingCategories = false;
             state.categories = payload;
         },
         onAddNewCategory: ( state, { payload } ) => {
-            state.categories.push( payload );
+            state.categories.docs.push( payload );
             state.activeCategory = null;
         },
         onUpdateCategory: ( state, { payload } ) => {
-            state.categories = state.categories.map( category => {
+            state.categories.docs = state.categories.docs.map( category => {
                 if ( category._id === payload._id ) return payload;
                 
                 return category;
@@ -28,11 +33,12 @@ export const categorySlice = createSlice({
             state.activeCategory = null;
         },
         onDeleteCategory: ( state ) => {
-            state.categories = state.categories.filter( category => category._id !== state.activeCategory._id );
+            state.categories.docs = state.categories.docs.filter( category => category._id !== state.activeCategory._id );
             state.activeCategory = null;
         },
         onLogoutCategory: ( state ) => {
-            state.categories = [];
+            state.allCategories = [];
+            state.categories = {};
             state.isLoadingCategories = true;
             state.activeCategory = null;
         }
@@ -41,4 +47,4 @@ export const categorySlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveCategory, onLoadCategories, onAddNewCategory, onUpdateCategory, onDeleteCategory, onLogoutCategory } = categorySlice.actions;
+export const { onSetActiveCategory, onLoadCategories, onLoadAllCategories, onAddNewCategory, onUpdateCategory, onDeleteCategory, onLogoutCategory } = categorySlice.actions;

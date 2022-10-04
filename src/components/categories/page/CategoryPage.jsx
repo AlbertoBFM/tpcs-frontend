@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
+import { MyPagination } from '../components/MyPagination';
 import { useAuthStore, useCategoryStore, useProductStore } from '../../../hooks';
 import { Row, AddNewCategory, CategoryModal } from '../';
 import './style.css';
 
 export const CategoryPage = () => {
     const { user } = useAuthStore();
-    const { categories, startLoadingCategories } = useCategoryStore();
+    const { categories: { docs }, startLoadingCategories } = useCategoryStore();
     const { startLoadingProducts } = useProductStore();
 
     useEffect(() => {
@@ -21,6 +22,7 @@ export const CategoryPage = () => {
             </div>
             <div className="col-md-8 m-md-auto">
                 {user.userType === 'admin' && <AddNewCategory />}
+                
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
@@ -30,9 +32,10 @@ export const CategoryPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        { categories.map( category => (<Row key={ category._id } { ...category } />) ) }
+                        { docs?.map( category => (<Row key={ category._id } { ...category } />) ) }
                     </tbody>
                 </Table>
+                <MyPagination />
             </div>
             <CategoryModal />
         </>

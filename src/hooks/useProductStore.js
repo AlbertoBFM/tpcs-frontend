@@ -16,7 +16,7 @@ export const useProductStore = () => {
     const dispatch = useDispatch();
 
     const { products, activeProduct } = useSelector( state => state.product );
-    const { categories } = useSelector( state => state.category );
+    const { allCategories } = useSelector( state => state.category );
     const { providers } = useSelector( state => state.provider );
 
     const setActiveProduct = ( product ) => {
@@ -56,7 +56,7 @@ export const useProductStore = () => {
                     let category, idCategory, provider, idProvider;
                     
                     if ( !product.category._id ) {
-                        const { _id, name } = categories.find( category => category._id === product.category.toString() );
+                        const { _id, name } = allCategories.find( category => category._id === product.category.toString() );
                         delete product.category;
                     
                         category = { _id, name };
@@ -91,7 +91,7 @@ export const useProductStore = () => {
                 //* Para tener el nombre de la categoría
                 const { data } = await tpcsApi.post( '/product', product );
 
-                const Selectcategory = categories.find( category => category._id === product.category );
+                const Selectcategory = allCategories.find( category => category._id === product.category );
                 const Selectprovider = providers.find( provider => provider._id === product.provider );
                 delete product.category;
                 delete product.provider;

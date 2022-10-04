@@ -7,7 +7,7 @@ import { validateProductName, validatePurchasePrice, validateRangeOfNumber, vali
 export const ProductModal = () => {
     const { isModalOpen, toggleModal, isActiveButton, activeButton } = useUiStore();
     const { activeProduct, startSavingProduct } = useProductStore();
-    const { categories, startLoadingCategories } = useCategoryStore();
+    const { allCategories, startLoadingAllCategories } = useCategoryStore();
     const { providers, startLoadingProviders } = useProviderStore();
 
     const { register, reset, formState: { errors }, handleSubmit, watch, } = useForm();
@@ -54,7 +54,7 @@ export const ProductModal = () => {
     }, [ activeProduct ])
 
     useEffect(() => {
-        startLoadingCategories();
+        startLoadingAllCategories();
         startLoadingProviders();
     }, [])
 
@@ -119,7 +119,7 @@ export const ProductModal = () => {
                                     innerRef={ category } { ...categoryRest }
                                 >
                                     <option value="" disabled>--Selecione Categoría--</option>
-                                    { categories.map( category => (<option key={ category._id } value={category._id}>{ category.name }</option>) ) }
+                                    { allCategories.map( category => (<option key={ category._id } value={category._id}>{ category.name }</option>) ) }
                                 </Input>
                                 { errors.category &&  <small className="text-danger">{ errors.category?.message }</small> }
                             </FormGroup>

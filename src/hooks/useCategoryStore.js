@@ -1,33 +1,44 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
-import { onAddNewCategory, onDeleteCategory, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';
+import { onAddNewCategory, onDeleteCategory, onLoadAllCategories, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';
 
 export const useCategoryStore = () => {
 
     const dispatch = useDispatch();
 
     const {
+        allCategories,
         categories,
         activeCategory,
     } = useSelector( state => state.category );
+
+    const { docs, totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = categories;
 
     const setActiveCategory = ( category ) => {
         dispatch( onSetActiveCategory( category ) );
     }
 
-    const startLoadingCategories = async () => {
-
-        try {
-            
-            const { data } = await tpcsApi.get( '/category' );
-            dispatch( onLoadCategories( data.categories ) );
-
+    const startLoadingAllCategories = async () => {
+        try {   
+            const { data } = await tpcsApi.get( '/category/all' );
+            dispatch( onLoadAllCategories( data.categories ) );
         } catch (error) {
             console.log('Error al cargar las categorías');
             console.log( error );
         }
+    }
 
+    const startLoadingCategories = async ( pageNumber ) => {
+        const page = pageNumber || localStorage.getItem('categoryPage');
+        try {
+            const { data } = await tpcsApi.get( `/category?page=${ page }` );
+            localStorage.setItem('categoryPage', page);
+            dispatch( onLoadCategories( data.categories ) );
+        } catch (error) {
+            console.log('Error al cargar las categorías');
+            console.log( error );
+        }
     }
 
     const startSavingCategory = async ( category ) => {
@@ -63,10 +74,12 @@ export const useCategoryStore = () => {
 
     return {
         //* Properties
+        allCategories,
         categories,
         activeCategory,
         //* Methods
         setActiveCategory,
+        startLoadingAllCategories,
         startLoadingCategories,
         startSavingCategory,
         startDeletingCategory,
