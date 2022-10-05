@@ -33,12 +33,7 @@ export const useCategoryStore = () => {
 
     const startLoadingCategories = async ({pageNumber, searchedName}) => {
         const page = pageNumber || localStorage.getItem('categoryPage') || 1;
-        let name;
-        if ( searchedName === '' )
-            name = ''
-        else
-            name = searchedName || localStorage.getItem('searchedCategoryName') || '';  
-            
+        const name = ( searchedName === '' ) ? ('') : (searchedName || localStorage.getItem('searchedCategoryName') || ''); //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
         try {
             const { data } = await tpcsApi.get( `/category?page=${ page }&name=${ name }` );
             localStorage.setItem('categoryPage', page);

@@ -32,7 +32,7 @@ export const LoginPage = () => {
             <Form onSubmit={ handleSubmit( onSubmit ) } className="p-3 mt-3 ">
                 <FormGroup floating>
                     <InputGroup>
-                        <InputGroupText for="email"><i className="fas fa-regular fa-at"></i></InputGroupText>
+                        <InputGroupText htmlFor="email"><i className="fas fa-regular fa-at"></i></InputGroupText>
                         <Input type="text" name="email" id="email" placeholder="Email"
                             innerRef={ email } { ...emailRest }
                         />
@@ -41,7 +41,7 @@ export const LoginPage = () => {
                 </FormGroup>
                 <FormGroup>
                     <InputGroup>
-                        <InputGroupText for="email"><i className="fas fa-key"></i></InputGroupText>
+                        <InputGroupText htmlFor="email"><i className="fas fa-key"></i></InputGroupText>
                         <Input type="password" name="password" id="password" placeholder="Password"
                             innerRef={ password } { ...passwordRest } 
                         />
