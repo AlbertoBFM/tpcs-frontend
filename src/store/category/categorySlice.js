@@ -14,7 +14,6 @@ export const categorySlice = createSlice({
             state.activeCategory = payload;
         },
         onLoadAllCategories: ( state, { payload = [] } ) => {
-            // state.isLoadingCategories = false;
             state.allCategories = payload;
         },
         onLoadCategories: ( state, { payload = [] } ) => {

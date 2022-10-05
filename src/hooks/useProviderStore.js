@@ -1,14 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
-import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders } from '../store';
+import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders, onLoadAllProviders, onChangeSearchedProvider } from '../store';
 
 export const useProviderStore = () => {
-
     const dispatch = useDispatch();
 
     const {
+        allProviders,
         providers,
+        searchedProvider,
         activeProvider,
     } = useSelector( state => state.provider );
 
@@ -16,17 +17,42 @@ export const useProviderStore = () => {
         dispatch( onSetActiveProvider( provider ) );
     }
 
-    const startLoadingProviders = async () => {
-
+    const startLoadingAllProviders = async () => {
         try {
-            const { data } = await tpcsApi.get( '/provider' );
+            const { data } = await tpcsApi.get( '/provider/all' );
+            dispatch( onLoadAllProviders( data.providers ) );
+        } catch (error) {
+            console.log('Error al cargar los proveedores');
+            console.log( error );
+        }
+    }
+
+    const startChangeSearchProvider = ( searchedProdiver ) => {
+        dispatch( onChangeSearchedProvider( searchedProdiver ) );
+    }
+
+    const startLoadingProviders = async ({pageNumber, searchedProvider}) => {
+        const page = pageNumber || localStorage.getItem('providerPage') || 1;
+
+        const { localName: searchedName, localPhone: searchedPhone } = searchedProvider || {};
+        const { localName, localPhone } = JSON.parse( localStorage.getItem('searchedProvider') ) || {};
+        const name = ( searchedName === '' ) 
+                        ? ('') //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+                        : (searchedName || localName || ''); 
+        const phone = ( searchedPhone === '' ) 
+                        ? ('') 
+                        : (searchedPhone || localPhone || '');
+        try {
+            console.log({name, phone});
+            const { data } = await tpcsApi.get( `/provider?page=${ page }&name=${ name }&phone=${ phone.replace('+','%2B') }` );
+            localStorage.setItem('providerPage', page);
+            localStorage.setItem('searchedProvider', JSON.stringify({ localName: name, localPhone: phone }));
             dispatch( onLoadProviders( data.providers ) );
 
         } catch (error) {
             console.log('Error al cargar los proveedores');
             console.log( error );
         }
-
     }
 
     const startSavingProvider = async ( provider ) => {
@@ -61,10 +87,14 @@ export const useProviderStore = () => {
 
     return {
         //* Properties
+        allProviders,
         providers,
+        searchedProvider,
         activeProvider,
         //* Methods
         setActiveProvider,
+        startLoadingAllProviders,
+        startChangeSearchProvider,
         startLoadingProviders,
         startSavingProvider,
         startDeletingProvider,

@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
-import { MyPagination } from '../components/MyPagination';
 import { useAuthStore, useCategoryStore, useProductStore } from '../../../hooks';
-import { Row, AddNewCategory, CategoryModal } from '../';
+import { Row, AddNewCategory, CategoryModal, SearchFilter, MyPagination } from '../';
 import './style.css';
-import { SearchFilter } from '../components/SearchFilter';
 
 export const CategoryPage = () => {
     const { user } = useAuthStore();
@@ -22,7 +20,6 @@ export const CategoryPage = () => {
                 <h1>Categorías</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                {/* <div className="d-flex justify-content-md-end justify-content-center"> */}
                 <div className="d-flex justify-content-between align-items-center m-3">
                     <SearchFilter/>
                     {user.userType === 'admin' && <AddNewCategory />}

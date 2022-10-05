@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
 import { useAuthStore, useProductStore, useProviderStore } from '../../../hooks';
-import { Row, AddNewProvider, ProviderModal } from '../';
+import { Row, AddNewProvider, ProviderModal, SearchFilter, MyPagination } from '../';
 import './style.css';
 
 export const ProviderPage = () => {
     const { user } = useAuthStore();
+    const { providers: { docs }, startLoadingProviders } = useProviderStore();
     const { startLoadingProducts } = useProductStore();
-    const { providers, startLoadingProviders } = useProviderStore();
 
     useEffect(() => {
-        startLoadingProviders();
+        startLoadingProviders({});
         startLoadingProducts();
     }, [])
 
@@ -20,7 +20,10 @@ export const ProviderPage = () => {
                 <h1>Proveedores</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                {user.userType === 'admin' && <AddNewProvider />}
+                <div className="d-flex justify-content-between align-items-center m-3">
+                    <SearchFilter/>
+                    {user.userType === 'admin' && <AddNewProvider />}
+                </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
@@ -32,9 +35,10 @@ export const ProviderPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        { providers.map( provider => (<Row key={ provider._id } { ...provider } />) ) }
+                        { docs?.map( provider => (<Row key={ provider._id } { ...provider } />) ) }
                     </tbody>
                 </Table>
+                <MyPagination />
             </div>
             <ProviderModal />
         </>
