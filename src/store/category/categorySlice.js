@@ -5,6 +5,7 @@ export const categorySlice = createSlice({
     initialState: {
         allCategories: [],
         categories: [],
+        searchedName: "",
         isLoadingCategories: true,
         activeCategory: null,
     },
@@ -19,6 +20,9 @@ export const categorySlice = createSlice({
         onLoadCategories: ( state, { payload = [] } ) => {
             state.isLoadingCategories = false;
             state.categories = payload;
+        },
+        onChangeSearchedName: ( state, { payload } ) => {
+            state.searchedName = payload;
         },
         onAddNewCategory: ( state, { payload } ) => {
             state.categories.docs.push( payload );
@@ -47,4 +51,4 @@ export const categorySlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveCategory, onLoadCategories, onLoadAllCategories, onAddNewCategory, onUpdateCategory, onDeleteCategory, onLogoutCategory } = categorySlice.actions;
+export const { onSetActiveCategory, onLoadCategories, onLoadAllCategories, onChangeSearchedName, onAddNewCategory, onUpdateCategory, onDeleteCategory, onLogoutCategory } = categorySlice.actions;

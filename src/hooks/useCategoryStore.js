@@ -1,19 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
-import { onAddNewCategory, onDeleteCategory, onLoadAllCategories, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';
+import { onAddNewCategory, onChangeSearchedName, onDeleteCategory, onLoadAllCategories, onLoadCategories, onSetActiveCategory, onUpdateCategory } from '../store';
 
 export const useCategoryStore = () => {
-
     const dispatch = useDispatch();
 
     const {
         allCategories,
         categories,
+        searchedName,
         activeCategory,
     } = useSelector( state => state.category );
-
-    const { docs, totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = categories;
 
     const setActiveCategory = ( category ) => {
         dispatch( onSetActiveCategory( category ) );
@@ -29,11 +27,23 @@ export const useCategoryStore = () => {
         }
     }
 
-    const startLoadingCategories = async ( pageNumber ) => {
-        const page = pageNumber || localStorage.getItem('categoryPage');
+    const startChangeSearchName = ( searchedName ) => {
+        dispatch( onChangeSearchedName( searchedName ) );
+    }
+
+    const startLoadingCategories = async (pageNumber, searchedName) => {
+        const page = pageNumber || localStorage.getItem('categoryPage') || 1;
+
+        let name;
+        if ( searchedName === '' )
+            name = ''
+        else
+            name = searchedName || localStorage.getItem('searchedCategoryName') || '';  
+            
         try {
-            const { data } = await tpcsApi.get( `/category?page=${ page }` );
+            const { data } = await tpcsApi.get( `/category?page=${ page }&name=${ name }` );
             localStorage.setItem('categoryPage', page);
+            localStorage.setItem('searchedCategoryName', name);
             dispatch( onLoadCategories( data.categories ) );
         } catch (error) {
             console.log('Error al cargar las categorías');
@@ -76,13 +86,14 @@ export const useCategoryStore = () => {
         //* Properties
         allCategories,
         categories,
+        searchedName,
         activeCategory,
         //* Methods
         setActiveCategory,
         startLoadingAllCategories,
+        startChangeSearchName,
         startLoadingCategories,
         startSavingCategory,
         startDeletingCategory,
     }
-
 }
