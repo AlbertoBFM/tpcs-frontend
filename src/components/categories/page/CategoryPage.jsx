@@ -12,7 +12,7 @@ export const CategoryPage = () => {
     const { startLoadingProducts } = useProductStore();
 
     useEffect(() => {
-        startLoadingCategories();
+        startLoadingCategories({});
         startLoadingProducts();
     }, [])
 

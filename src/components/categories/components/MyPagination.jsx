@@ -3,26 +3,26 @@ import { useCategoryStore } from '../../../hooks';
 
 export const MyPagination = () => {
     const { categories, startLoadingCategories } = useCategoryStore();
-    const { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = categories;
+    const { totalDocs, docs, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = categories;
 
     const firstPagination = () => {
-        startLoadingCategories(1);
+        startLoadingCategories({ pageNumber: 1 });
     }
     
     const paginatePrevious = () => {
-        startLoadingCategories( prevPage );
+        startLoadingCategories({ pageNumber: prevPage });
     }
 
     const paginateNext = () => {
-        startLoadingCategories( nextPage );
+        startLoadingCategories({ pageNumber: nextPage });
     }
 
     const lastPagination = () => {
-        startLoadingCategories( totalPages );
+        startLoadingCategories({ pageNumber: totalPages });
     }
     
     const paginateNumber = ( page ) => {
-        startLoadingCategories( page );
+        startLoadingCategories({ pageNumber: page });
     }
 
     const numberPagination = ( pageNumber ) => {
@@ -74,7 +74,7 @@ export const MyPagination = () => {
                     />
                 </PaginationItem>
             </Pagination>
-            <span>Resultados: { pagingCounter } - { pagingCounter + limit - 1 } de { totalDocs }</span>
+            <span>Resultados: { pagingCounter } - { pagingCounter + docs?.length - 1 } de { totalDocs }</span>
         </div>
     )
 }

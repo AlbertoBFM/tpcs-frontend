@@ -9,7 +9,7 @@ export const SearchFilter = () => {
     const handleInputChange = ( e ) => {
         const name = e.target.value;
         startChangeSearchName( name );
-        startLoadingCategories( 1, name );
+        startLoadingCategories({ pageNumber: 1, searchedName: name });
     }
 
     useEffect(() => {

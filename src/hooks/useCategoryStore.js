@@ -31,9 +31,8 @@ export const useCategoryStore = () => {
         dispatch( onChangeSearchedName( searchedName ) );
     }
 
-    const startLoadingCategories = async (pageNumber, searchedName) => {
+    const startLoadingCategories = async ({pageNumber, searchedName}) => {
         const page = pageNumber || localStorage.getItem('categoryPage') || 1;
-
         let name;
         if ( searchedName === '' )
             name = ''
