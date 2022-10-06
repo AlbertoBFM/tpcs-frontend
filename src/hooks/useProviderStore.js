@@ -43,12 +43,10 @@ export const useProviderStore = () => {
                         ? ('') 
                         : (searchedPhone || localPhone || '');
         try {
-            console.log({name, phone});
             const { data } = await tpcsApi.get( `/provider?page=${ page }&name=${ name }&phone=${ phone.replace('+','%2B') }` );
             localStorage.setItem('providerPage', page);
             localStorage.setItem('searchedProvider', JSON.stringify({ localName: name, localPhone: phone }));
             dispatch( onLoadProviders( data.providers ) );
-
         } catch (error) {
             console.log('Error al cargar los proveedores');
             console.log( error );

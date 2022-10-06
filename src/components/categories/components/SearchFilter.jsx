@@ -21,7 +21,7 @@ export const SearchFilter = () => {
         <div>
             <InputGroup>
                 <InputGroupText><i className="fas fa-sharp fa-solid fa-magnifying-glass"></i></InputGroupText>
-                <Input value={ searchedName } onChange={ handleInputChange } placeholder="Buscar..." />
+                <Input value={ searchedName } onChange={ handleInputChange } placeholder="Nombre..." />
             </InputGroup>
         </div>
     )

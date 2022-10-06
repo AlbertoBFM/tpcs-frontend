@@ -8,7 +8,7 @@ export const ProductModal = () => {
     const { isModalOpen, toggleModal, isActiveButton, activeButton } = useUiStore();
     const { activeProduct, startSavingProduct } = useProductStore();
     const { allCategories, startLoadingAllCategories } = useCategoryStore();
-    const { providers, startLoadingProviders } = useProviderStore();
+    const { allProviders, startLoadingAllProviders } = useProviderStore();
 
     const { register, reset, formState: { errors }, handleSubmit, watch, } = useForm();
 
@@ -55,7 +55,7 @@ export const ProductModal = () => {
 
     useEffect(() => {
         startLoadingAllCategories();
-        startLoadingProviders();
+        startLoadingAllProviders();
     }, [])
 
     return (
@@ -133,7 +133,7 @@ export const ProductModal = () => {
                                     innerRef={ provider } { ...providerRest }
                                 >
                                     <option value="" disabled>--Selecione Proveedor--</option>
-                                    { providers.map( provider => (<option key={ provider._id } value={provider._id}>{ provider.name }</option>) ) }
+                                    { allProviders.map( provider => (<option key={ provider._id } value={provider._id}>{ provider.name }</option>) ) }
                                 </Input>
                                 { errors.provider &&  <small className="text-danger">{ errors.provider?.message }</small> }
                             </FormGroup>
