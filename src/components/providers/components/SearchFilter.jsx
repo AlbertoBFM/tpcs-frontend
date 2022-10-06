@@ -6,13 +6,13 @@ export const SearchFilter = () => {
 
     const { searchedProvider, startChangeSearchProvider, startLoadingProviders } = useProviderStore();
 
-    const { localName = "", localPhone = "" } = searchedProvider;
+    const { localName = '', localPhone = '' } = searchedProvider;
 
     const handleInputChange = ( e, valueName ) => {
         const value = e.target.value;
         if ( valueName === 'localPhone' ){
             const number = Number( value.replace('+', '') );
-            if ( isNaN( number ) ) return "";
+            if ( isNaN( number ) ) return '';
 
             const plusSymbols = [...value].filter(c => c === '+').length ;    
             if ( plusSymbols > 1 ) return;

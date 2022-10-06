@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 export const productSlice = createSlice({
     name: 'product',
     initialState: {
+        allProducts: [],
         products: [],
+        searchedProduct: {},
         isLoadingProducts: true,
         activeProduct: null,
     },
@@ -11,32 +13,34 @@ export const productSlice = createSlice({
         onSetActiveProduct: ( state, { payload } ) => {
             state.activeProduct = payload;
         },
+        onLoadAllProducts: ( state, { payload = [] } ) => {
+            state.allProducts = payload;
+        },
         onLoadProducts: ( state, { payload = [] } ) => {
             state.isLoadingProducts = false;
             state.products = payload;
-            // payload.forEach( product => {
-            //     const exists = state.products.some( dbProduct => dbProduct._id === product._id );
-            //     if ( !exists ) state.products.push( product );
-            // })
+        },
+        onChangeSearchedProduct: ( state, { payload } ) => {
+            state.searchedProduct = payload;
         },
         onAddNewProduct: ( state, { payload } ) => {
-            state.products.push( payload );
+            state.products.docs.push( payload );
             state.activeProduct = null;
         },
         onUpdateProduct: ( state, { payload } ) => {
-            state.products = state.products.map( product => {
-                if ( product._id === payload._id ) return payload;
-                
+            state.products.docs = state.products.docs.map( product => {
+                if ( product._id === payload._id ) 
+                    return payload;
                 return product;
             });
             state.activeProduct = null;
         },
         onDeleteProduct: ( state ) => {
-            state.products = state.products.filter( product => product._id !== state.activeProduct._id );
+            state.products.docs = state.products.docs.filter( product => product._id !== state.activeProduct._id );
             state.activeProduct = null;
         },
         onUpdateProductStockAddSale: ( state, { payload } ) => {
-            state.products = state.products.map( product => {
+            state.products.docs = state.products.docs.map( product => {
                 if ( product._id === payload._id ) {
                     product.stock = Number( product.stock ) - Number( payload.quantity );
                 }
@@ -44,7 +48,7 @@ export const productSlice = createSlice({
             });
         },
         onUpdateProductStockSubSale: ( state, { payload } ) => {
-            state.products = state.products.map( product => {
+            state.products.docs = state.products.docs.map( product => {
                 if ( product._id === payload.product._id ) {
                     product.stock = Number( product.stock ) + Number( payload.quantity );
                 }
@@ -63,7 +67,9 @@ export const productSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { 
     onSetActiveProduct, 
+    onLoadAllProducts,
     onLoadProducts,
+    onChangeSearchedProduct,
     onAddNewProduct, 
     onUpdateProduct, 
     onDeleteProduct, 

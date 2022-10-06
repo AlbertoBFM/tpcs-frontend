@@ -11,7 +11,7 @@ export const ProviderPage = () => {
 
     useEffect(() => {
         startLoadingProviders({});
-        startLoadingProducts();
+        startLoadingProducts({});
     }, [])
 
     return (

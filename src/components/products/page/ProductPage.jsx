@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
-import { AddNewProduct, Row, ProductModal } from '../';
 import { useAuthStore, useProductStore, useSaleDetailStore } from '../../../hooks';
+import { AddNewProduct, Row, ProductModal, SearchFilter, MyPagination } from '../';
 import './style.css';
 
 export const ProductPage = () => {
     const { user } = useAuthStore();
-    const { products, startLoadingProducts } = useProductStore();
+    const { products: { docs }, startLoadingProducts } = useProductStore();
     const { startLoadingAllDetails } = useSaleDetailStore();
 
     useEffect(() => {
-        startLoadingProducts();
+        startLoadingProducts({});
         startLoadingAllDetails();
     }, [])
     
@@ -20,7 +20,10 @@ export const ProductPage = () => {
                 <h1>Productos</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                {user.userType === 'admin' && <AddNewProduct />}
+                <div className="d-flex justify-content-between align-items-center m-3">
+                    <SearchFilter/>
+                    {user.userType === 'admin' && <AddNewProduct />}
+                </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
@@ -35,9 +38,10 @@ export const ProductPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        { products.map( product => (<Row key={ product._id } { ...product } />) ) }
+                        { docs?.map( product => (<Row key={ product._id } { ...product } />) ) }
                     </tbody>
                 </Table>
+                <MyPagination />
             </div>
             <ProductModal />
         </>

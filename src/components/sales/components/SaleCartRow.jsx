@@ -14,7 +14,7 @@ export const SaleCartRow = ( item ) => {
 
     const handleIncrement = () => {
 
-        const selectedProduct = products.find( product => product._id === _id );
+        const selectedProduct = products.docs.find( product => product._id === _id );
 
         if ( Number( selectedProduct.stock ) <= Number(quantity) ) {
             startChangeQuantity( item, selectedProduct.stock );
@@ -35,7 +35,7 @@ export const SaleCartRow = ( item ) => {
     }
     const handleBlur = ( e ) => {
 
-        const selectedProduct = products.find( product => product._id === _id );
+        const selectedProduct = products.docs.find( product => product._id === _id );
 
         if ( Number(selectedProduct.stock) < Number(e.target.value) ) {
             startChangeQuantity( item, selectedProduct.stock );
@@ -56,7 +56,7 @@ export const SaleCartRow = ( item ) => {
                     </Button>
                     <Input 
                         value={ quantity } onBlur={handleBlur} onChange={ handleInputChange } 
-                        type="number" className="w-50 text-center" min="1" size="sm"
+                        type="number" className="w-50 text-center" min="1" bsSize="sm"
                     />
                     <Button onClick={ handleIncrement } outline color="primary" size="sm" className="w-25">
                         <i className="fas fa-solid fa-plus"></i>

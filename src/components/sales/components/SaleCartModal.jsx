@@ -9,7 +9,7 @@ export const SaleCartModal = () => {
 
     return (
         <Modal centered fullscreen="md" isOpen={ isCartModalOpen } size="lg" toggle={ toggleCartModal }>
-            <ModalHeader toggle={ toggleCartModal }><h3>Carrito de Compras</h3></ModalHeader>
+            <ModalHeader toggle={ toggleCartModal }><p className="fs-3">Carrito de Compras</p></ModalHeader>
             <ModalBody>
                 { cart.length > 0 && <AddNewSale /> }
                 <Table responsive striped className="text-center">

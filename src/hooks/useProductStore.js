@@ -1,34 +1,53 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
-import { 
-    onAddNewProduct, 
-    onDeleteProduct, 
-    onLoadProducts, 
-    onSetActiveProduct, 
-    onUpdateProduct, 
-    onUpdateProductStockAddSale,
-    onUpdateProductStockSubSale
-} from '../store';
+import { onAddNewProduct, onChangeSearchedProduct, onDeleteProduct, onLoadAllProducts, onLoadProducts, onSetActiveProduct, onUpdateProduct, onUpdateProductStockAddSale,onUpdateProductStockSubSale } from '../store';
 
 export const useProductStore = () => {
 
     const dispatch = useDispatch();
 
-    const { products, activeProduct } = useSelector( state => state.product );
+    const { allProducts, products, searchedProduct, activeProduct } = useSelector( state => state.product );
     const { allCategories } = useSelector( state => state.category );
-    const { providers } = useSelector( state => state.provider );
+    const { allProviders } = useSelector( state => state.provider );
 
     const setActiveProduct = ( product ) => {
         dispatch( onSetActiveProduct( product ) );
     }
 
-    const startLoadingProducts = async () => {
-
+    const startLoadingAllProducts = async () => {
         try {
-            const { data } = await tpcsApi.get( '/product' );
-            dispatch( onLoadProducts( data.products ) );
+            const { data } = await tpcsApi.get( '/product/all' );
+            dispatch( onLoadAllProducts( data.products ) );
+        } catch (error) {
+            console.log('Error al cargar los productos');
+            console.log( error );
+        }
+    }
 
+    const startChangeSearchProduct = ( searchedProduct ) => {
+        dispatch( onChangeSearchedProduct( searchedProduct ) );
+    }
+
+    const startLoadingProducts = async ({pageNumber, searchedProduct}) => {
+        const page = pageNumber || localStorage.getItem('productPage') || 1;
+
+        const { localName: searchedName, localCategory: searchedCategory, localProvider: searchedProvider } = searchedProduct || {};
+        const { localName, localCategory, localProvider } = JSON.parse( localStorage.getItem('searchedProduct') ) || {};
+        const name = ( searchedName === '' ) 
+                        ? ('') //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+                        : (searchedName || localName || ''); 
+        const category = ( searchedCategory === '' ) 
+                        ? ('') 
+                        : (searchedCategory || localCategory || '');
+        const provider = ( searchedProvider === '' ) 
+                        ? ('') 
+                        : (searchedProvider || localProvider || '');
+        try {
+            const { data } = await tpcsApi.get( `/product?page=${ page }&name=${ name }&category=${ category }&provider=${ provider }` );
+            localStorage.setItem('productPage', page);
+            localStorage.setItem('searchedProduct', JSON.stringify({ localName: name, localCategory: category, localProvider: provider }));
+            dispatch( onLoadProducts( data.products ) );
         } catch (error) {
             console.log('Error al cargar los productos');
             console.log( error );
@@ -68,7 +87,7 @@ export const useProductStore = () => {
                     }
                     
                     if ( !product.provider._id ) {
-                        const { _id, name } = providers.find( provider => provider._id === product.provider.toString() );
+                        const { _id, name } = allProviders.find( provider => provider._id === product.provider.toString() );
                         delete product.provider;
                     
                         provider = { _id, name };
@@ -92,7 +111,7 @@ export const useProductStore = () => {
                 const { data } = await tpcsApi.post( '/product', product );
 
                 const Selectcategory = allCategories.find( category => category._id === product.category );
-                const Selectprovider = providers.find( provider => provider._id === product.provider );
+                const Selectprovider = allProviders.find( provider => provider._id === product.provider );
                 delete product.category;
                 delete product.provider;
     
@@ -138,10 +157,14 @@ export const useProductStore = () => {
 
     return {
         //* Properties
+        allProducts,
         products,
+        searchedProduct,
         activeProduct,
         //* Methods
         setActiveProduct,
+        startLoadingAllProducts,
+        startChangeSearchProduct,
         startLoadingProducts,
         startSavingProduct,
         startDeletingProduct,

@@ -6,12 +6,7 @@ import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvid
 export const useProviderStore = () => {
     const dispatch = useDispatch();
 
-    const {
-        allProviders,
-        providers,
-        searchedProvider,
-        activeProvider,
-    } = useSelector( state => state.provider );
+    const { allProviders, providers, searchedProvider, activeProvider } = useSelector( state => state.provider );
 
     const setActiveProvider = ( provider ) => {
         dispatch( onSetActiveProvider( provider ) );

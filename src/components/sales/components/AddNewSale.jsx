@@ -36,7 +36,7 @@ export const AddNewSale = () => {
 
         const idVenta = await startSavingSale( total, ciNit );
         await startSavingSaleDetail( cart, idVenta );
-        await startLoadingProducts();
+        await startLoadingProducts({});
 
         startClearCart();
         activeButton( false );

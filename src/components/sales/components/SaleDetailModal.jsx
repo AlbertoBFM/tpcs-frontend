@@ -9,7 +9,7 @@ export const SaleDetailModal = () => {
 
     return (
         <Modal centered fullscreen="md" isOpen={ isModalOpen } size="lg" toggle={ toggleModal }>
-            <ModalHeader toggle={ toggleModal }><h3>Detalle de Venta</h3></ModalHeader>
+            <ModalHeader toggle={ toggleModal }><p className="fs-3">Detalle de Venta</p></ModalHeader>
             <ModalBody>
                 <h5>Cliente: { activeSale?.client || '----' }</h5>
                 <Table responsive striped className="text-center">

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
 import { 
-    onDeleteSaleDetail, 
     onAddNewSaleDetail, 
     onSetActiveSaleDetail, 
     onLoadSaleDetail,
@@ -81,7 +80,7 @@ export const useSaleDetailStore = () => {
             await Promise.all( promises );
             await startUpdateProductStockAddSale( cart );
         } catch (error) {
-            messageAlert( error.response.data?.msg, '', 'error' );
+            console.log('Error al Guardar los Detalles de la Venta');
             console.log( error );
         }
     }
