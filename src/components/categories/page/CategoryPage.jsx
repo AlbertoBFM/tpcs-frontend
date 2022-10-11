@@ -7,11 +7,11 @@ import './style.css';
 export const CategoryPage = () => {
     const { user } = useAuthStore();
     const { categories: { docs }, startLoadingCategories } = useCategoryStore();
-    const { startLoadingProducts } = useProductStore();
+    const { startLoadingAllProducts } = useProductStore();
 
     useEffect(() => {
         startLoadingCategories({});
-        startLoadingProducts({});
+        startLoadingAllProducts({});
     }, [])
 
     return (

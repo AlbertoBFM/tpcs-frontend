@@ -9,7 +9,7 @@ export const Row = ( provider ) => {
     const { user } = useAuthStore();
     const { toggleModal, activeButton } = useUiStore();
     const { setActiveProvider, startDeletingProvider } = useProviderStore();
-    const { products } = useProductStore();
+    const { allProducts } = useProductStore();
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
@@ -20,7 +20,7 @@ export const Row = ( provider ) => {
     const handleDelete = async () => { //* Eliminar
         setActiveProvider( provider );
 
-        const searchProductWithProvider = products.find( product => product.provider?._id === provider._id );
+        const searchProductWithProvider = allProducts.find( product => product.provider?._id === provider._id );
         if ( searchProductWithProvider ) 
             return messageAlert(`No puedes borrar la categoría "${ provider.name }"`, 'Tienes productos registrados con este Proveedor', 'error');
         else{

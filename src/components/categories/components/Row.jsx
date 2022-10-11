@@ -9,7 +9,7 @@ export const Row = ( category ) => {
     const { user } = useAuthStore();
     const { toggleModal, activeButton } = useUiStore();
     const { setActiveCategory, startDeletingCategory } = useCategoryStore();
-    const { products } = useProductStore();
+    const { allProducts } = useProductStore();
 
     const handleUpdate = () => { //* Actualizar
         activeButton( true );
@@ -20,7 +20,7 @@ export const Row = ( category ) => {
     const handleDelete = async () => { //* Eliminar
         setActiveCategory( category );
 
-        const searchProductWithCategory = products.find( product => product.category?._id === category._id );
+        const searchProductWithCategory = allProducts.find( product => product.category?._id === category._id );
         if ( searchProductWithCategory ) 
             return messageAlert(`No puedes borrar la categoría "${ category.name }"`, 'Tienes productos registrados en esta Categoría', 'error');
         else{

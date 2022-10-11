@@ -14,6 +14,10 @@ export const useProductStore = () => {
     const setActiveProduct = ( product ) => {
         dispatch( onSetActiveProduct( product ) );
     }
+    
+    const startChangeSearchProduct = ( searchedProduct ) => {
+        dispatch( onChangeSearchedProduct( searchedProduct ) );
+    }
 
     const startLoadingAllProducts = async () => {
         try {
@@ -25,25 +29,22 @@ export const useProductStore = () => {
         }
     }
 
-    const startChangeSearchProduct = ( searchedProduct ) => {
-        dispatch( onChangeSearchedProduct( searchedProduct ) );
-    }
-
     const startLoadingProducts = async ({pageNumber, searchedProduct}) => {
-        const page = pageNumber || localStorage.getItem('productPage') || 1;
-
-        const { localName: searchedName, localCategory: searchedCategory, localProvider: searchedProvider } = searchedProduct || {};
-        const { localName, localCategory, localProvider } = JSON.parse( localStorage.getItem('searchedProduct') ) || {};
-        const name = ( searchedName === '' ) 
-                        ? ('') //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
-                        : (searchedName || localName || ''); 
-        const category = ( searchedCategory === '' ) 
-                        ? ('') 
-                        : (searchedCategory || localCategory || '');
-        const provider = ( searchedProvider === '' ) 
-                        ? ('') 
-                        : (searchedProvider || localProvider || '');
         try {
+            const page = pageNumber || localStorage.getItem('productPage') || 1;
+    
+            const { localName: searchedName, localCategory: searchedCategory, localProvider: searchedProvider } = searchedProduct || {};
+            const { localName, localCategory, localProvider } = JSON.parse( localStorage.getItem('searchedProduct') ) || {};
+            const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+                            ? ('') 
+                            : (searchedName || localName || ''); 
+            const category = ( searchedCategory === '' ) 
+                            ? ('') 
+                            : (searchedCategory || localCategory || '');
+            const provider = ( searchedProvider === '' ) 
+                            ? ('') 
+                            : (searchedProvider || localProvider || '');
+                            
             const { data } = await tpcsApi.get( `/product?page=${ page }&name=${ name }&category=${ category }&provider=${ provider }` );
             localStorage.setItem('productPage', page);
             localStorage.setItem('searchedProduct', JSON.stringify({ localName: name, localCategory: category, localProvider: provider }));
@@ -52,7 +53,6 @@ export const useProductStore = () => {
             console.log('Error al cargar los productos');
             console.log( error );
         }
-
     }
 
     const startSavingProduct = async ( product ) => {

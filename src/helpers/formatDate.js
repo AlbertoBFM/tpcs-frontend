@@ -11,3 +11,11 @@ export const formatDate = date => {
     return `${ hours }:${ minutes } - ${ day }/${ month }/${ year }`;
 
 }
+
+export const formatDateInput = date => {
+    const day = padTo2Digits( date.getDate() );
+    const month = padTo2Digits( date.getMonth() + 1 );
+    const year = date.getFullYear();
+
+    return `${ year }-${ month }-${ day }`;
+}

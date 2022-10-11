@@ -7,11 +7,11 @@ import './style.css';
 export const ProviderPage = () => {
     const { user } = useAuthStore();
     const { providers: { docs }, startLoadingProviders } = useProviderStore();
-    const { startLoadingProducts } = useProductStore();
+    const { startLoadingAllProducts } = useProductStore();
 
     useEffect(() => {
         startLoadingProviders({});
-        startLoadingProducts({});
+        startLoadingAllProducts();
     }, [])
 
     return (

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
-import { SaleRow, SaleDetailModal } from '../';
+import { SaleRow, SaleDetailModal, SearchFilter, MyPagination } from '../';
 import { useSaleStore } from '../../../hooks';
 import './style.css';
 
 export const SalePage = () => {
-    const { sales, startLoadingSales } = useSaleStore();
+    const { sales: { docs }, startLoadingSales } = useSaleStore();
 
     useEffect(() => {
-        startLoadingSales();
+        startLoadingSales({});
     }, [])
     
     return (
@@ -17,6 +17,9 @@ export const SalePage = () => {
                 <h1>Ventas</h1>
             </div>
             <div className="col-md-8 m-md-auto">
+                <div className="d-flex justify-content-between align-items-center m-3">
+                    <SearchFilter/>
+                </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
@@ -28,9 +31,10 @@ export const SalePage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        { sales.map( sale => (<SaleRow key={ sale._id } { ...sale } />) ) }
+                        { docs?.map( sale => (<SaleRow key={ sale._id } { ...sale } />) ) }
                     </tbody>
                 </Table>
+                <MyPagination />
             </div>
             <SaleDetailModal />
         </>
