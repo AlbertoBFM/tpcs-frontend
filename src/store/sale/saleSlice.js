@@ -25,11 +25,11 @@ export const saleSlice = createSlice({
             state.searchedSale = payload;
         },
         onAddNewSale: ( state, { payload } ) => {
-            state.sales.push( payload );
+            state.sales.docs.push( payload );
             state.activeSale = payload;
         },
         onDeleteSale: ( state, { payload } ) => {
-            state.sales = state.sales.filter( sale => sale._id !== payload );
+            state.sales.docs = state.sales.docs.filter( sale => sale._id !== payload );
             state.activeSale = null;
         },
         onLogoutSale: ( state ) => {

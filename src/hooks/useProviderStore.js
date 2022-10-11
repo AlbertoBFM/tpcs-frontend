@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders, onLoadAllProviders, onChangeSearchedProvider } from '../store';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
-import { onAddNewProvider, onDeleteProvider, onSetActiveProvider, onUpdateProvider, onLoadProviders, onLoadAllProviders, onChangeSearchedProvider } from '../store';
 
 export const useProviderStore = () => {
     const dispatch = useDispatch();
@@ -31,8 +31,8 @@ export const useProviderStore = () => {
 
         const { localName: searchedName, localPhone: searchedPhone } = searchedProvider || {};
         const { localName, localPhone } = JSON.parse( localStorage.getItem('searchedProvider') ) || {};
-        const name = ( searchedName === '' ) 
-                        ? ('') //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+        const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+                        ? ('') 
                         : (searchedName || localName || ''); 
         const phone = ( searchedPhone === '' ) 
                         ? ('') 
@@ -71,6 +71,8 @@ export const useProviderStore = () => {
         try {
             await tpcsApi.delete( `/provider/${ provider._id }` );
             dispatch( onDeleteProvider() );
+            if ( providers.docs.length === 1 ) //* Si solo queda un registro en la tabla, que muestre la primera pagina
+                startLoadingProviders({ pageNumber: 1 });
         } catch (error) {
             console.log( error );
             messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );

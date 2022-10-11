@@ -8,7 +8,7 @@ export const useSaleStore = () => {
 
     const dispatch = useDispatch();
 
-    const { sales, searchedSale, activeSale } = useSelector( state => state.sale );
+    const { allSales, sales, searchedSale, activeSale } = useSelector( state => state.sale );
     const { user } = useSelector( state => state.auth );
 
     const setActiveSale = ( sale ) => {
@@ -97,6 +97,8 @@ export const useSaleStore = () => {
         try {
             await tpcsApi.delete( `/sale/${ saleId }` );
             dispatch( onDeleteSale( saleId ) );
+            if ( sales.docs.length === 1 ) //* Si solo queda un registro en la tabla, que muestre la primera pagina
+                startLoadingSales({ pageNumber: 1 });
         } catch (error) {
             console.log( error );
             messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
@@ -105,6 +107,7 @@ export const useSaleStore = () => {
 
     return {
         //* Properties
+        allSales,
         sales,
         searchedSale,
         activeSale,

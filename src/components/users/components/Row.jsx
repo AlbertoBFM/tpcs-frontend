@@ -6,11 +6,11 @@ export const Row = ( user ) => {
     const { _id, name, email } = user;
 
     const { setActiveUser, startDeletingUser } = useUserStore();
-    const { sales } = useSaleStore();
+    const { allSales } = useSaleStore();
 
     const handleDelete = async () => { //* Eliminar
         setActiveUser( user );
-        const salesByUser = sales.find( sale => sale.user?._id === _id );
+        const salesByUser = allSales.find( sale => sale.user?._id === _id );
         if ( salesByUser ) {
             return messageAlert(`No puedes borrar el usuario "${ name }"`, 'Tienes ventas registradas con este Usuario', 'error');
         }

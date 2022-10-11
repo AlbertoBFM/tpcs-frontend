@@ -1,27 +1,37 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddNewUser, onDeleteUser, onLoadUsers, onSetActiveUser } from '../store';
+import { onAddNewUser, onChangeSearchedUser, onDeleteUser, onLoadUsers, onSetActiveUser } from '../store';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
 
 export const useUserStore = () => {
-
     const dispatch = useDispatch();
 
-    const {
-        users,
-        activeUser,
-    } = useSelector( state => state.user );
+    const { users, searchedUser, activeUser } = useSelector( state => state.user );
 
     const setActiveUser = ( user ) => {
         dispatch( onSetActiveUser( user ) );
     }
 
-    const startLoadingUsers = async () => {
-        try {
-            
-            const { data } = await tpcsApi.get( '/user' );
-            dispatch( onLoadUsers( data.users ) );
+    const startChangeSearchUser = ( searchedUser ) => {
+        dispatch( onChangeSearchedUser( searchedUser ) );
+    }
 
+    const startLoadingUsers = async ({pageNumber, searchedUser}) => {
+        try {
+            const page = pageNumber || localStorage.getItem('userPage') || 1;
+            const { localName: searchedName, localEmail: searchedEmail } = searchedUser || {};
+            const { localName, localEmail } = JSON.parse( localStorage.getItem('searchedUser') ) || {};
+            const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
+                        ? ('') 
+                        : (searchedName || localName || ''); 
+            const email = ( searchedEmail === '' ) 
+                        ? ('') 
+                        : (searchedEmail || localEmail || '');
+
+            const { data } = await tpcsApi.get(`/user?page=${ page }&name=${ name }&email=${ email }`);
+            localStorage.setItem('userPage', page);
+            localStorage.setItem('searchedUser', JSON.stringify({ localName: name, localEmail: email }));
+            dispatch( onLoadUsers( data.users ) );
         } catch (error) {
             console.log('Error al cargar los Usuarios');
             console.log( error );
@@ -53,6 +63,8 @@ export const useUserStore = () => {
         try {
             await tpcsApi.delete( `/user/${ userId }` );
             dispatch( onDeleteUser() );
+            if ( users.docs.length === 1 ) //* Si solo queda un registro en la tabla, que muestre la primera pagina
+                startLoadingUsers({ pageNumber: 1 });
             messageAlert('Usuario Eliminado', '', 'success');
         } catch (error) {
             console.log( error );
@@ -63,9 +75,11 @@ export const useUserStore = () => {
     return {
         //* Properties
         users,
+        searchedUser,
         activeUser,
         //* Methods
         setActiveUser,
+        startChangeSearchUser,
         startLoadingUsers,
         startSavingUser,
         startDeletingUser,

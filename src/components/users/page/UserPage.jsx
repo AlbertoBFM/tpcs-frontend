@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { Table } from 'reactstrap';
 import { useSaleStore, useUserStore } from '../../../hooks';
-import { Row, AddNewUser, UserModal } from '../';
+import { Row, AddNewUser, UserModal, SearchFilter, MyPagination } from '../';
 import './style.css';
 
 export const UserPage = () => {
-    const { users, startLoadingUsers } = useUserStore();
-    const { startLoadingSales } = useSaleStore();
+    const { users: { docs }, startLoadingUsers } = useUserStore();
+    const { startLoadingAllSales } = useSaleStore();
 
     useEffect(() => {
-        startLoadingUsers();
-        startLoadingSales();
+        startLoadingUsers({});
+        startLoadingAllSales();
     }, [])
 
     return (
@@ -19,7 +19,10 @@ export const UserPage = () => {
                 <h1>Usuarios</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <AddNewUser />
+                <div className="d-flex justify-content-between align-items-center m-3">
+                    <SearchFilter />
+                    <AddNewUser />
+                </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">
                         <tr>
@@ -29,9 +32,10 @@ export const UserPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        { users.map( user => (<Row key={ user._id } { ...user } />) ) }
+                        { docs?.map( user => (<Row key={ user._id } { ...user } />) ) }
                     </tbody>
                 </Table>
+                <MyPagination />
             </div>
             <UserModal />
         </>

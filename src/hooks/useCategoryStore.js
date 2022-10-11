@@ -69,6 +69,8 @@ export const useCategoryStore = () => {
             //* eliminando
             await tpcsApi.delete( `/category/${ category._id }` );
             dispatch( onDeleteCategory() );
+            if ( categories.docs.length === 1 ) //* Si solo queda un registro en la tabla, que muestre la primera pagina
+                startLoadingCategories({ pageNumber: 1 });
             return;
         } catch (error) {
             console.log( error );

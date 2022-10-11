@@ -15,10 +15,6 @@ export const SearchFilter = () => {
             ...searchedSale,
             [ valueName ]: value, 
         });
-        console.log({ 
-            ...searchedSale,
-            [ valueName ]: value, 
-        });
         startLoadingSales({ pageNumber: 1, searchedSale: {
             ...searchedSale,  
             [ valueName ]: value, 

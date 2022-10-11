@@ -135,6 +135,8 @@ export const useProductStore = () => {
         try {
             await tpcsApi.delete( `/product/${ product._id }` );
             dispatch( onDeleteProduct() );
+            if ( products.docs.length === 1 ) //* Si solo queda un registro en la tabla, que muestre la primera pagina
+                startLoadingProducts({ pageNumber: 1 });
             return true;
         } catch (error) {
             console.log( error );
