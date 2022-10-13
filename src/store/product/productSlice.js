@@ -56,7 +56,9 @@ export const productSlice = createSlice({
             });
         },
         onLogoutProduct: ( state ) => {
+            state.allProducts = [];
             state.products = [];
+            state.searchedProduct = {};
             state.isLoadingProducts = true;
             state.activeProduct = null;
         }

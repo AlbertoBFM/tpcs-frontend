@@ -11,9 +11,6 @@ export const SearchFilter = () => {
     const handleInputChange = ( e, valueName ) => {
         const value = e.target.value;
         if ( valueName === 'localPhone' ){
-            const number = Number( value.replace('+', '') );
-            if ( isNaN( number ) ) return '';
-
             const plusSymbols = [...value].filter(c => c === '+').length ;    
             if ( plusSymbols > 1 ) return;
         }

@@ -17,7 +17,7 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token-init-date', new Date().getTime() );
             dispatch( onLogin({ name:  data.name, uid: data.uid, email: data.email, userType: data.userType }) );
         } catch (error) {
-            dispatch( onLogout('Datos Incorrectos') );
+            dispatch( onLogout( error.response.data?.msg ) );
             setTimeout(() => {
                dispatch( onClearErrorMessage() ); 
             }, 10);

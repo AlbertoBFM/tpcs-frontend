@@ -35,6 +35,7 @@ export const saleSlice = createSlice({
         onLogoutSale: ( state ) => {
             state.allSales = [];
             state.sales = [];
+            state.searchedSale = {};
             state.isLoadingSales = true;
             state.activeSale = null;
         }

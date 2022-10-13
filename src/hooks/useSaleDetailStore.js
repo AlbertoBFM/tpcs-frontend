@@ -1,11 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { tpcsApi } from '../api';
-import { 
-    onAddNewSaleDetail, 
-    onSetActiveSaleDetail, 
-    onLoadSaleDetail,
-    onLoadAllDetail
-} from '../store';
+import { onAddNewSaleDetail, onSetActiveSaleDetail, onLoadSaleDetail, onLoadAllDetail } from '../store';
 import { useProductStore } from './useProductStore';
 
 export const useSaleDetailStore = () => {
@@ -59,6 +54,7 @@ export const useSaleDetailStore = () => {
             '/saleDetail', { 
                 sale: idVenta, 
                 product: item._id,
+                salePrice: item.salePrice,
                 quantity: item.quantity,
                 subtotal: item.subtotal
             } 
@@ -67,6 +63,7 @@ export const useSaleDetailStore = () => {
             _id: data.saleDetail._id,
             sale: { _id: idVenta },
             product:  { _id: item._id, name: item.name, salePrice: item.salePrice },
+            salePrice: item.salePrice,
             quantity: item.quantity,
             subtotal: item.subtotal
         }));

@@ -42,6 +42,7 @@ export const categorySlice = createSlice({
         onLogoutCategory: ( state ) => {
             state.allCategories = [];
             state.categories = {};
+            state.searchedName = "";
             state.isLoadingCategories = true;
             state.activeCategory = null;
         }

@@ -5,7 +5,7 @@ export const MyPagination = () => {
     const { categories, startLoadingCategories } = useCategoryStore();
     const { totalDocs, docs, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = categories;
 
-    const categoryLength = docs?.length;
+    const categoryLength = docs?.length || 0;
 
     const firstPagination = () => {
         startLoadingCategories({ pageNumber: 1 });

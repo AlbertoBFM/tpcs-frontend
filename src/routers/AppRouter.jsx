@@ -15,15 +15,15 @@ export const AppRouter = () => {
 
     }, [])
     
-    if ( status === 'checking' )
-        return (
-            <h3>Cargandoooooo...</h3>
-        )
+    // if ( status === 'checking' )
+    //     return (
+    //         <h3>Cargandoooooo...</h3>
+    //     )
 
     return (
         <Routes>
             {
-                ( status === 'not-authenticated' )
+                ( status === 'not-authenticated' || status === 'checking' )
                     ?   <Route path="/auth/*" element={ <LoginPage /> } />
                     :   <Route path="/*" element={ <DashboardRoutes /> } />
             }

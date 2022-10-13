@@ -29,6 +29,8 @@ export const userSlice = createSlice({
         },
         onLogoutUser: ( state ) => {
             state.users = [];
+            state.searchedUser = {};
+            state.isLoadingUser = true,
             state.activeUser = null;
         }
     }

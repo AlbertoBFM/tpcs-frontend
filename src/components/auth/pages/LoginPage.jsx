@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { Button, Form, FormGroup, InputGroup, InputGroupText, Input} from 'reactstrap';
+import { Button, Form, FormGroup, InputGroup, InputGroupText, Input, Spinner} from 'reactstrap';
 import { useAuthStore } from '../../../hooks';
 import { useForm } from 'react-hook-form';
 import { messageAlert, validateEmail, validatePassword } from '../../../helpers';
 import './login.css';
 
 export const LoginPage = () => {
-    const { startLogin, errorMessage } = useAuthStore();
+    const { status, startLogin, errorMessage } = useAuthStore();
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const { ref: email, ...emailRest } = register('email', validateEmail( 30 ));
@@ -48,7 +48,12 @@ export const LoginPage = () => {
                     </InputGroup>
                     { errors.password &&  <small className="text-danger">{ errors.password?.message }</small> }
                 </FormGroup>
-                <Button type="submit" className="mt-3">Login</Button>
+                <Button type="submit" className="mt-3" disabled={ status === 'checking' }>
+                    { status === 'checking' && <Spinner size="sm">Cargando...</Spinner> }
+                    <span>
+                        {' '}Iniciar
+                    </span>
+                </Button>
             </Form>
             <div className="text-center fs-6">
                 Si olvido su contraseña contacte al Administrador <a href="https://www.facebook.com/albertbrandon.cristianoflores" target="_blank">Aquí</a>

@@ -40,7 +40,9 @@ export const providerSlice = createSlice({
             state.activeProvider = null;
         },
         onLogoutProvider: ( state ) => {
+            state.allProviders = [];
             state.providers = [];
+            state.searchedProvider = {};
             state.isLoadingProviders = true;
             state.activeProvider = null;
         }
