@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { Container, Spinner } from 'reactstrap';
+
 import { LoginPage } from '../components/auth';
 import { useAuthStore } from '../hooks';
 import { DashboardRoutes } from './DashboardRoutes';
@@ -15,15 +17,20 @@ export const AppRouter = () => {
 
     }, [])
     
-    // if ( status === 'checking' )
-    //     return (
-    //         <h3>Cargandoooooo...</h3>
-    //     )
+    if ( status === 'checking' )
+        return (
+            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+                <div className="d-flex flex-column justify-content-center align-items-center">
+                    <h3>Cargando...</h3>
+                    <Spinner></Spinner>
+                </div>
+            </div>
+        )
 
     return (
         <Routes>
             {
-                ( status === 'not-authenticated' || status === 'checking' )
+                ( status === 'not-authenticated' )
                     ?   <Route path="/auth/*" element={ <LoginPage /> } />
                     :   <Route path="/*" element={ <DashboardRoutes /> } />
             }

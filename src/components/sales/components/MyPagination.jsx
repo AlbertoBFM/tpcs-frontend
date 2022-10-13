@@ -5,7 +5,7 @@ export const MyPagination = () => {
     const { sales, startLoadingSales } = useSaleStore();
     const { totalDocs, docs, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = sales;
 
-    const saleLength = docs?.length;
+    const saleLength = docs?.length || 0;
 
     const firstPagination = () => {
         startLoadingSales({ pageNumber: 1 });

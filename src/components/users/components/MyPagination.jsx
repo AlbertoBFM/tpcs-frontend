@@ -5,7 +5,7 @@ export const MyPagination = () => {
     const { users, startLoadingUsers } = useUserStore();
     const { totalDocs, docs, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = users;
 
-    const providerLength = docs?.length;
+    const providerLength = docs?.length || 0;
 
     const firstPagination = () => {
         startLoadingUsers({ pageNumber: 1 });
