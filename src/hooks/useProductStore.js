@@ -35,15 +35,9 @@ export const useProductStore = () => {
     
             const { localName: searchedName, localCategory: searchedCategory, localProvider: searchedProvider } = searchedProduct || {};
             const { localName, localCategory, localProvider } = JSON.parse( localStorage.getItem('searchedProduct') ) || {};
-            const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
-                            ? ('') 
-                            : (searchedName || localName || ''); 
-            const category = ( searchedCategory === '' ) 
-                            ? ('') 
-                            : (searchedCategory || localCategory || '');
-            const provider = ( searchedProvider === '' ) 
-                            ? ('') 
-                            : (searchedProvider || localProvider || '');
+            const name = searchedName ?? localName ?? '';
+            const category = searchedCategory ?? localCategory ?? '';
+            const provider = searchedProvider ?? localProvider ?? '';
                             
             const { data } = await tpcsApi.get( `/product?page=${ page }&name=${ name }&category=${ category }&provider=${ provider }` );
             localStorage.setItem('productPage', page);

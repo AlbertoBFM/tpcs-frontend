@@ -34,12 +34,9 @@ export const useSaleStore = () => {
             const page = pageNumber || localStorage.getItem('salePage') || 1;
             const { localUser: searchedUser, localClient: searchedClient, localStartDate: searchedStartDate, localEndDate: searchedEndDate } = searchedSale || {};
             const { localUser, localClient, localStartDate, localEndDate } = JSON.parse( localStorage.getItem('searchedSale') ) || {};
-            const user = (searchedUser === '') //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
-                            ? ('') 
-                            : (searchedUser || localUser || ''); 
-            const client = ( searchedClient === '' ) 
-                            ? ('') 
-                            : (searchedClient || localClient || '');
+            const user = searchedUser ?? localUser ?? '';
+            const client = searchedClient ?? localClient ?? ''; 
+            console.log('Control dates: ', { searchedStartDate, searchedEndDate });
             const today = formatDateInput( new Date() );
             const startDate = ( searchedStartDate === '' ) 
                             ? (today) 

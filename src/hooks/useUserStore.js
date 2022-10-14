@@ -21,12 +21,8 @@ export const useUserStore = () => {
             const page = pageNumber || localStorage.getItem('userPage') || 1;
             const { localName: searchedName, localEmail: searchedEmail } = searchedUser || {};
             const { localName, localEmail } = JSON.parse( localStorage.getItem('searchedUser') ) || {};
-            const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
-                        ? ('') 
-                        : (searchedName || localName || ''); 
-            const email = ( searchedEmail === '' ) 
-                        ? ('') 
-                        : (searchedEmail || localEmail || '');
+            const name = searchedName ?? localName ?? '';
+            const email = searchedEmail ?? localEmail ?? '';
 
             const { data } = await tpcsApi.get(`/user?page=${ page }&name=${ name }&email=${ email }`);
             localStorage.setItem('userPage', page);

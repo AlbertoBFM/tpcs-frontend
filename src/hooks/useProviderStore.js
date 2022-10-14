@@ -31,12 +31,9 @@ export const useProviderStore = () => {
 
         const { localName: searchedName, localPhone: searchedPhone } = searchedProvider || {};
         const { localName, localPhone } = JSON.parse( localStorage.getItem('searchedProvider') ) || {};
-        const name = ( searchedName === '' ) //* Si la cadena esta vacia que retorne eso, lo hago de esta manera ya que en la expresión OR cuando ve una cadena vacia lo toma como null
-                        ? ('') 
-                        : (searchedName || localName || ''); 
-        const phone = ( searchedPhone === '' ) 
-                        ? ('') 
-                        : (searchedPhone || localPhone || '');
+        const name = searchedName ?? localName ?? '';
+        const phone = searchedPhone ?? localPhone ?? '';
+
         try {
             const { data } = await tpcsApi.get( `/provider?page=${ page }&name=${ name }&phone=${ phone.replace('+','%2B') }` );
             localStorage.setItem('providerPage', page);
