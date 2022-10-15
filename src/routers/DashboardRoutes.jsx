@@ -15,6 +15,14 @@ export const DashboardRoutes = () => {
 
     const { user } = useAuthStore();
 
+    //* Si se borra el token manualmente, se respaldará guardando el uid del usuario
+    window.onbeforeunload = function(event)
+    {
+        const token = localStorage.getItem('token');
+        if ( !Boolean( token ) )
+            localStorage.setItem('uid', user.uid);
+    };
+
     return (
         <>
             <MyNavbar />

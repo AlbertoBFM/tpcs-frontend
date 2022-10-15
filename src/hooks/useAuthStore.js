@@ -13,6 +13,7 @@ export const useAuthStore = () => {
         try {
             const { data } = await tpcsApi.post( '/auth', { email, password } );
 
+            localStorage.clear();
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
             dispatch( onLogin({ name:  data.name, uid: data.uid, email: data.email, userType: data.userType }) );
@@ -33,15 +34,21 @@ export const useAuthStore = () => {
 
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
-            dispatch( onLogin({ name: data.name, uid: data.uid, email: data.email, userType: data.userType }) );
+            dispatch(onLogin({ 
+                name: data.name, 
+                uid: data.uid, 
+                email: data.email, 
+                userType: data.userType,
+                token: data.token
+            }));
         } catch (error) {
             localStorage.clear();
             dispatch( onLogout() );
         }
     }
 
-    const startLogout = async () => {
-        await tpcsApi.post(`/auth/logout/${ user.uid }`);
+    const startLogout = async ( uid ) => {
+        await tpcsApi.post(`/auth/logout/${ uid || user.uid }`);
         localStorage.clear();
         dispatch( onLogoutSale() );
         dispatch( onLogoutSaleDetail() );
