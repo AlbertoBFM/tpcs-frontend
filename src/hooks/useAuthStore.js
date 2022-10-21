@@ -47,8 +47,7 @@ export const useAuthStore = () => {
         }
     }
 
-    const startLogout = async ( uid ) => {
-        await tpcsApi.post(`/auth/logout/${ uid || user.uid }`);
+    const startLogout = async () => {
         localStorage.clear();
         dispatch( onLogoutSale() );
         dispatch( onLogoutSaleDetail() );

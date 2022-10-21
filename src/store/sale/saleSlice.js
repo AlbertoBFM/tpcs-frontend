@@ -25,7 +25,7 @@ export const saleSlice = createSlice({
             state.searchedSale = payload;
         },
         onAddNewSale: ( state, { payload } ) => {
-            state.sales.docs.push( payload );
+            state.sales?.docs?.push( payload );
             state.activeSale = payload;
         },
         onDeleteSale: ( state, { payload } ) => {

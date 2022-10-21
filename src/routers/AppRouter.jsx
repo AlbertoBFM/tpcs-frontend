@@ -9,18 +9,10 @@ import '../styles.css';
 
 export const AppRouter = () => {
     
-    const { status, checkAuthToken, startLogout } = useAuthStore();
-
-    //* Si se borra el token del localStorage, entonces cerraremos la sesión de usuario de esta manera
-    const closeLogin = () => {
-        const uid = localStorage.getItem('uid');
-        if ( Boolean(uid) )
-            startLogout(uid);
-    }
+    const { status, checkAuthToken } = useAuthStore();
 
     useEffect(() => {
         checkAuthToken();
-        closeLogin();
     }, [])
     
     if ( status === 'checking' )

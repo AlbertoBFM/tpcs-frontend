@@ -36,7 +36,7 @@ export const useSaleStore = () => {
             const { localUser, localClient, localStartDate, localEndDate } = JSON.parse( localStorage.getItem('searchedSale') ) || {};
             const user = searchedUser ?? localUser ?? '';
             const client = searchedClient ?? localClient ?? ''; 
-            console.log('Control dates: ', { searchedStartDate, searchedEndDate });
+
             const today = formatDateInput( new Date() );
             const startDate = ( searchedStartDate === '' ) 
                             ? (today) 
