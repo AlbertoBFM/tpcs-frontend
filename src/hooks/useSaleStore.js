@@ -100,6 +100,19 @@ export const useSaleStore = () => {
         }
     }
 
+    const startGenerateSalesReport = async () => {
+        // await tpcsApi.get( `/sale?startDate=${ searchedSale.startDate }&endDate=${ searchedSale.endDate }` );
+        const { data } = await tpcsApi.get( `/sale/report`,{
+            responseType: 'arraybuffer',
+            headers: {
+                Accept: 'application/pdf',
+            },
+          } );
+        console.log({data});
+        const url = window.URL.createObjectURL( new Blob ([ data ], {type: 'application/pdf'}) );
+        return url;
+    }
+
     return {
         //* Properties
         allSales,
@@ -114,6 +127,7 @@ export const useSaleStore = () => {
         startProductStockValidation,
         startSavingSale,
         startDeletingSale,
+        startGenerateSalesReport,
     }
 
 }

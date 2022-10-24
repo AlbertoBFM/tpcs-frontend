@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
-import { Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { SaleRow, SaleDetailModal, SearchFilter, MyPagination } from '../';
 import { useSaleStore } from '../../../hooks';
 import './style.css';
 
 export const SalePage = () => {
-    const { sales: { docs }, startLoadingSales } = useSaleStore();
+    const { sales: { docs }, startLoadingSales, startGenerateSalesReport } = useSaleStore();
+
+    const generateReport = async () => {
+        console.log('Generando PDF');
+        const url = await startGenerateSalesReport();
+        window.open( url );
+    }
 
     useEffect(() => {
         startLoadingSales({});
@@ -17,7 +23,12 @@ export const SalePage = () => {
                 <h1>Ventas</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="d-flex justify-content-between align-items-center m-3">
+                <div className="d-flex justify-content-end">
+                    <Button color="dark" onClick={ generateReport }>
+                        Generar Reporte &nbsp;<i className="fas fa-solid fa-download"></i>
+                    </Button>
+                </div>
+                <div className="d-flex justify-content-between align-items-center mt-3 mb-3">
                     <SearchFilter/>
                 </div>
                 <Table responsive striped className="text-center">
