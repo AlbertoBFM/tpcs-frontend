@@ -9,8 +9,7 @@ export const SalePage = () => {
 
     const generateReport = async () => {
         console.log('Generando PDF');
-        const url = await startGenerateSalesReport();
-        window.open( url );
+        await startGenerateSalesReport();
     }
 
     useEffect(() => {

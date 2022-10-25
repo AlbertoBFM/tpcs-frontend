@@ -101,16 +101,12 @@ export const useSaleStore = () => {
     }
 
     const startGenerateSalesReport = async () => {
-        // await tpcsApi.get( `/sale?startDate=${ searchedSale.startDate }&endDate=${ searchedSale.endDate }` );
         const { data } = await tpcsApi.get( `/sale/report`,{
             responseType: 'arraybuffer',
-            headers: {
-                Accept: 'application/pdf',
-            },
-          } );
-        console.log({data});
+            headers: { Accept: 'application/pdf', },
+          });
         const url = window.URL.createObjectURL( new Blob ([ data ], {type: 'application/pdf'}) );
-        return url;
+        return window.open( url );
     }
 
     return {
