@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import { SaleRow, SaleDetailModal, SearchFilter, MyPagination } from '../';
-import { useSaleStore } from '../../../hooks';
+import { useSaleStore, useReportStore } from '../../../hooks';
 import './style.css';
 
 export const SalePage = () => {
-    const { sales: { docs }, startLoadingSales, startGenerateSalesReport } = useSaleStore();
+    const { sales: { docs }, startLoadingSales } = useSaleStore();
+    const { startGenerateSalesReportByDates } = useReportStore();
 
     const generateReport = async () => {
-        console.log('Generando PDF');
-        await startGenerateSalesReport();
+        await startGenerateSalesReportByDates();
     }
 
     useEffect(() => {

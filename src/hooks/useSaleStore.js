@@ -73,7 +73,9 @@ export const useSaleStore = () => {
     const startSavingSale = async ( total, ci_nit ) => {
         try {
             //* Create
-            const { data } = await tpcsApi.post('/sale', { client: ci_nit, total });
+            const date = new Date();
+            console.log({date});
+            const { data } = await tpcsApi.post('/sale', { client: ci_nit, total, date });
 
             dispatch( onAddNewSale({ 
                 _id: data.sale._id, 
@@ -100,15 +102,6 @@ export const useSaleStore = () => {
         }
     }
 
-    const startGenerateSalesReport = async () => {
-        const { data } = await tpcsApi.get( `/sale/report`,{
-            responseType: 'arraybuffer',
-            headers: { Accept: 'application/pdf', },
-          });
-        const url = window.URL.createObjectURL( new Blob ([ data ], {type: 'application/pdf'}) );
-        return window.open( url );
-    }
-
     return {
         //* Properties
         allSales,
@@ -123,7 +116,6 @@ export const useSaleStore = () => {
         startProductStockValidation,
         startSavingSale,
         startDeletingSale,
-        startGenerateSalesReport,
     }
 
 }
