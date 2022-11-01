@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Table } from 'reactstrap';
-import { useAuthStore, useProductStore, useSaleDetailStore } from '../../../hooks';
+import { Button, Table } from 'reactstrap';
+import { useAuthStore, useProductStore, useReportStore, useSaleDetailStore } from '../../../hooks';
 import { AddNewProduct, Row, ProductModal, SearchFilter, MyPagination } from '../';
 import './style.css';
 
@@ -8,7 +8,7 @@ export const ProductPage = () => {
     const { user } = useAuthStore();
     const { products: { docs }, startLoadingProducts } = useProductStore();
     const { startLoadingAllDetails } = useSaleDetailStore();
-
+    
     useEffect(() => {
         startLoadingProducts({});
         startLoadingAllDetails();
@@ -20,9 +20,11 @@ export const ProductPage = () => {
                 <h1>Productos</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="d-flex justify-content-between align-items-center m-3">
-                    <SearchFilter/>
+                <div className="d-flex justify-content-md-end justify-content-center align-items-center m-3">
                     {user.userType === 'admin' && <AddNewProduct />}
+                </div>
+                <div className="d-flex justify-content-center align-items-center m-3">
+                    <SearchFilter/>
                 </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">

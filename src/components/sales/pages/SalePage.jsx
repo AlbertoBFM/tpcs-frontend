@@ -6,10 +6,14 @@ import './style.css';
 
 export const SalePage = () => {
     const { sales: { docs }, startLoadingSales } = useSaleStore();
-    const { startGenerateSalesReportByDates } = useReportStore();
+    const { startGenerateSalesReport, startGenerateSalesDetailsReport } = useReportStore();
 
-    const generateReport = async () => {
-        await startGenerateSalesReportByDates();
+    const generateSalesReport = async () => {
+        await startGenerateSalesReport();
+    }
+
+    const generateSalesDetailsReport = async () => {
+        await startGenerateSalesDetailsReport();
     }
 
     useEffect(() => {
@@ -23,8 +27,12 @@ export const SalePage = () => {
             </div>
             <div className="col-md-8 m-md-auto">
                 <div className="d-flex justify-content-end">
-                    <Button color="dark" onClick={ generateReport }>
-                        Generar Reporte &nbsp;<i className="fas fa-solid fa-download"></i>
+                    <Button color="dark" onClick={ generateSalesReport }>
+                        Reporte Ventas &nbsp;<i className="fas fa-solid fa-download"></i>
+                    </Button>
+                    &nbsp;
+                    <Button color="dark" onClick={ generateSalesDetailsReport }>
+                        Reporte Detalles &nbsp;<i className="fas fa-solid fa-download"></i>
                     </Button>
                 </div>
                 <div className="d-flex justify-content-between align-items-center mt-3 mb-3">
