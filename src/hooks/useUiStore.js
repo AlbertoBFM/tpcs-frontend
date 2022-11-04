@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onCloseModal, onOpenModal, onOpenCartModal, onCloseCartModal, onActiveButton } from '../store';
+import { onCloseModal, onOpenModal, onOpenCartModal, onCloseCartModal, onActiveButton, onToggleAccountModal, onTogglePasswordModal } from '../store';
 
 export const useUiStore = () => {
 
@@ -8,6 +8,8 @@ export const useUiStore = () => {
     const {
         isModalOpen,
         isCartModalOpen,
+        isAccountModalOpen,
+        isPasswordModalOpen,
         isActiveButton,
     } = useSelector( state => state.ui );
 
@@ -25,18 +27,26 @@ export const useUiStore = () => {
             : closeModal();
     }
 
-    const toggleCartModal = () => {
-        ( !isCartModalOpen )
-            ? openCartModal()
-            : closeCartModal();
-    }
-
     const openCartModal = () => {
         dispatch( onOpenCartModal() );
     }
 
     const closeCartModal = () => {
         dispatch( onCloseCartModal() );
+    }
+
+    const toggleCartModal = () => {
+        ( !isCartModalOpen )
+            ? openCartModal()
+            : closeCartModal();
+    }
+
+    const toggleAccountModal = () => {
+        dispatch( onToggleAccountModal() );
+    }
+
+    const togglePasswordModal = () => {
+        dispatch( onTogglePasswordModal() );
     }
 
     const activeButton = ( active ) => {
@@ -46,6 +56,8 @@ export const useUiStore = () => {
     return {
         //* Properties
         isModalOpen,
+        isAccountModalOpen,
+        isPasswordModalOpen,
         isCartModalOpen,
         isActiveButton,
         //* Methods
@@ -53,6 +65,8 @@ export const useUiStore = () => {
         closeCartModal,
         toggleModal,
         toggleCartModal,
+        toggleAccountModal,
+        togglePasswordModal,
         openModal,
         closeModal,
         activeButton,

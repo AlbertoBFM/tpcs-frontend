@@ -19,6 +19,13 @@ export const userSlice = createSlice({
         onChangeSearchedUser: ( state, { payload } ) => {
             state.searchedUser = payload;
         },
+        onToggleEnabled: ( state, { payload } ) => {
+            state.users.docs = state.users.docs.map( user => {
+                if (user._id === payload)
+                    user.enabled = !user.enabled;
+                return user; 
+            });
+        },
         onAddNewUser: ( state, { payload } ) => {
             state.users.docs.push( payload );
             state.activeUser = null;
@@ -38,4 +45,4 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveUser, onLoadUsers, onChangeSearchedUser, onAddNewUser, onDeleteUser, onLogoutUser } = userSlice.actions;
+export const { onSetActiveUser, onLoadUsers, onToggleEnabled, onChangeSearchedUser, onAddNewUser, onDeleteUser, onLogoutUser } = userSlice.actions;

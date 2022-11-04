@@ -1,26 +1,23 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarToggler, Collapse, Nav, NavItem, NavbarBrand, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { useAuthStore, useUiStore } from '../../hooks';
+import { useAuthStore } from '../../hooks';
 import { queryAlert } from '../../helpers';
 
 export const MyNavbar = () => {
 
     const { startLogout, user } = useAuthStore();
-    const { toggleAccountModal, togglePasswordModal, activeButton } = useUiStore();
 
     const [ isOpen, setIsOpen ] = useState(false);
 
     const toggle = () => setIsOpen( !isOpen );
 
     const onClickAccount = () => {
-        activeButton(true);
-        toggleAccountModal();
+        console.log('cuenta');
     }
 
     const onClickPassword = () => {
-        activeButton(true);
-        togglePasswordModal();
+        console.log('password');
     }
 
     const onClickLogout = async () => {
@@ -80,6 +77,12 @@ export const MyNavbar = () => {
                         <DropdownItem onClick={ onClickLogout }>Cerrar Sesión</DropdownItem>
                     </DropdownMenu>
                 </UncontrolledDropdown>
+                {/* <span className="text-white">{ user.name }</span>
+                &nbsp;
+                &nbsp;
+                <Button outline color="danger" onClick={ onClickLogout }>
+                    <i className="fas fa-sign-out-alt"></i>
+                </Button> */}
             </Collapse>
         </Navbar>
     );

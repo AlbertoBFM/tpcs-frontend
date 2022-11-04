@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { tpcsApi } from '../api';
+import { messageAlert } from '../helpers';
 import { onChecking, onClearCart, onClearErrorMessage, onLogin, onLogout, onLogoutCategory, onLogoutProduct, onLogoutProvider, onLogoutSale, onLogoutSaleDetail, onLogoutUser } from '../store';
 
 
@@ -39,11 +40,35 @@ export const useAuthStore = () => {
                 uid: data.uid, 
                 email: data.email, 
                 userType: data.userType,
-                token: data.token
             }));
         } catch (error) {
             localStorage.clear();
             dispatch( onLogout() );
+        }
+    }
+
+    const startUpdatingUser = async ( userData ) => {
+        try {
+            await tpcsApi.put( `/auth/${ user.uid }`, userData );
+            messageAlert( 'Cuenta actualizada', '', 'success' );
+            return dispatch( onLogout() );
+        } catch (error) {
+            console.log(error);
+            messageAlert( 'Error al actualizar', error.response.data?.msg, 'error' );
+            return false;
+        }
+    }
+
+    const startUpdatingPassword = async ( passwords ) => {
+        // return console.log({ passwords });
+        try {
+            await tpcsApi.put( `/auth/password/${ user.uid }`, passwords );
+            messageAlert( 'Contraseña actualizada', '', 'success' );
+            return dispatch( onLogout() );
+        } catch (error) {
+            console.log(error);
+            messageAlert( 'Error al actualizar contraseña', error.response.data?.msg, 'error' );
+            return false;
         }
     }
 
@@ -67,7 +92,9 @@ export const useAuthStore = () => {
         //* Methods
         startLogin,
         checkAuthToken,
-        startLogout
+        startLogout,
+        startUpdatingUser,
+        startUpdatingPassword
     }
 
 }

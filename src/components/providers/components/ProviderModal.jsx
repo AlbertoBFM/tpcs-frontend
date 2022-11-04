@@ -31,7 +31,7 @@ export const ProviderModal = () => {
     }, [ activeProvider ])
 
     return (
-        <Modal centered fullscreen="md" isOpen={ isModalOpen } toggle={ toggleModal }>
+        <Modal centered isOpen={ isModalOpen } toggle={ toggleModal }>
             <Form onSubmit={ handleSubmit( onSubmit ) }>
                 <ModalHeader toggle={ toggleModal }>{ !_id ? 'Nuevo Proveedor' : 'Actualizar Proveedor' } </ModalHeader>
                 <ModalBody>

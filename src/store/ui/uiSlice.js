@@ -5,6 +5,8 @@ export const uiSlice = createSlice({
     initialState: {
         isModalOpen: false,
         isCartModalOpen: false,
+        isAccountModalOpen: false,
+        isPasswordModalOpen: false,
         isActiveButton: false,
     },
     reducers: {
@@ -20,6 +22,12 @@ export const uiSlice = createSlice({
         onCloseCartModal: ( state ) => {
             state.isCartModalOpen = false;
         },
+        onToggleAccountModal: ( state ) => {
+            state.isAccountModalOpen = !state.isAccountModalOpen;
+        },
+        onTogglePasswordModal: ( state ) => {
+            state.isPasswordModalOpen = !state.isPasswordModalOpen;
+        },
         onActiveButton: ( state, { payload } ) => {
             state.isActiveButton = !payload;
         },
@@ -28,4 +36,4 @@ export const uiSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onOpenModal, onCloseModal, onOpenCartModal, onCloseCartModal, onActiveButton } = uiSlice.actions;
+export const { onOpenModal, onCloseModal, onOpenCartModal, onCloseCartModal, onToggleAccountModal, onTogglePasswordModal, onActiveButton } = uiSlice.actions;

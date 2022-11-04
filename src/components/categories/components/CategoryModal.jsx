@@ -30,7 +30,7 @@ export const CategoryModal = () => {
     }, [ activeCategory ])
 
     return (
-        <Modal centered fullscreen="md" isOpen={ isModalOpen } toggle={ toggleModal }>
+        <Modal centered isOpen={ isModalOpen } toggle={ toggleModal }>
             <Form onSubmit={ handleSubmit( onSubmit ) }>
                 <ModalHeader toggle={ toggleModal }>{ !_id ? 'Nueva Categoría' : 'Actualizar Categoría' }</ModalHeader>
                 <ModalBody>

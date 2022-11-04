@@ -10,6 +10,7 @@ import { UserPage } from '../components/users';
 import { CategoryPage } from '../components/categories';
 import { ProviderPage } from '../components/providers';
 import { useAuthStore } from '../hooks';
+import { AccountModal, PasswordModal } from '../components/auth';
 
 export const DashboardRoutes = () => {
 
@@ -20,6 +21,8 @@ export const DashboardRoutes = () => {
             <MyNavbar />
             <FabCart />
             <SaleCartModal />
+            <AccountModal />
+            <PasswordModal />
             <Container fluid style={{ paddingTop: "20px" }}>
                 <Routes>
                     <Route

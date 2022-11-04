@@ -8,7 +8,7 @@ export const SaleCartModal = () => {
     const { cart, total } = useSaleCartStore();
 
     return (
-        <Modal centered fullscreen="md" isOpen={ isCartModalOpen } size="lg" toggle={ toggleCartModal }>
+        <Modal centered isOpen={ isCartModalOpen } size="lg" toggle={ toggleCartModal }>
             <ModalHeader toggle={ toggleCartModal }><p className="fs-3">Carrito de Compras</p></ModalHeader>
             <ModalBody>
                 { cart.length > 0 && <AddNewSale /> }

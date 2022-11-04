@@ -59,7 +59,7 @@ export const ProductModal = () => {
     }, [])
 
     return (
-        <Modal centered fullscreen="md" isOpen={ isModalOpen } toggle={ toggleModal }>
+        <Modal centered isOpen={ isModalOpen } toggle={ toggleModal }>
             <Form onSubmit={ handleSubmit( onSubmit ) }>
                 <ModalHeader toggle={ toggleModal }>{ !_id ? 'Nuevo Producto' : 'Actualizar Producto' }</ModalHeader>
                 <ModalBody className="text-center">
@@ -88,7 +88,7 @@ export const ProductModal = () => {
                                 { errors.stock &&  <small className="text-danger">{ errors.stock?.message }</small>}
                             </FormGroup>
                         </Col>
-                        <Col md={4}>
+                        <Col md={4} sm={6}>
                             <FormGroup>
                                 <Label for="purchasePrice">Precio Compra</Label>
                                 <Input 
@@ -98,7 +98,7 @@ export const ProductModal = () => {
                                 { errors.purchasePrice &&  <small className="text-danger">{ errors.purchasePrice?.message }</small>}
                             </FormGroup>
                         </Col>
-                        <Col md={4}>
+                        <Col md={4} sm={6}>
                             <FormGroup>
                                 <Label for="salePrice">Precio Venta</Label>
                                 <Input 

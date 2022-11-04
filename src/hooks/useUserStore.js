@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onAddNewUser, onChangeSearchedUser, onDeleteUser, onLoadUsers, onSetActiveUser } from '../store';
+import { onAddNewUser, onChangeSearchedUser, onDeleteUser, onLoadUsers, onSetActiveUser, onToggleEnabled } from '../store';
 import { tpcsApi } from '../api';
 import { messageAlert } from '../helpers';
 
@@ -31,6 +31,17 @@ export const useUserStore = () => {
         } catch (error) {
             console.log('Error al cargar los Usuarios');
             console.log( error );
+        }
+    }
+
+    const startToggleEnabledUser = async ( userId ) => {
+        try {
+            await tpcsApi.post( `/user/enabled/${ userId }` );
+            dispatch( onToggleEnabled( userId ) );
+            // messageAlert('Usuario Eliminado', '', 'success');
+        } catch (error) {
+            console.log( error );
+            messageAlert( 'Error al Eliminar', error.response.data?.msg, 'error' );
         }
     }
 
@@ -76,6 +87,7 @@ export const useUserStore = () => {
         //* Methods
         setActiveUser,
         startChangeSearchUser,
+        startToggleEnabledUser,
         startLoadingUsers,
         startSavingUser,
         startDeletingUser,

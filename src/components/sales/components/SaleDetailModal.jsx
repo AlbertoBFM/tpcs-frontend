@@ -8,7 +8,7 @@ export const SaleDetailModal = () => {
     const { activeSaleDetail } = useSaleDetailStore();
 
     return (
-        <Modal centered fullscreen="md" isOpen={ isModalOpen } size="lg" toggle={ toggleModal }>
+        <Modal centered isOpen={ isModalOpen } size="lg" toggle={ toggleModal }>
             <ModalHeader toggle={ toggleModal }><p className="fs-3">Detalle de Venta</p></ModalHeader>
             <ModalBody>
                 <h5>Cliente: { activeSale?.client || '----' }</h5>
