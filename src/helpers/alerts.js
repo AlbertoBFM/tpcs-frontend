@@ -7,6 +7,8 @@ export const messageAlert = ( title = "", text = "", icon = "" ) => {
 
 export const queryAlert = async ( title  = "", icon  = "", confirmButtonText  = "", cancelButtonText  = "" ) => {
     return await Swal.fire({
+        background: '#252624',
+        color: '#ccc',
         title, icon, showCancelButton: true,
         confirmButtonColor: '#3085d6', confirmButtonText,
         cancelButtonColor: '#d33', cancelButtonText

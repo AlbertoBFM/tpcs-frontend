@@ -5,7 +5,7 @@ import { SaleCartRow } from './SaleCartRow';
 
 export const SaleCartModal = () => {
     const { isCartModalOpen, toggleCartModal } = useUiStore();
-    const { cart, total } = useSaleCartStore();
+    const { cart, profit, total } = useSaleCartStore();
 
     return (
         <Modal centered isOpen={ isCartModalOpen } size="lg" toggle={ toggleCartModal }>
@@ -27,7 +27,9 @@ export const SaleCartModal = () => {
                     </tbody>
                     <tfoot className="bg-dark text-white border-light">
                         <tr>
-                            <td colSpan="2" className="text-end">&nbsp;</td>
+                            {/* <td colSpan="0" className="text-end">&nbsp;</td> */}
+                            <td><b>Ganancia</b></td>
+                            <td><b>{ profit }</b></td>
                             <td><b>Total</b></td>
                             <td><b>{ total }</b></td>
                             <td>&nbsp;</td>

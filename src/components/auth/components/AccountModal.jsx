@@ -21,6 +21,11 @@ export const AccountModal = () => {
         activeButton( true );
     }
 
+    const closeBtn = (
+        // <Button variant="white" close></Button>
+        <Button close onClick={toggleAccountModal} variant="white"></Button>
+    );
+
     useEffect(() => {
         if ( user !== null ) 
             reset( user );
@@ -28,8 +33,11 @@ export const AccountModal = () => {
 
     return (
         <Modal centered isOpen={ isAccountModalOpen } toggle={ toggleAccountModal }>
-                <Form onSubmit={ handleSubmit( onSubmit ) }>
-                <ModalHeader toggle={ toggleAccountModal }>Usuario</ModalHeader>
+                <Form onSubmit={ handleSubmit( onSubmit ) } className="text-bg-dark">
+                <ModalHeader 
+                    toggle={ toggleAccountModal } 
+                    close={ <Button close onClick={toggleAccountModal} variant="white"></Button> }
+                >Usuario</ModalHeader>
                 <ModalBody>
                     <FormGroup>
                         <Label for="name">Nombre de Usuario</Label>
@@ -49,11 +57,11 @@ export const AccountModal = () => {
                     </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                    <Button type="submit" color="dark" disabled={ isActiveButton }>
+                    <Button type="submit" color="light" outline disabled={ isActiveButton }>
                         <i className="far fa-save"></i>
                         <span> Guardar</span>
                     </Button>
-                    <Button color="secondary" onClick={ toggleAccountModal }>Cancel</Button>
+                    <Button color="danger" outline onClick={ toggleAccountModal }>Cancel</Button>
                 </ModalFooter>
                 </Form>
         </Modal>

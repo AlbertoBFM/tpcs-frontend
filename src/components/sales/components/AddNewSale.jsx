@@ -8,7 +8,7 @@ export const AddNewSale = () => {
     const { startLoadingProducts } = useProductStore();
     const { startSavingSale, startProductStockValidation } = useSaleStore();
     const { startSavingSaleDetail } = useSaleDetailStore();
-    const { cart, ciNit, total, startCiNitChange, startClearCart } = useSaleCartStore();
+    const { cart, ciNit, profit, total, startCiNitChange, startClearCart } = useSaleCartStore();
 
     const handleInputChange = ( e ) => {
         const value = Number( e.target.value );
@@ -34,7 +34,7 @@ export const AddNewSale = () => {
             if ( !resp ) return;
         }
 
-        const idVenta = await startSavingSale( total, ciNit );
+        const idVenta = await startSavingSale( profit, total, ciNit );
         await startSavingSaleDetail( cart, idVenta );
         await startLoadingProducts({});
 

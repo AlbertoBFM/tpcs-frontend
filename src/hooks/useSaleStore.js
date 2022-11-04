@@ -70,17 +70,17 @@ export const useSaleStore = () => {
         }
     }
 
-    const startSavingSale = async ( total, ci_nit ) => {
+    const startSavingSale = async ( profit, total, ci_nit ) => {
         try {
             //* Create
             const date = new Date();
-            console.log({date});
-            const { data } = await tpcsApi.post('/sale', { client: ci_nit, total, date });
+            const { data } = await tpcsApi.post('/sale', { client: ci_nit, profit, total, date });
 
             dispatch( onAddNewSale({ 
                 _id: data.sale._id, 
                 user,
                 client: ci_nit,
+                profit,
                 total
             }));
             return data.sale._id;

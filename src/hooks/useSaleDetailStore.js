@@ -54,8 +54,10 @@ export const useSaleDetailStore = () => {
             '/saleDetail', { 
                 sale: idVenta, 
                 product: item._id,
+                purchasePrice: item.purchasePrice,
                 salePrice: item.salePrice,
                 quantity: item.quantity,
+                profit: item.profit,
                 subtotal: item.subtotal
             } 
         );
@@ -64,6 +66,7 @@ export const useSaleDetailStore = () => {
             sale: { _id: idVenta },
             product:  { _id: item._id, name: item.name, salePrice: item.salePrice },
             salePrice: item.salePrice,
+            purchasePrice: item.purchasePrice,
             quantity: item.quantity,
             subtotal: item.subtotal
         }));

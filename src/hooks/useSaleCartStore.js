@@ -8,6 +8,7 @@ export const useSaleCartStore = () => {
     const {
         cart,
         ciNit,
+        profit,
         total,
     } = useSelector( state => state.saleCart );
 
@@ -20,7 +21,7 @@ export const useSaleCartStore = () => {
         const searchItem = cart.find( item => item._id === selectedItem._id );
         
         if ( !searchItem ) {
-            dispatch( onAddToCart({ ...selectedItem, quantity: 1, subtotal: selectedItem.salePrice }) );
+            dispatch( onAddToCart({ ...selectedItem, quantity: 1, subtotal: selectedItem.salePrice, profit: selectedItem.salePrice - selectedItem.purchasePrice }) );
             return;
         }
         dispatch( onAddOneToCart( selectedItem ) );
@@ -54,6 +55,7 @@ export const useSaleCartStore = () => {
         //* Properties
         cart,
         ciNit,
+        profit,
         total,
         //* Methods
         startCiNitChange,

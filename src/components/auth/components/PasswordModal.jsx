@@ -34,8 +34,11 @@ export const PasswordModal = () => {
 
     return (
         <Modal centered isOpen={ isPasswordModalOpen } toggle={ togglePasswordModal }>
-                <Form onSubmit={ handleSubmit( onSubmit ) }>
-                <ModalHeader toggle={ togglePasswordModal }>Cambio de Contraseña</ModalHeader>
+                <Form onSubmit={ handleSubmit( onSubmit ) } className="text-bg-dark">
+                <ModalHeader 
+                    toggle={ togglePasswordModal }
+                    close={ <Button close onClick={togglePasswordModal} variant="white"></Button> }
+                >Cambio de Contraseña</ModalHeader>
                 <ModalBody>
                     <FormGroup>
                         <Label for="oldPassword">Contraseña Actual</Label>
@@ -64,11 +67,11 @@ export const PasswordModal = () => {
                     </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                    <Button type="submit" color="dark" disabled={ isActiveButton }>
+                    <Button type="submit" color="light" outline disabled={ isActiveButton }>
                         <i className="far fa-save"></i>
                         <span> Guardar</span>
                     </Button>
-                    <Button color="secondary" onClick={ togglePasswordModal }>Cancel</Button>
+                    <Button color="danger" outline onClick={ togglePasswordModal }>Cancel</Button>
                 </ModalFooter>
                 </Form>
         </Modal>
