@@ -11,7 +11,7 @@ export const CategoryPage = () => {
 
     useEffect(() => {
         startLoadingCategories({});
-        startLoadingAllProducts({});
+        startLoadingAllProducts();
     }, [])
 
     return (

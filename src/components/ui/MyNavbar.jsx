@@ -24,7 +24,7 @@ export const MyNavbar = () => {
     }
 
     const onClickLogout = async () => {
-        const resp = await queryAlert(`¿Cerrar Sesión?`, 'info', 'Si', 'No');
+        const resp = await queryAlert(`¿Cerrar Sesión?`, 'info', 'Si', 'No', '#252624', '#ccc');
         if ( !resp ) return;
 
         startLogout();

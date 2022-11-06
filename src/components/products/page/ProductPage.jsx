@@ -6,12 +6,13 @@ import './style.css';
 
 export const ProductPage = () => {
     const { user } = useAuthStore();
-    const { products: { docs }, startLoadingProducts } = useProductStore();
+    const { products: { docs }, startLoadingProducts, startLoadingAllProducts } = useProductStore();
     const { startLoadingAllDetails } = useSaleDetailStore();
     
     useEffect(() => {
         startLoadingProducts({});
         startLoadingAllDetails();
+        startLoadingAllProducts();
     }, [])
     
     return (

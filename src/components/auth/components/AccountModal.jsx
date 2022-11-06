@@ -21,11 +21,6 @@ export const AccountModal = () => {
         activeButton( true );
     }
 
-    const closeBtn = (
-        // <Button variant="white" close></Button>
-        <Button close onClick={toggleAccountModal} variant="white"></Button>
-    );
-
     useEffect(() => {
         if ( user !== null ) 
             reset( user );

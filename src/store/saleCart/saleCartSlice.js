@@ -66,7 +66,19 @@ export const saleCartSlice = createSlice({
             state.cart = state.cart.map( item => {
                 if( item._id === payload._id ){
                     item.quantity = payload.quantity;
-                    item.profit = Number(item.quantity) * Number(item.profit);
+                    item.profit = Number(item.quantity) * (Number(item.salePrice) - Number(item.purchasePrice));
+                    item.subtotal = Number(item.quantity) * Number(item.salePrice);
+                }
+                return item;
+            });
+            state.profit = state.cart.reduce( (accumulator, item) => accumulator + item.profit, 0 );
+            state.total = state.cart.reduce( (accumulator, item) => accumulator + item.subtotal, 0 );
+        },
+        onChangeSalePrice: ( state, { payload } ) => {
+            state.cart = state.cart.map( item => {
+                if( item._id === payload._id ){
+                    item.salePrice = payload.salePrice;
+                    item.profit = Number(item.quantity) * (Number(item.salePrice) - Number(item.purchasePrice));
                     item.subtotal = Number(item.quantity) * Number(item.salePrice);
                 }
                 return item;
@@ -85,4 +97,4 @@ export const saleCartSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onCiNitChange, onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeQuantity, onClearCart } = saleCartSlice.actions;
+export const { onCiNitChange, onAddToCart, onAddOneToCart, onRemoveOneToCart, onRemoveAllFromCart, onChangeSalePrice, onChangeQuantity, onClearCart } = saleCartSlice.actions;

@@ -10,7 +10,7 @@ export const ProductModal = () => {
     const { allCategories, startLoadingAllCategories } = useCategoryStore();
     const { allProviders, startLoadingAllProviders } = useProviderStore();
 
-    const { register, reset, formState: { errors }, handleSubmit, watch, } = useForm();
+    const { register, reset, formState: { errors }, handleSubmit, watch, setValue } = useForm();
 
     const _id = watch('_id');
 
@@ -45,6 +45,23 @@ export const ProductModal = () => {
             return messageAlert('Producto Guardado', '', 'success');
         }
         activeButton( true );
+    }
+
+    const setSalePrice = ( e ) => {
+        const val = e.target.value;
+        setValue('purchasePrice', parseInt(val));
+
+        const purchasePrice = Number(val);
+        const number = parseInt( purchasePrice * 1.3);
+        const numberString = number.toString();
+        const lastNumber = parseInt(numberString.charAt(numberString.length - 1));
+        const numberToAdd = 10 - lastNumber;
+
+        const value = (numberToAdd === 10) ? (number) : (number + numberToAdd);
+
+        setValue('salePrice', value);
+
+        return value;
     }
 
     useEffect(() => {
@@ -94,6 +111,7 @@ export const ProductModal = () => {
                                 <Input 
                                     className={`form-control text-center ${ ( errors.purchasePrice?.type ) && 'is-invalid' }`} id="purchasePrice" type="number" step=".1"
                                     innerRef={ purchasePrice } { ...purchasePriceRest }
+                                    onChange={ setSalePrice }
                                 />
                                 { errors.purchasePrice &&  <small className="text-danger">{ errors.purchasePrice?.message }</small>}
                             </FormGroup>
@@ -104,6 +122,7 @@ export const ProductModal = () => {
                                 <Input 
                                     className={`form-control text-center ${ ( errors.salePrice?.type ) && 'is-invalid' }`} id="salePrice" type="number" step=".1"
                                     innerRef={ salePrice } { ...salePriceRest }
+                                    
                                 />
                                 { errors.salePrice &&  <small className="text-danger">{ errors.salePrice?.message }</small>}
                             </FormGroup>
