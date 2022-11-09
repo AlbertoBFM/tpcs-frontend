@@ -20,9 +20,16 @@ export const ProviderPage = () => {
                 <h1>Proveedores</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="d-flex justify-content-between align-items-center m-3">
-                    <SearchFilter/>
-                    {user.userType === 'admin' && <AddNewProvider />}
+                <div className="row m-3">
+                    <div className="col-sm-12 col-md-6 mt-3">
+                        <SearchFilter/>
+                    </div>
+                    {
+                        user.userType === 'admin' && 
+                        <div className="col-sm-12 col-md-6 mt-3">
+                            <AddNewProvider />
+                        </div>
+                    }
                 </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">

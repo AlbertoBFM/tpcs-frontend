@@ -53,17 +53,19 @@ export const AddNewSale = () => {
     }, [ cart ])
     
     return (
-        <div className="d-flex justify-content-between align-items-center pb-3">
-            <div className="d-flex justify-content-between align-items-center">
+        <div className="row d-flex justify-content-md-between align-items-center">
+            <div className="col-sm-12 col-md-6 d-flex justify-content-between align-items-center mb-3">
                 <Label for="ci_nit" className="m-0 me-3"><b>CI/NIT</b></Label>
                 <Input 
                     onChange={ handleInputChange } value={ ciNit } 
                     className="form-control" type="text" id="ci_nit"
                 />
             </div>
-            <Button onClick={ handleClickNew } disabled={ isActiveButton } color="primary">
-                <i className="fas fa-solid fa-plus"></i> Registrar Venta
-            </Button>
+            <div className="col-sm-12 col-md-6 d-flex justify-content-end mb-3">
+                <Button onClick={ handleClickNew } disabled={ isActiveButton } color="primary">
+                    <i className="fas fa-solid fa-plus"></i> Registrar Venta
+                </Button>
+            </div>
         </div> 
     )
 

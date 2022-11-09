@@ -12,8 +12,8 @@ export const AddNewProvider = () => {
     }
     
     return (
-        <div className="d-flex justify-content-md-end justify-content-center">
-            <Button onClick={ handleClickNew } color="dark" className="m-3">
+        <div className="mx-sm-5 px-sm-5">
+            <Button onClick={ handleClickNew } color="dark" style={{ width: "100%" }}>
                 <i className="fas fa-solid fa-plus"></i> &nbsp; Nuevo Proveedor
             </Button>
         </div>

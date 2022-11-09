@@ -41,7 +41,7 @@ export const Row = ( user ) => {
                             <Input type="switch" role="switch" id={`${_id}`} onChange={ toggleEnabled } checked={ enabled }/>
                         </FormGroup>
                         &nbsp;
-                        <Button onClick={ handleDelete } color="danger">
+                        <Button onClick={ handleDelete } color="secondary">
                             <i className="fas fa-trash-alt"></i>
                         </Button>
                     </div>

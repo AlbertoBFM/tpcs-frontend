@@ -19,9 +19,13 @@ export const UserPage = () => {
                 <h1>Usuarios</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="d-flex justify-content-between align-items-center m-3">
-                    <SearchFilter />
-                    <AddNewUser />
+                <div className="row m-3">
+                    <div className="col-sm-12 col-md-6 mt-3">
+                        <SearchFilter/>
+                    </div>
+                    <div className="col-sm-12 col-md-6 mt-3">
+                        <AddNewUser />
+                    </div>
                 </div>
                 <Table responsive striped className="text-center">
                     <thead className="bg-dark text-white">

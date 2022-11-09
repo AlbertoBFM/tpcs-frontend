@@ -34,13 +34,13 @@ export const SaleRow = ( sale ) => {
             <td>{ total }</td>
             <td>
                 <ButtonGroup>
-                    <Button outline color="primary" onClick={ handleView }>
+                    <Button outline color="dark" onClick={ handleView }>
                         <i className="fas fa-solid fa-eye"></i>
                     </Button>
                     {
                         userType === 'admin' 
                         && 
-                        <Button color="danger" onClick={ handleDelete }>
+                        <Button color="secondary" onClick={ handleDelete }>
                             <i className="fas fa-trash-alt"></i>
                         </Button>
                     }

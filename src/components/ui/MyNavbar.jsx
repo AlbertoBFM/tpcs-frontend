@@ -11,7 +11,13 @@ export const MyNavbar = () => {
 
     const [ isOpen, setIsOpen ] = useState(false);
 
-    const toggle = () => setIsOpen( !isOpen );
+    const onOpen = () => {
+        setIsOpen( true );
+    };
+
+    const onClose = () => {
+        setIsOpen( false );
+    };
 
     const onClickAccount = () => {
         activeButton(true);
@@ -38,26 +44,26 @@ export const MyNavbar = () => {
             dark
         >
             <NavbarBrand tag={Link} to='/'>Reactstrap</NavbarBrand>
-            <NavbarToggler onClick={toggle} />
+            <NavbarToggler onClick={onOpen} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="me-auto" navbar>
                     <NavItem>
-                        <NavLink tag={Link} to='/sales'>
+                        <NavLink tag={Link} to='/sales' onClick={ onClose }>
                             Ventas
                         </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag={Link} to='/products'>
+                        <NavLink tag={Link} to='/products' onClick={ onClose }>
                             Productos
                         </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag={Link} to='/categories'>
+                        <NavLink tag={Link} to='/categories' onClick={ onClose }>
                             Categorías
                         </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag={Link} to='/providers'>
+                        <NavLink tag={Link} to='/providers' onClick={ onClose }>
                             Proveedores
                         </NavLink>
                     </NavItem>
@@ -65,7 +71,7 @@ export const MyNavbar = () => {
                         user.userType === 'admin' 
                         && 
                         <NavItem>
-                            <NavLink tag={Link} to="/users">
+                            <NavLink tag={Link} to="/users" onClick={ onClose }>
                                 Usuarios
                             </NavLink>
                         </NavItem>

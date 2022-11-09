@@ -20,7 +20,7 @@ export const AddNewProduct = () => {
     return (
         <div className="d-flex justify-content-md-end justify-content-center">
             <ButtonGroup>
-                <Button color="danger" outline onClick={ generateProductsReport }>
+                <Button color="secondary" onClick={ generateProductsReport }>
                         Reporte &nbsp;<i className="fas fa-solid fa-download"></i>
                 </Button>
                 &nbsp;

@@ -12,8 +12,8 @@ export const AddNewCategory = () => {
     }
     
     return (
-        <div>
-            <Button onClick={ handleClickNew } color="dark">
+        <div className="mx-sm-5 px-sm-5">
+            <Button onClick={ handleClickNew } color="dark" style={{ width: "100%" }}>
                 <i className="fas fa-solid fa-plus"></i> &nbsp; Nueva Categoría
             </Button>
         </div>

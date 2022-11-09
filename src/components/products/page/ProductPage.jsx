@@ -24,7 +24,7 @@ export const ProductPage = () => {
                 <div className="d-flex justify-content-md-end justify-content-center align-items-center m-3">
                     {user.userType === 'admin' && <AddNewProduct />}
                 </div>
-                <div className="d-flex justify-content-center align-items-center m-3">
+                <div className="d-flex align-items-center m-3">
                     <SearchFilter/>
                 </div>
                 <Table responsive striped className="text-center">
