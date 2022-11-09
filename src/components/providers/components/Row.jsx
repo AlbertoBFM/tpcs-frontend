@@ -44,10 +44,10 @@ export const Row = ( provider ) => {
                 <>
                     <td>
                         <ButtonGroup>
-                            <Button onClick={ handleUpdate } color="warning">
+                            <Button onClick={ handleUpdate } outline color="dark">
                                 <i className="fas fa-pen"></i>
                             </Button>
-                            <Button onClick={ handleDelete } color="danger">
+                            <Button onClick={ handleDelete } color="secondary">
                                 <i className="fas fa-trash-alt"></i>
                             </Button>
                         </ButtonGroup>

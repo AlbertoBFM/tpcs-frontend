@@ -102,6 +102,16 @@ export const useSaleStore = () => {
         }
     }
 
+    const startLoadingSalesChart = async () => {
+        try {
+            const { data } = await tpcsApi.get(`/sale/chart`);
+            return data;
+        } catch (error) {
+            console.log( error );
+            messageAlert( 'Error al cargar Datos', error.response.data?.msg, 'error' );
+        }
+    }
+
     return {
         //* Properties
         allSales,
@@ -116,6 +126,7 @@ export const useSaleStore = () => {
         startProductStockValidation,
         startSavingSale,
         startDeletingSale,
+        startLoadingSalesChart,
     }
 
 }
