@@ -13,8 +13,8 @@ export const AddNewUser = () => {
     }
     
     return (
-        <div className="mx-sm-5 px-sm-5">
-            <Button onClick={ handleClickNew } color="dark" style={{ width: "100%" }}>
+        <div className="d-flex justify-content-end">
+            <Button onClick={ handleClickNew } color="dark" >
                 <i className="fas fa-solid fa-plus"></i> Nuevo Usuario
             </Button>
         </div>

@@ -19,7 +19,7 @@ export const UserPage = () => {
                 <h1>Usuarios</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="row m-3">
+                <div className="row d-flex m-3">
                     <div className="col-sm-12 col-md-6 mt-3">
                         <SearchFilter/>
                     </div>

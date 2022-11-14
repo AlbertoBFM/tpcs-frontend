@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import { SaleRow, SaleDetailModal, SearchFilter, MyPagination } from '../';
-import { useSaleStore, useReportStore } from '../../../hooks';
+import { useSaleStore, useReportStore, useAuthStore } from '../../../hooks';
 import './style.css';
 
 export const SalePage = () => {
+    const { user } = useAuthStore();
     const { sales: { docs }, startLoadingSales } = useSaleStore();
     const { startGenerateSalesReport, startGenerateSalesDetailsReport } = useReportStore();
 
@@ -26,15 +27,18 @@ export const SalePage = () => {
                 <h1>Ventas</h1>
             </div>
             <div className="col-md-8 m-md-auto">
-                <div className="d-flex justify-content-end">
-                    <Button color="dark" onClick={ generateSalesReport }>
-                        Reporte Ventas &nbsp;<i className="fas fa-solid fa-download"></i>
-                    </Button>
-                    &nbsp;
-                    <Button color="dark" onClick={ generateSalesDetailsReport }>
-                        Reporte Detalles &nbsp;<i className="fas fa-solid fa-download"></i>
-                    </Button>
-                </div>
+                {
+                    user.userType === 'admin' &&
+                        <div className="d-flex justify-content-end">
+                            <Button color="dark" onClick={ generateSalesReport }>
+                                Reporte Ventas &nbsp;<i className="fas fa-solid fa-download"></i>
+                            </Button>
+                            &nbsp;
+                            <Button color="dark" onClick={ generateSalesDetailsReport }>
+                                Reporte Detalles &nbsp;<i className="fas fa-solid fa-download"></i>
+                            </Button>
+                        </div>
+                }
                 <div className="d-flex justify-content-between align-items-center mt-3 mb-3">
                     <SearchFilter/>
                 </div>
