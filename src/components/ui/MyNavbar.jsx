@@ -11,12 +11,16 @@ export const MyNavbar = () => {
 
     const [ isOpen, setIsOpen ] = useState(false);
 
+    const onOpenIcon = () => {
+        setIsOpen( !isOpen );
+    }
+
     const onOpen = () => {
         setIsOpen( true );
     };
 
     const onClose = () => {
-        setIsOpen( false );
+        setIsOpen( false);
     };
 
     const onClickAccount = () => {
@@ -43,8 +47,8 @@ export const MyNavbar = () => {
             color="dark"
             dark
         >
-            <NavbarBrand tag={Link} to='/'>Reactstrap</NavbarBrand>
-            <NavbarToggler onClick={onOpen} />
+            <NavbarBrand tag={Link} to='/'>TPCS</NavbarBrand>
+            <NavbarToggler onClick={onOpenIcon} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="me-auto" navbar>
                     <NavItem>

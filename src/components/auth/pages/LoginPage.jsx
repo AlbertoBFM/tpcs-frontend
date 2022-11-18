@@ -24,7 +24,7 @@ export const LoginPage = () => {
     return (
         <div className="wrapper">
             <div className="logo">
-                <img src="https://solvex.com.do/media/bp4gyluf/1280px-react-icon-svg.png" alt=""/>
+                <img src="/login_icon.png" alt=""/>
             </div>
             <div className="text-center mt-4 name">
                 Inicio de Sesión
